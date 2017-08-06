@@ -19,7 +19,7 @@ function Board(canvas){
   }.bind(this));
 }
 
-Board.prototype.draw = function(xCount, yCount){
+Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   this.xSquareCount = xCount;
   this.ySquareCount = yCount;
 
@@ -30,9 +30,16 @@ Board.prototype.draw = function(xCount, yCount){
     var row = [];
     this.squares.push(row);
     for(var y=0; y<this.width; y+=squareWidth){
-      var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight, "black", "orange");
+      var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight, border, fill);
       row.push(nextSquare);
-      nextSquare.drawFill();
+    }
+  }
+}
+
+Board.prototype.draw = function(){
+  for(var row of this.squares){
+    for(var square of row){
+      square.drawEmpty();
     }
   }
 }
