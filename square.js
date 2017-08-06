@@ -72,7 +72,7 @@ Square.prototype.drawImage = function(imageLink, percentageSize){
     image.src = imageLink;
 
     var calcPosition = function(coord, length, percentageSize){
-      var diff = Math.abs((length/2) - coord);
+      var diff = (coord + length/2) - coord;
       return coord + (diff * (1-percentageSize));
     }
 

@@ -5,7 +5,6 @@ window.addEventListener("load", function(){
 
   board.draw(10, 10);
   board.onSquareClick = function(square){
-    console.log(square.center);
     square.drawImage("cat.png", 0.5);
   };
 });
