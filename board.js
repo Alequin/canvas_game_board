@@ -30,12 +30,11 @@ Board.prototype.draw = function(xCount, yCount){
     var row = [];
     this.squares.push(row);
     for(var y=0; y<this.width; y+=squareWidth){
-      var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight);
+      var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight, "black", "orange");
       row.push(nextSquare);
-      nextSquare.prepareEmpty();
+      nextSquare.drawFill();
     }
   }
-  this.context.stroke();
 }
 
 Board.prototype.getSquare = function(row, column){

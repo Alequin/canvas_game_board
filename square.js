@@ -16,61 +16,23 @@ function Square(context, x, y, width, height, borderColour, fillColour){
   this.fillColour = fillColour;
 }
 
-Square.prototype.drawPrepared = function(){
-  var holdStrokeStyle = this.context.strokeStyle;
-  var holdFillStyle = this.context.fillStyle;
-
-  this.context.strokeStyle = this.borderColour;
-  this.context.fillStyle = this.fillColour;
-
-  this.context.stroke();
-
-  this.context.strokeStyle = holdStrokeStyle
-  this.context.fillStyle = holdFillStyle
-}
-
-Square.prototype.prepareEmpty = function(){
-  this.prepare("empty");
-}
-
 Square.prototype.drawEmpty = function(){
-  this.prepareEmpty(this.context);
-  this.context.stroke();
-}
-
-Square.prototype.prepareFill = function(){
-  this.prepare("fill");
+  var holdStrokeStyle = this.context.fillStyle;
+  this.context.strokeStyle = this.borderColour;
+  this.context.strokeRect(this.position.x, this.position.y, this.width, this.height);
+  this.context.strokeStyle = holdStrokeStyle;
 }
 
 Square.prototype.drawFill = function(){
-  this.prepareFill(this.context);
-  this.context.stroke();
-}
-
-Square.prototype.prepare = function(method){
-
-  var inputs = {
-    x: this.position.x,
-    y: this.position.y,
-    width: this.width,
-    height: this.height,
-  }
-  switch (method) {
-    case "empty":
-      this.context.rect(inputs.x, inputs.y, inputs.width, inputs.height);
-      break;
-    case "fill":
-      this.context.fillRect(inputs.x, inputs.y, inputs.width, inputs.height);
-      break;
-  }
+  var holdFillStyle = this.context.fillStyle;
+  this.context.fillStyle = this.fillColour;
+  this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
+  this.context.fillStyle = holdFillStyle;
+  this.drawEmpty();
 }
 
 Square.prototype.remove = function(){
   this.context.clearRect(this.position.x, this.position.y, this.width, this.height);
-}
-
-Square.prototype.removeImage = function(){
-  this.context.drawImage(image, x, y, width, height);
 }
 
 Square.prototype.isWithin = function(x, y){
