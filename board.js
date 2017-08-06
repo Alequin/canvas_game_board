@@ -17,7 +17,7 @@ Board.prototype.draw = function(xCount, yCount){
     for(var x=0; x<this.width; x+=squareWidth){
       var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight);
       row.push(nextSquare);
-      nextSquare.prepare();
+      nextSquare.prepareEmpty();
     }
   }
   this.context.stroke();

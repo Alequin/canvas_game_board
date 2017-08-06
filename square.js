@@ -12,11 +12,20 @@ function Square(context, x, y, width, height){
 
 }
 
-Square.prototype.prepare = function(){
+Square.prototype.prepareEmpty = function(){
   this.context.rect(this.position.x, this.position.y, this.width, this.height);
 }
 
-Square.prototype.draw = function(){
+Square.prototype.drawEmpty = function(){
+  this.prepare(context);
+  this.context.stroke();
+}
+
+Square.prototype.prepareFill = function(){
+  this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
+}
+
+Square.prototype.drawFill = function(){
   this.prepare(context);
   this.context.stroke();
 }

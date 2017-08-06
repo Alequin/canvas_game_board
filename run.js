@@ -7,5 +7,4 @@ window.addEventListener("load", function(){
 
   var square = board.getSqaure(0, 0);
 
-  console.log(square.isWithin(0, 50));
 });
