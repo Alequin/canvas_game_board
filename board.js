@@ -14,7 +14,7 @@ function Board(canvas){
   }
 
   this.canvas.addEventListener("click", function(event){
-    var square = this.getSqaureByCoords(event.x, event.y);
+    var square = this.getSquareByCoords(event.x, event.y);
     this.onSquareClick(square);
   }.bind(this));
 }
@@ -38,11 +38,11 @@ Board.prototype.draw = function(xCount, yCount){
   this.context.stroke();
 }
 
-Board.prototype.getSqaure = function(row, column){
+Board.prototype.getSquare = function(row, column){
   return this.squares[row][column];
 };
 
-Board.prototype.getSqaureByCoords = function(x, y){
+Board.prototype.getSquareByCoords = function(x, y){
 
   var findPosition = function(coord, canvasSize, squareSize){
     var position = 0;
@@ -58,7 +58,7 @@ Board.prototype.getSqaureByCoords = function(x, y){
 
   var row = findPosition(x, this.width, this.width / this.xSquareCount);
   var column = findPosition(y, this.height, this.height / this.ySquareCount);;
-  return this.getSqaure(row, column);
+  return this.getSquare(row, column);
 };
 
 Board.prototype.setOnSquareClick = function(callBack){

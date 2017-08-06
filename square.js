@@ -54,6 +54,12 @@ Square.prototype.remove = function(){
   this.context.clearRect(this.position.x, this.position.y, this.width, this.height);
 }
 
+Square.prototype.removeImage = function(){
+  image = document.createElement("img");
+  image.style.background = "white";
+  this.context.drawImage(image, x, y, width, height);
+}
+
 Square.prototype.isWithin = function(x, y){
   return !(x < this.topLeft.x || x >= this.topRight.x) &&
         !(y < this.topLeft.y || y >= this.bottomLeft.y);
@@ -80,5 +86,10 @@ Square.prototype.drawImage = function(imageLink, percentageSize){
   }.bind(this);
 
   image.addEventListener("load", onLoadImage);
+}
 
+Square.prototype.removeImage = function(){
+  image = document.createElement("img");
+  image.style.background = "white";
+  this.context.drawImage(image, this.position.x, this.position.y, this.width, this.height);
 }
