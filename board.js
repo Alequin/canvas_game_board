@@ -70,12 +70,28 @@ Board.prototype.getSquareBelow = function(amount, column, row){
   return this.getSquare(column, row+amount);
 };
 
-Board.prototype.getSquareToLeft = function(amount, column, row){
+Board.prototype.getSquareLeft = function(amount, column, row){
   return this.getSquare(column-amount, row);
 };
 
-Board.prototype.getSquareToRight = function(amount, column, row){
+Board.prototype.getSquareRight = function(amount, column, row){
   return this.getSquare(column+amount, row);
+};
+
+Board.prototype.getSquareTopLeft = function(amount, column, row){
+  return this.getSquare(column-amount, row-amount);
+};
+
+Board.prototype.getSquareTopRight = function(amount, column, row){
+  return this.getSquare(column+amount, row-amount);
+};
+
+Board.prototype.getSquareBottomLeft = function(amount, column, row){
+  return this.getSquare(column-amount, row+amount);
+};
+
+Board.prototype.getSquareBottomRight = function(amount, column, row){
+  return this.getSquare(column+amount, row+amount);
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
