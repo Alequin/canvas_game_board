@@ -6,9 +6,10 @@ function Square(x, y, width, height){
 }
 
 Square.prototype.prepare = function(context){
-
+  this.context.rect(x, y, squareWidth, squareHeight);
 }
 
-Square.prototype.prepare = function(context){
-
+Square.prototype.draw = function(context){
+  this.prepare(context);
+  this.context.stroke();
 }
