@@ -1,4 +1,4 @@
-function Square(context, x, y, width, height){
+function Square(context, x, y, width, height, borderColour, fillColour){
 
   this.context = context;
   this.position = {x: x, y: y};
@@ -12,6 +12,21 @@ function Square(context, x, y, width, height){
 
   this.center = {x: x + width/2, y: y + height/2}
 
+  this.borderColour = borderColour;
+  this.fillColour = fillColour;
+}
+
+Square.prototype.drawPrepared = function(){
+  var holdStrokeStyle = this.context.strokeStyle;
+  var holdFillStyle = this.context.fillStyle;
+
+  this.context.strokeStyle = this.borderColour;
+  this.context.fillStyle = this.fillColour;
+
+  this.context.stroke();
+
+  this.context.strokeStyle = holdStrokeStyle
+  this.context.fillStyle = holdFillStyle
 }
 
 Square.prototype.prepareEmpty = function(){
@@ -55,8 +70,6 @@ Square.prototype.remove = function(){
 }
 
 Square.prototype.removeImage = function(){
-  image = document.createElement("img");
-  image.style.background = "white";
   this.context.drawImage(image, x, y, width, height);
 }
 

@@ -7,6 +7,6 @@ window.addEventListener("load", function(){
 
   board.getSquare(2,2).drawImage("cat.png", 1);
   board.onSquareClick = function(square){
-    square.drawFill();
+    square.remove();
   };
 });
