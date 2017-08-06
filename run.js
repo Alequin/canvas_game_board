@@ -5,7 +5,7 @@ window.addEventListener("load", function(){
 
   board.draw(10, 10);
 
-  var square = board.getSqaure(0, 0);
+  var square = board.getSqaureByCoords(250, 500);
   square.drawFill();
 
 });
