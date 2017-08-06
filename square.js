@@ -61,32 +61,24 @@ Square.prototype.isWithin = function(x, y){
 
 Square.prototype.drawImage = function(imageLink, percentageSize){
 
-  var id = this.position.x + "-" + this.position.y;
-  var image = document.getElementById(id);
+  image = document.createElement("img");
+  image.src = imageLink;
 
-  if(image !== undefined && image !== null){
-    image.src = imageLink;
-  }else{
-    image = document.createElement("img");
-    image.id = id;
-    image.src = imageLink;
-
-    var calcPosition = function(coord, length, percentageSize){
-      var diff = (coord + length/2) - coord;
-      return coord + (diff * (1-percentageSize));
-    }
-
-    var x = calcPosition(this.position.x, this.width, percentageSize);
-    var y = calcPosition(this.position.y, this.height, percentageSize);
-
-    var width = this.width * percentageSize;
-    var height = this.height * percentageSize;
-
-    var onLoadImage = function(){
-      this.context.drawImage(image, x, y, width, height);
-    }.bind(this);
-
-    image.addEventListener("load", onLoadImage);
+  var calcPosition = function(coord, length, percentageSize){
+    var diff = (coord + length/2) - coord;
+    return coord + (diff * (1-percentageSize));
   }
+
+  var x = calcPosition(this.position.x, this.width, percentageSize);
+  var y = calcPosition(this.position.y, this.height, percentageSize);
+
+  var width = this.width * percentageSize;
+  var height = this.height * percentageSize;
+
+  var onLoadImage = function(){
+    this.context.drawImage(image, x, y, width, height);
+  }.bind(this);
+
+  image.addEventListener("load", onLoadImage);
+
 }
-// context.drawImage(img, 200, 200, 90, 90);
