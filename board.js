@@ -10,12 +10,13 @@ function Board(canvas){
   this.squares = [];
 
   this.onSquareClick = function(square){
-    console.log("Clicked", square);
+    console.log("Clicked: " + square.position.x + "/" + square.position.y);
   }
 
   this.canvas.addEventListener("click", function(event){
-
-  });
+    var square = this.getSqaureByCoords(event.x, event.y);
+    this.onSquareClick(square);
+  }.bind(this));
 }
 
 Board.prototype.draw = function(xCount, yCount){
@@ -38,8 +39,6 @@ Board.prototype.draw = function(xCount, yCount){
 }
 
 Board.prototype.getSqaure = function(row, column){
-  console.log(row);
-  console.log(column);
   return this.squares[row][column];
 };
 
@@ -59,7 +58,6 @@ Board.prototype.getSqaureByCoords = function(x, y){
 
   var row = findPosition(x, this.width, this.width / this.xSquareCount);
   var column = findPosition(y, this.height, this.height / this.ySquareCount);;
->>>>>>> master
   return this.getSqaure(row, column);
 };
 
