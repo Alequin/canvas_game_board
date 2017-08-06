@@ -1,16 +1,17 @@
-function Square(context, x, y, width, height, borderColour, fillColour){
+function Square(context, coords, position, width, height, borderColour, fillColour){
 
   this.context = context;
-  this.position = {x: x, y: y};
+  this.coordinates = coords;
+  this.position = position;
   this.width = width;
   this.height = height;
 
-  this.topLeft = {x: x, y: y};
-  this.topRight = {x: x + width, y: y};
-  this.bottomLeft = {x: x, y: y + height};
-  this.bottomRight = {x: x + width, y: y + height};
+  this.topLeft = {x: coords.x, y: coords.y};
+  this.topRight = {x: coords.x + width, y: coords.y};
+  this.bottomLeft = {x: coords.x, y: coords.y + height};
+  this.bottomRight = {x: coords.x + width, y: coords.y + height};
 
-  this.center = {x: x + width/2, y: y + height/2}
+  this.center = {x: coords.x + width/2, y: coords.y + height/2}
 
   this.borderColour = borderColour;
   this.fillColour = fillColour;
@@ -19,21 +20,21 @@ function Square(context, x, y, width, height, borderColour, fillColour){
 Square.prototype.drawEmpty = function(){
   var holdStrokeStyle = this.context.fillStyle;
   this.context.strokeStyle = this.borderColour;
-  this.context.strokeRect(this.position.x, this.position.y, this.width, this.height);
+  this.context.strokeRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
   this.context.strokeStyle = holdStrokeStyle;
 }
 
 Square.prototype.drawFill = function(){
   var holdFillStyle = this.context.fillStyle;
   this.context.fillStyle = this.fillColour;
-  this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
+  this.context.fillRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
   this.context.fillStyle = holdFillStyle;
-  
+
   if(this.borderColour !== this.fillColour) this.drawEmpty();
 }
 
 Square.prototype.remove = function(){
-  this.context.clearRect(this.position.x, this.position.y, this.width, this.height);
+  this.context.clearRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
 }
 
 Square.prototype.isWithin = function(x, y){
@@ -51,8 +52,8 @@ Square.prototype.drawImage = function(imageLink, percentageSize){
     return coord + (diff * (1-percentageSize));
   }
 
-  var x = calcPosition(this.position.x, this.width, percentageSize);
-  var y = calcPosition(this.position.y, this.height, percentageSize);
+  var x = calcPosition(this.coordinates.x, this.width, percentageSize);
+  var y = calcPosition(this.coordinates.y, this.height, percentageSize);
 
   var width = this.width * percentageSize;
   var height = this.height * percentageSize;
@@ -67,5 +68,5 @@ Square.prototype.drawImage = function(imageLink, percentageSize){
 Square.prototype.removeImage = function(){
   image = document.createElement("img");
   image.style.background = "white";
-  this.context.drawImage(image, this.position.x, this.position.y, this.width, this.height);
+  this.context.drawImage(image, this.coordinates.x, this.coordinates.y, this.width, this.height);
 }

@@ -7,6 +7,10 @@ window.addEventListener("load", function(){
   board.draw();
 
   board.onSquareClick = function(square){
-    square.drawFill();
+    var x = square.position.x;
+    var y = square.position.y-1;
+    var topSquare = this.getSquare(x, y);
+
+    topSquare.drawFill();
   }
 });

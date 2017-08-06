@@ -11,6 +11,7 @@ function Board(canvas){
 
   this.onSquareClick = function(square){
     console.log("Clicked: " + square.position.x + "/" + square.position.y);
+    console.log("Clicked: " + square.coordinates.x + "/" + square.coordinates.y);
   }
 
   this.canvas.addEventListener("click", function(event){
@@ -30,7 +31,9 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
     var row = [];
     this.squares.push(row);
     for(var y=0; y<this.width; y+=squareWidth){
-      var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight, border, fill);
+      var coords = {x: x, y: y};
+      var position = {x: this.squares.length-1, y: row.length};
+      var nextSquare = new Square(this.context, coords, position, squareWidth, squareHeight, border, fill);
       row.push(nextSquare);
     }
   }
