@@ -5,6 +5,8 @@ window.addEventListener("load", function(){
 
   board.draw(10, 10);
 
+  board.getSqaure(1,9).remove();
+
   console.log(board.squares);
 
 

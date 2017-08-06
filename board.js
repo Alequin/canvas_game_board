@@ -22,3 +22,7 @@ Board.prototype.draw = function(xCount, yCount){
   }
   this.context.stroke();
 }
+
+Board.prototype.getSqaure = function(row, column){
+  return this.squares[row][column];
+};
