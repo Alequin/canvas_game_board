@@ -13,21 +13,32 @@ function Square(context, x, y, width, height){
 }
 
 Square.prototype.prepareEmpty = function(){
-  this.context.rect(this.position.x, this.position.y, this.width, this.height);
+  this.prepare("empty");
 }
 
 Square.prototype.drawEmpty = function(){
-  this.prepare(context);
+  this.prepareEmpty(this.context);
   this.context.stroke();
 }
 
 Square.prototype.prepareFill = function(){
-  this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
+  this.prepare("fill");
 }
 
 Square.prototype.drawFill = function(){
-  this.prepare(context);
+  this.prepareFill(this.context);
   this.context.stroke();
+}
+
+Square.prototype.prepare = function(method){
+  switch (method) {
+    case "empty":
+      this.context.rect(this.position.x, this.position.y, this.width, this.height);
+      break;
+    case "fill":
+      this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
+      break;
+  }
 }
 
 Square.prototype.remove = function(){
