@@ -24,3 +24,8 @@ Square.prototype.draw = function(){
 Square.prototype.remove = function(){
   this.context.clearRect(this.position.x, this.position.y, this.width, this.height);
 }
+
+Square.prototype.isWithin = function(x, y){
+  return !(x < this.topLeft.x || x >= this.topRight.x) &&
+        !(y < this.topLeft.y || y >= this.bottomLeft.y);
+}

@@ -5,10 +5,7 @@ window.addEventListener("load", function(){
 
   board.draw(10, 10);
 
-  board.getSqaure(1,9).remove();
+  var square = board.getSqaure(0, 0);
 
-  console.log(board.squares);
-
-
-
+  console.log(square.isWithin(0, 50));
 });
