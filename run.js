@@ -5,4 +5,10 @@ window.addEventListener("load", function(){
 
   board.draw(10, 10);
 
+  board.squares[50].remove();
+
+  console.log(board.squares);
+
+
+
 });

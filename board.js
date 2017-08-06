@@ -8,7 +8,6 @@ function Board(canvas){
 }
 
 Board.prototype.draw = function(xCount, yCount){
-
   var squareWidth = this.width / xCount;
   var squareHeight = this.height / yCount;
 

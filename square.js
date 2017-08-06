@@ -20,3 +20,7 @@ Square.prototype.draw = function(){
   this.prepare(context);
   this.context.stroke();
 }
+
+Square.prototype.remove = function(){
+  this.context.clearRect(this.position.x, this.position.y, this.width, this.height);
+}
