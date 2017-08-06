@@ -58,3 +58,35 @@ Square.prototype.isWithin = function(x, y){
   return !(x < this.topLeft.x || x >= this.topRight.x) &&
         !(y < this.topLeft.y || y >= this.bottomLeft.y);
 }
+
+Square.prototype.drawImage = function(imageLink, percentageSize){
+
+  var id = this.position.x + "-" + this.position.y;
+  var image = document.getElementById(id);
+
+  if(image !== undefined && image !== null){
+    image.src = imageLink;
+  }else{
+    image = document.createElement("img");
+    image.id = id;
+    image.src = imageLink;
+
+    var calcPosition = function(coord, length, percentageSize){
+      var diff = Math.abs((length/2) - coord);
+      return coord + (diff * (1-percentageSize));
+    }
+
+    var x = calcPosition(this.position.x, this.width, percentageSize);
+    var y = calcPosition(this.position.y, this.height, percentageSize);
+
+    var width = this.width * percentageSize;
+    var height = this.height * percentageSize;
+
+    var onLoadImage = function(){
+      this.context.drawImage(image, x, y, width, height);
+    }.bind(this);
+
+    image.addEventListener("load", onLoadImage);
+  }
+}
+// context.drawImage(img, 200, 200, 90, 90);
