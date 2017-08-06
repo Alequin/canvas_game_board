@@ -3,6 +3,8 @@ function Board(canvas){
   this.context = canvas.getContext("2d");
   this.width = canvas.width;
   this.height = canvas.height;
+
+  this.squares = [];
 }
 
 Board.prototype.draw = function(xCount, yCount){
@@ -12,7 +14,9 @@ Board.prototype.draw = function(xCount, yCount){
 
   for(var y=0; y<this.height; y+=squareHeight){
     for(var x=0; x<this.width; x+=squareWidth){
-      this.context.rect(x, y, squareWidth, squareHeight);
+      var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight);
+      this.squares.push(nextSquare);
+      nextSquare.prepare();
     }
   }
   this.context.stroke();
