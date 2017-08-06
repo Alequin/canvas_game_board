@@ -8,9 +8,16 @@ window.addEventListener("load", function(){
 
   board.onSquareClick = function(square){
     var x = square.position.x;
-    var y = square.position.y-1;
-    var topSquare = this.getSquare(x, y);
-
+    var y = square.position.y;
+    console.log(x+"/"+y);
+    var topSquare = this.getSquareAbove(2, x, y);
+    var bottomSquare = this.getSquareBelow(2, x, y);
+    var rightSquare = this.getSquareToRight(2, x, y);
+    var leftSquare = this.getSquareToLeft(2, x, y);
+    console.log(topSquare.position.x+"/"+topSquare.position.y);
     topSquare.drawFill();
+    bottomSquare.drawFill();
+    rightSquare.drawFill();
+    leftSquare.drawFill();
   }
 });

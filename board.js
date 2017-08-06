@@ -47,8 +47,35 @@ Board.prototype.draw = function(){
   }
 }
 
-Board.prototype.getSquare = function(row, column){
-  return this.squares[row][column];
+Board.prototype.getSquare = function(column, row){
+  if(!this.isPositionValid(row, column)){
+    return null;
+  }
+  return this.squares[column][row];
+};
+
+Board.prototype.isPositionValid = function(column, row){
+  return !(
+    (row < 0 || row > this.xSquareCount-1) ||
+    (column < 0 || column > this.ySquareCount-1)
+  );
+
+}
+
+Board.prototype.getSquareAbove = function(amount, column, row){
+  return this.getSquare(column, row-amount);
+};
+
+Board.prototype.getSquareBelow = function(amount, column, row){
+  return this.getSquare(column, row+amount);
+};
+
+Board.prototype.getSquareToLeft = function(amount, column, row){
+  return this.getSquare(column-amount, row);
+};
+
+Board.prototype.getSquareToRight = function(amount, column, row){
+  return this.getSquare(column+amount, row);
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
@@ -65,9 +92,9 @@ Board.prototype.getSquareByCoords = function(x, y){
     return position;
   }
 
-  var row = findPosition(x, this.width, this.width / this.xSquareCount);
-  var column = findPosition(y, this.height, this.height / this.ySquareCount);;
-  return this.getSquare(row, column);
+  var row = findPosition(y, this.height, this.height / this.ySquareCount);
+  var column = findPosition(x, this.width, this.width / this.xSquareCount);
+  return this.getSquare(column, row);
 };
 
 Board.prototype.setOnSquareClick = function(callBack){
