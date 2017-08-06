@@ -5,8 +5,6 @@ window.addEventListener("load", function(){
 
   board.draw(10, 10);
   board.onSquareClick = function(square){
-    console.log("Clicked: " + square.position.x + "/" + square.position.y);
-    square.drawFill();
+    console.log(square.center);
   };
-
 });

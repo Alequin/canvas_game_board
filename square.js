@@ -10,6 +10,8 @@ function Square(context, x, y, width, height){
   this.bottomLeft = {x: x, y: y + height};
   this.bottomRight = {x: x + width, y: y + height};
 
+  this.center = {x: x + width/2, y: y + height/2}
+
 }
 
 Square.prototype.prepareEmpty = function(){
