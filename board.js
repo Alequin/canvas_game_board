@@ -14,7 +14,7 @@ function Board(canvas){
   }
 
   this.canvas.addEventListener("click", function(event){
-    var square = this.getSquareByCoords(event.x, event.y);
+    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
     this.onSquareClick(square);
   }.bind(this));
 }
