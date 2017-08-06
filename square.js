@@ -31,12 +31,20 @@ Square.prototype.drawFill = function(){
 }
 
 Square.prototype.prepare = function(method){
+
+  var inputs = {
+    x: this.position.x,
+    y: this.position.y,
+    width: this.width,
+    height: this.height,
+  }
+
   switch (method) {
     case "empty":
-      this.context.rect(this.position.x, this.position.y, this.width, this.height);
+      this.context.rect(inputs.x, inputs.y, inputs.width, inputs.height);
       break;
     case "fill":
-      this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
+      this.context.fillRect(inputs.x, inputs.y, inputs.width, inputs.height);
       break;
   }
 }
