@@ -62,11 +62,11 @@ Board.prototype.isPositionValid = function(column, row){
 
 }
 
-Board.prototype.getSquareAbove = function(amount, column, row){
+Board.prototype.getSquareTop = function(amount, column, row){
   return this.getSquare(column, row-amount);
 };
 
-Board.prototype.getSquareBelow = function(amount, column, row){
+Board.prototype.getSquareBottom = function(amount, column, row){
   return this.getSquare(column, row+amount);
 };
 
