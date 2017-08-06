@@ -12,9 +12,11 @@ Board.prototype.draw = function(xCount, yCount){
   var squareHeight = this.height / yCount;
 
   for(var y=0; y<this.height; y+=squareHeight){
+    var row = [];
+    this.squares.push(row);
     for(var x=0; x<this.width; x+=squareWidth){
       var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight);
-      this.squares.push(nextSquare);
+      row.push(nextSquare);
       nextSquare.prepare();
     }
   }
