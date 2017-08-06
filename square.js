@@ -28,7 +28,8 @@ Square.prototype.drawFill = function(){
   this.context.fillStyle = this.fillColour;
   this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
   this.context.fillStyle = holdFillStyle;
-  this.drawEmpty();
+  
+  if(this.borderColour !== this.fillColour) this.drawEmpty();
 }
 
 Square.prototype.remove = function(){
