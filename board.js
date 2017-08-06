@@ -13,6 +13,7 @@ Board.prototype.draw = function(xCount, yCount){
   for(var y=0; y<this.height; y+=squareHeight){
     for(var x=0; x<this.width; x+=squareWidth){
       this.context.rect(x, y, squareWidth, squareHeight);
+
     }
   }
   this.context.stroke();
