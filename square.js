@@ -38,7 +38,6 @@ Square.prototype.prepare = function(method){
     width: this.width,
     height: this.height,
   }
-
   switch (method) {
     case "empty":
       this.context.rect(inputs.x, inputs.y, inputs.width, inputs.height);

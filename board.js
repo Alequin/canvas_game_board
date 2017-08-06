@@ -26,10 +26,10 @@ Board.prototype.draw = function(xCount, yCount){
   var squareWidth = this.width / xCount;
   var squareHeight = this.height / yCount;
 
-  for(var y=0; y<this.height; y+=squareHeight){
+  for(var x=0; x<this.height; x+=squareHeight){
     var row = [];
     this.squares.push(row);
-    for(var x=0; x<this.width; x+=squareWidth){
+    for(var y=0; y<this.width; y+=squareWidth){
       var nextSquare = new Square(this.context, x, y, squareWidth, squareHeight);
       row.push(nextSquare);
       nextSquare.prepareEmpty();
