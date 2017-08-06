@@ -44,25 +44,22 @@ Board.prototype.getSqaure = function(row, column){
 };
 
 Board.prototype.getSqaureByCoords = function(x, y){
-  var row = 0;
-  var squareWidth = this.width / this.xSquareCount;
-  for(var width=squareWidth; width<this.width; width+=squareWidth){
-    if(x > width){
-      row++;
-    }else{
-      break;
+
+  var findPosition = function(coord, canvasSize, squareSize){
+    var position = 0;
+    for(var width=squareSize; width<canvasSize; width+=squareSize){
+      if(coord > width){
+        position++;
+      }else{
+        break;
+      }
     }
-  }
-  var column = 0;
-  var squareHeight = this.height/ this.ySquareCount;
-  for(var height=squareHeight; width<this.height; height+=squareHeight){
-    if(y > height){
-      column++;
-    }else{
-      break;
-    }
+    return position;
   }
 
+  var row = findPosition(x, this.width, this.width / this.xSquareCount);
+  var column = findPosition(y, this.height, this.height / this.ySquareCount);;
+>>>>>>> master
   return this.getSqaure(row, column);
 };
 
