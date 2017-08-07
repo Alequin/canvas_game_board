@@ -61,7 +61,6 @@ Board.prototype.isPositionValid = function(column, row){
     (row < 0 || row > this.xSquareCount-1) ||
     (column < 0 || column > this.ySquareCount-1)
   );
-
 }
 
 Board.prototype.getSquareTop = function(amount, column, row){
