@@ -14,8 +14,8 @@ window.addEventListener("load", function(){
       return;
     }
 
-    square.addImage("cat.png");
+    square.addImage("cat.png", 1);
     square.borderColour = "orange";
-    square.draw(1);
+    square.draw();
   }
 });

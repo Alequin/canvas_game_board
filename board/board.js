@@ -41,10 +41,10 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   }
 }
 
-Board.prototype.draw = function(imagePercentageSize){
+Board.prototype.draw = function(){
   for(var row of this.squares){
     for(var square of row){
-      square.draw(imagePercentageSize);
+      square.draw();
     }
   }
 }
@@ -134,5 +134,5 @@ Board.prototype.addSavedState = function(key){
 
 Board.prototype.loadSavedState = function(key){
   this.squares = this.savedStates[key];
-  this.draw(1);
+  this.draw();
 }

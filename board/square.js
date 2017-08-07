@@ -17,6 +17,7 @@ function Square(context, coords, position, width, height, borderColour, fillColo
   this.fillColour = fillColour;
 
   this.image = null;
+  this.imageSize = null;
 }
 
 Square.prototype.draw = function(imagePercentageSize){
@@ -42,7 +43,7 @@ Square.prototype.drawFill = function(){
   if(this.borderColour !== this.fillColour) this.drawBorder();
 }
 
-Square.prototype.drawImage = function(percentageSize){
+Square.prototype.drawImage = function(){
 
   image = document.createElement("img");
   image.src = this.image;
@@ -52,11 +53,11 @@ Square.prototype.drawImage = function(percentageSize){
     return coord + (diff * (1-percentageSize));
   }
 
-  var x = calcPosition(this.coordinates.x, this.width, percentageSize);
-  var y = calcPosition(this.coordinates.y, this.height, percentageSize);
+  var x = calcPosition(this.coordinates.x, this.width, this.imageSize);
+  var y = calcPosition(this.coordinates.y, this.height, this.imageSize);
 
-  var width = this.width * percentageSize;
-  var height = this.height * percentageSize;
+  var width = this.width * this.imageSize;
+  var height = this.height * this.imageSize;
 
   var onLoadImage = function(){
     this.context.drawImage(image, x, y, width, height);
@@ -65,8 +66,9 @@ Square.prototype.drawImage = function(percentageSize){
   image.addEventListener("load", onLoadImage);
 }
 
-Square.prototype.addImage = function(imageLink){
+Square.prototype.addImage = function(imageLink, percentageSize){
   this.image = imageLink;
+  this.imageSize = percentageSize;
 }
 
 Square.prototype.remove = function(){
