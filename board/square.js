@@ -65,12 +65,6 @@ Square.prototype.drawImage = function(imageLink, percentageSize){
   image.addEventListener("load", onLoadImage);
 }
 
-Square.prototype.removeImage = function(){
-  image = document.createElement("img");
-  image.style.background = "white";
-  this.context.drawImage(image, this.coordinates.x, this.coordinates.y, this.width, this.height);
-}
-
 Square.prototype.clone = function(){
   var newSqaure = new Square(
     this.context,
