@@ -82,5 +82,7 @@ Square.prototype.clone = function(){
     this.fillColour
   );
 
+  newSqaure.image = this.image;
+
   return newSqaure;
 }
