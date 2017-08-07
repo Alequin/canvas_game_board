@@ -21,7 +21,9 @@ function Square(context, coords, position, width, height, borderColour, fillColo
 
 Square.prototype.draw = function(imagePercentageSize){
   this.drawFill();
-  this.drawImage(imagePercentageSize);
+  if(this.image !== null && this.image !== undefined){
+    this.drawImage(imagePercentageSize);
+  }
 }
 
 Square.prototype.drawBorder = function(){
