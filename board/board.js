@@ -9,6 +9,8 @@ function Board(canvas){
 
   this.squares = [];
 
+  this.savedStates = {};
+
   this.onSquareClick = function(square){
     console.log("Clicked: " + square.position.x + "/" + square.position.y);
     console.log("Clicked: " + square.coordinates.x + "/" + square.coordinates.y);

@@ -70,3 +70,17 @@ Square.prototype.removeImage = function(){
   image.style.background = "white";
   this.context.drawImage(image, this.coordinates.x, this.coordinates.y, this.width, this.height);
 }
+
+Square.prototype.clone = function(){
+  var newSqaure = new Square(
+    this.context,
+    this.coordinates,
+    this.position,
+    this.width,
+    this.height,
+    this.borderColour,
+    this.fillColour
+  );
+
+  return newSqaure;
+}

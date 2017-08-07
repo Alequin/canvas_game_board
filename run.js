@@ -7,12 +7,9 @@ window.addEventListener("load", function(){
   board.draw();
 
   board.onSquareClick = function(square){
-    var x = square.position.x;
-    var y = square.position.y;
-    console.log(x+"/"+y);
-    var topSquare = this.getSquareTop(1, x, y);
-    if(topSquare !== null){
-      topSquare.drawFill();
-    }
+    var newSquare = square.clone();
+
+    console.log(square);
+    console.log(newSquare);
   }
 });
