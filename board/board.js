@@ -44,7 +44,7 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
 Board.prototype.draw = function(){
   for(var row of this.squares){
     for(var square of row){
-      square.drawBorder();
+      square.draw();
     }
   }
 }
