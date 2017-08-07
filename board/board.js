@@ -118,3 +118,17 @@ Board.prototype.getSquareByCoords = function(x, y){
 Board.prototype.setOnSquareClick = function(callBack){
   onSquareClick = callBack;
 }
+
+Board.prototype.addSavedState = function(key){
+  var clonedSqaures = [];
+
+  for(var row of this.squares){
+    var clonedRow = [];
+    clonedSqaures.push(clonedRow);
+    for(var square of row){
+      clonedRow.push(square.clone());
+    }
+  }
+
+  this.savedStates[key] = clonedSqaures;
+}
