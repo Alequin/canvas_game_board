@@ -118,16 +118,3 @@ Board.prototype.getSquareByCoords = function(x, y){
 Board.prototype.setOnSquareClick = function(callBack){
   onSquareClick = callBack;
 }
-
-Board.prototype.setBorderColour = function(colour){
-  this.context.strokeStyle = colour
-}
-
-Board.prototype.setFillColour = function(colour){
-  this.context.fillStyle = colour
-}
-
-Board.prototype.setColour = function(colour){
-  this.setBorderColour(colour);
-  this.setFillColour(colour);
-}
