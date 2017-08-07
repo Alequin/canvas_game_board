@@ -25,7 +25,7 @@ Square.prototype.draw = function(imagePercentageSize){
 }
 
 Square.prototype.drawEmpty = function(){
-  var holdStrokeStyle = this.context.fillStyle;
+  var holdStrokeStyle = this.context.strokeStyle;
   this.context.strokeStyle = this.borderColour;
   this.context.strokeRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
   this.context.strokeStyle = holdStrokeStyle;
