@@ -132,3 +132,8 @@ Board.prototype.addSavedState = function(key){
 
   this.savedStates[key] = clonedSqaures;
 }
+
+Board.prototype.loadSavedState = function(key){
+  this.squares = this.savedStates[key];
+  this.draw();
+}
