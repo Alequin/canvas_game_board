@@ -24,7 +24,7 @@ Square.prototype.draw = function(imagePercentageSize){
   this.drawImage(imagePercentageSize);
 }
 
-Square.prototype.drawEmpty = function(){
+Square.prototype.drawBorder = function(){
   var holdStrokeStyle = this.context.strokeStyle;
   this.context.strokeStyle = this.borderColour;
   this.context.strokeRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
@@ -37,7 +37,7 @@ Square.prototype.drawFill = function(){
   this.context.fillRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
   this.context.fillStyle = holdFillStyle;
 
-  if(this.borderColour !== this.fillColour) this.drawEmpty();
+  if(this.borderColour !== this.fillColour) this.drawBorder();
 }
 
 Square.prototype.drawImage = function(percentageSize){
