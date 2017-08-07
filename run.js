@@ -4,7 +4,7 @@ window.addEventListener("load", function(){
   var board = new Board(canvas);
 
   board.generateSquares(8,8, "black", "white");
-  board.draw();
+  board.draw(1);
   board.addSavedState("save");
 
   board.onSquareClick = function(square){
