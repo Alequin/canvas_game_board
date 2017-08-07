@@ -19,6 +19,11 @@ function Square(context, coords, position, width, height, borderColour, fillColo
   this.image = null;
 }
 
+Square.prototype.draw = function(imagePercentageSize){
+  this.drawFill();
+  this.drawImage(imagePercentageSize);
+}
+
 Square.prototype.drawEmpty = function(){
   var holdStrokeStyle = this.context.fillStyle;
   this.context.strokeStyle = this.borderColour;

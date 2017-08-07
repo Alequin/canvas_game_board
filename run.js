@@ -8,6 +8,8 @@ window.addEventListener("load", function(){
 
   board.onSquareClick = function(square){
     square.addImage("cat.png");
-    square.drawImage(1);
+    square.borderColour = "orange";
+    square.fillColour = "blue";
+    square.draw(1);
   }
 });
