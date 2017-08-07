@@ -15,6 +15,8 @@ function Square(context, coords, position, width, height, borderColour, fillColo
 
   this.borderColour = borderColour;
   this.fillColour = fillColour;
+
+  this.image = null;
 }
 
 Square.prototype.drawEmpty = function(){
@@ -33,19 +35,10 @@ Square.prototype.drawFill = function(){
   if(this.borderColour !== this.fillColour) this.drawEmpty();
 }
 
-Square.prototype.remove = function(){
-  this.context.clearRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
-}
-
-Square.prototype.isWithin = function(x, y){
-  return !(x < this.topLeft.x || x >= this.topRight.x) &&
-        !(y < this.topLeft.y || y >= this.bottomLeft.y);
-}
-
-Square.prototype.drawImage = function(imageLink, percentageSize){
+Square.prototype.drawImage = function(percentageSize){
 
   image = document.createElement("img");
-  image.src = imageLink;
+  image.src = this.image;
 
   var calcPosition = function(coord, length, percentageSize){
     var diff = (coord + length/2) - coord;
@@ -63,6 +56,19 @@ Square.prototype.drawImage = function(imageLink, percentageSize){
   }.bind(this);
 
   image.addEventListener("load", onLoadImage);
+}
+
+Square.prototype.addImage = function(imageLink){
+  this.image = imageLink;
+}
+
+Square.prototype.remove = function(){
+  this.context.clearRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
+}
+
+Square.prototype.isWithin = function(x, y){
+  return !(x < this.topLeft.x || x >= this.topRight.x) &&
+        !(y < this.topLeft.y || y >= this.bottomLeft.y);
 }
 
 Square.prototype.clone = function(){

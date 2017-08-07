@@ -7,9 +7,7 @@ window.addEventListener("load", function(){
   board.draw();
 
   board.onSquareClick = function(square){
-    var newSquare = square.clone();
-
-    console.log(square);
-    console.log(newSquare);
+    square.addImage("cat.png");
+    square.drawImage(1);
   }
 });
