@@ -14,7 +14,7 @@ window.addEventListener("load", function(){
 function onSquareClick(square){
 
   if(square.position.x === 14  && square.position.y === 14){
-    this.loadSavedState("save");
+    this.removeSavedState("save");
     return;
   }
 
