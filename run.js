@@ -3,10 +3,10 @@ window.addEventListener("load", function(){
   var canvas = document.getElementById("main-canvas");
   var board = new Board(canvas);
 
-  board.generateSquares(8,8, "black", "white");
+  board.generateSquares(15, 15, "black", "white");
   board.draw();
 
-  // testMemoryOnSaveImage(board);
+  console.log(board.context);
 
 });
 

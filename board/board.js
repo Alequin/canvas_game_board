@@ -118,18 +118,27 @@ Board.prototype.setOnSquareClick = function(callBack){
   onSquareClick = callBack;
 }
 
-Board.prototype.addSavedState = function(key){
+Board.prototype.SavedState = function(squares, context){
+  this.squares = this.cloneSquares(squares);
+  this.imageData = context.getImageData(0,0,context.canvas.width,context.canvas.length);
+}
+
+Board.prototype.SavedState.prototype.cloneSquares = function(squares){
   var clonedSqaures = [];
 
-  for(var row of this.squares){
+  for(var row of squares){
     var clonedRow = [];
     clonedSqaures.push(clonedRow);
     for(var square of row){
       clonedRow.push(square.clone());
     }
   }
+  this.squares = clonedSqaures;
+}
 
-  this.savedStates[key] = clonedSqaures;
+Board.prototype.addSavedState = function(key){
+  var data = this.context.getImageData(0,0,this.width,this.length);
+  this.savedStates[key] = new this.SavedState(this.squares, data);
 }
 
 Board.prototype.loadSavedState = function(key){
