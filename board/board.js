@@ -118,12 +118,7 @@ Board.prototype.setOnSquareClick = function(callBack){
   onSquareClick = callBack;
 }
 
-Board.prototype.SavedState = function(squares, context){
-  this.squares = this.cloneSquares(squares);
-  this.imageData = context.getImageData(0,0,context.canvas.width,context.canvas.length);
-}
-
-Board.prototype.SavedState.prototype.cloneSquares = function(squares){
+Board.prototype.cloneSquares = function(squares){
   var clonedSqaures = [];
 
   for(var row of squares){
@@ -133,15 +128,22 @@ Board.prototype.SavedState.prototype.cloneSquares = function(squares){
       clonedRow.push(square.clone());
     }
   }
-  this.squares = clonedSqaures;
+  return clonedSqaures;
+}
+
+Board.prototype.SavedState = function(board){
+  this.squares = board.cloneSquares(board.squares);
+  console.log(board.width);
+  console.log(board.height);
+  this.imageData = board.context.getImageData(0,0,board.width,board.height);
 }
 
 Board.prototype.addSavedState = function(key){
-  var data = this.context.getImageData(0,0,this.width,this.length);
-  this.savedStates[key] = new this.SavedState(this.squares, data);
+  this.savedStates[key] = new this.SavedState(this);
 }
 
 Board.prototype.loadSavedState = function(key){
-  this.squares = this.savedStates[key];
-  this.draw();
+  var state = this.savedStates[key]
+  this.squares = this.cloneSquares(state.squares);
+  this.context.putImageData(state.imageData, 0, 0);
 }

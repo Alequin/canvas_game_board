@@ -5,14 +5,15 @@ window.addEventListener("load", function(){
 
   board.generateSquares(15, 15, "black", "white");
   board.draw();
+  board.addSavedState("save");
 
-  console.log(board.context);
+  board.onSquareClick = onSquareClick;
 
 });
 
 function onSquareClick(square){
 
-  if(square.position.x === 7  && square.position.y === 7){
+  if(square.position.x === 14  && square.position.y === 14){
     this.loadSavedState("save");
     return;
   }
