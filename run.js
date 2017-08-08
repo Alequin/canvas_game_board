@@ -4,18 +4,28 @@ window.addEventListener("load", function(){
   var board = new Board(canvas);
 
   board.generateSquares(8,8, "black", "white");
-  board.draw(1);
-  board.addSavedState("save");
+  board.draw();
 
-  board.onSquareClick = function(square){
+  // testMemoryOnSaveImage(board);
 
-    if(square.position.x === 7  && square.position.y === 7){
-      this.loadSavedState("save");
-      return;
-    }
-
-    square.addImage("cat.png", 1);
-    square.borderColour = "orange";
-    square.draw();
-  }
 });
+
+function onSquareClick(square){
+
+  if(square.position.x === 7  && square.position.y === 7){
+    this.loadSavedState("save");
+    return;
+  }
+
+  square.addImage("cat.png", 1);
+  square.borderColour = "orange";
+  square.draw();
+}
+
+function testReloadView(board){
+  var ctx = board.context;
+
+  var imageData = ctx.getImageData(0, 0, board.width, board.height);
+  ctx.clearRect(0, 0, board.width, board.height);
+  ctx.putImageData(imageData, 0, 0);
+}
