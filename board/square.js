@@ -15,6 +15,8 @@ function Square(context, coords, position, width, height, borderColour, fillColo
 
   this.borderColour = borderColour;
   this.fillColour = fillColour;
+
+  this.data = {};
 }
 
 Square.prototype.draw = function(imagePercentageSize){
@@ -56,6 +58,8 @@ Square.prototype.clone = function(){
     this.borderColour,
     this.fillColour
   );
+
+  newSqaure.data = this.data
 
   return newSqaure;
 }
