@@ -15,16 +15,10 @@ function Square(context, coords, position, width, height, borderColour, fillColo
 
   this.borderColour = borderColour;
   this.fillColour = fillColour;
-
-  this.image = null;
-  this.imageSize = null;
 }
 
 Square.prototype.draw = function(imagePercentageSize){
   this.drawFill();
-  if(this.image !== null && this.image !== undefined){
-    // this.drawImage(imagePercentageSize);
-  }
 }
 
 Square.prototype.drawBorder = function(){
@@ -41,34 +35,6 @@ Square.prototype.drawFill = function(){
   this.context.fillStyle = holdFillStyle;
 
   if(this.borderColour !== this.fillColour) this.drawBorder();
-}
-
-Square.prototype.drawImage = function(){
-
-  image = document.createElement("img");
-  image.src = this.image;
-
-  var calcPosition = function(coord, length, percentageSize){
-    var diff = (coord + length/2) - coord;
-    return coord + (diff * (1-percentageSize));
-  }
-
-  var x = calcPosition(this.coordinates.x, this.width, this.imageSize);
-  var y = calcPosition(this.coordinates.y, this.height, this.imageSize);
-
-  var width = this.width * this.imageSize;
-  var height = this.height * this.imageSize;
-
-  var onLoadImage = function(){
-    this.context.drawImage(image, x, y, width, height);
-  }.bind(this);
-
-  image.addEventListener("load", onLoadImage);
-}
-
-Square.prototype.addImage = function(imageLink, percentageSize){
-  this.image = imageLink;
-  this.imageSize = percentageSize;
 }
 
 Square.prototype.remove = function(){
@@ -90,8 +56,6 @@ Square.prototype.clone = function(){
     this.borderColour,
     this.fillColour
   );
-
-  newSqaure.image = this.image;
 
   return newSqaure;
 }

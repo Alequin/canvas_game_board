@@ -22,7 +22,6 @@ function onSquareClick(square){
     return;
   }
 
-  // square.addImage("cat.png", 1);
   square.borderColour = "orange";
   square.draw();
 }
