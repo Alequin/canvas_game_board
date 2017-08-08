@@ -23,7 +23,7 @@ function Square(context, coords, position, width, height, borderColour, fillColo
 Square.prototype.draw = function(imagePercentageSize){
   this.drawFill();
   if(this.image !== null && this.image !== undefined){
-    this.drawImage(imagePercentageSize);
+    // this.drawImage(imagePercentageSize);
   }
 }
 

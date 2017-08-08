@@ -13,12 +13,16 @@ window.addEventListener("load", function(){
 
 function onSquareClick(square){
 
+  if(square.position.x === 13  && square.position.y === 14){
+    this.addSavedState("save");
+    return;
+  }
   if(square.position.x === 14  && square.position.y === 14){
-    this.removeSavedState("save");
+    this.loadSavedState("save");
     return;
   }
 
-  square.addImage("cat.png", 1);
+  // square.addImage("cat.png", 1);
   square.borderColour = "orange";
   square.draw();
 }

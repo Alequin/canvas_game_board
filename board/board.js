@@ -133,8 +133,6 @@ Board.prototype.cloneSquares = function(squares){
 
 Board.prototype.SavedState = function(board){
   this.squares = board.cloneSquares(board.squares);
-  console.log(board.width);
-  console.log(board.height);
   this.imageData = board.context.getImageData(0,0,board.width,board.height);
 }
 
@@ -144,10 +142,8 @@ Board.prototype.addSavedState = function(key){
 
 Board.prototype.loadSavedState = function(key){
   var state = this.savedStates[key]
-  if(state === null || state === undefined) return false;
   this.squares = this.cloneSquares(state.squares);
   this.context.putImageData(state.imageData, 0, 0);
-  return true;
 }
 
 Board.prototype.removeSavedState = function(key){
