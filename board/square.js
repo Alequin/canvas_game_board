@@ -71,12 +71,7 @@ Square.prototype.drawImage = function(percentageSize){
 
 Square.prototype.remove = function(){
   this.drawContext.clearRect(this.coordinates.x+1, this.coordinates.y+1, this.width-2, this.height-2);
-
-  var img = this.imageContext.createImageData(this.width, this.height);
-  for(var j = img.data.length; j >= 0; j--){
-    img.data[j] = 0;
-  }
-  this.imageContext.putImageData(img, this.coordinates.x, this.coordinates.y);
+  this.imageContext.clearRect(this.coordinates.x+1, this.coordinates.y+1, this.width-2, this.height-2);
 }
 
 // Square.prototype.isWithin = function(x, y){
