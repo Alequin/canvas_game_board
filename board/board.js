@@ -1,31 +1,47 @@
 function Board(container){
 
-  container.innerHTML =
-    '<style type="text/css">canvas{position: absolute;}</style>' +
-    '<canvas id="lower-canvas" width="500" height="500" position="absolute"></canvas>' +
-    '<canvas id="upper-canvas" width="500" height="500" position="absolute"></canvas>'
+  container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
+
+  this.width = container.offsetWidth;;
+  this.height = container.offsetHeight;
+
+  this.drawLayer = document.createElement("canvas");
+  this.imageLayer = document.createElement("canvas");
+  this.clickLayer = document.createElement("canvas");
+
+  this.setLayerSize(this.drawLayer);
+  this.setLayerSize(this.imageLayer);
+  this.setLayerSize(this.clickLayer);
+
+  container.appendChild(this.drawLayer);
+  container.appendChild(this.imageLayer);
+
+  this.drawContext = this.drawLayer.getContext("2d");
+  this.imageContext = this.imageLayer.getContext("2d");
 
   this.drawContext.lineWidth = 1;
 
-  // this.width = canvas.width;
-  // this.height = canvas.height;
-  //
-  // this.xSquareCount = 0;
-  // this.ySquareCount = 0;
-  //
-  // this.squares = [];
-  //
-  // this.savedStates = {};
-  //
-  // this.onSquareClick = function(square){
-  //   console.log("Clicked: " + square.position.x + "/" + square.position.y);
-  //   console.log("Clicked: " + square.coordinates.x + "/" + square.coordinates.y);
-  // }
-  //
-  // this.canvas.addEventListener("click", function(event){
-  //   var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-  //   this.onSquareClick(square);
-  // }.bind(this));
+  this.xSquareCount = 0;
+  this.ySquareCount = 0;
+
+  this.squares = [];
+
+  this.savedStates = {};
+
+  this.onSquareClick = function(square){
+    console.log("Clicked: " + square.position.x + "/" + square.position.y);
+    console.log("Clicked: " + square.coordinates.x + "/" + square.coordinates.y);
+  }
+
+  this.clickLayer.addEventListener("click", function(event){
+    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
+    this.onSquareClick(square);
+  }.bind(this));
+}
+
+Board.prototype.setLayerSize = function(layer){
+  layer.width = this.width;
+  layer.height = this.height;
 }
 
 // Board.prototype.generateSquares = function(xCount, yCount, border, fill){
