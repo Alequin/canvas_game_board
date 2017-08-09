@@ -66,10 +66,10 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   var squareWidth = this.width / xCount;
   var squareHeight = this.height / yCount;
 
-  for(var x=0; x<this.height; x+=squareHeight){
+  for(var x=0; x<this.width; x+=squareWidth){
     var row = [];
     this.squares.push(row);
-    for(var y=0; y<this.width; y+=squareWidth){
+    for(var y=0; y<this.height; y+=squareHeight){
       var coords = {x: x, y: y};
       var position = {x: this.squares.length-1, y: row.length};
       var nextSquare = new Square(this.drawContext, this.imageContext, coords, position, squareWidth, squareHeight, border, fill);
