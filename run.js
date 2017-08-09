@@ -3,8 +3,15 @@ window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
   var board = new Board(boardContainer);
 
-  board.generateSquares(10, 10, "black", "white");
+  board.generateSquares(10, 10, "black", "blue");
   board.draw();
+
+  var square = board.squares[0][0]
+  square.image = "cat.png";
+  square.drawImage(1);
+
+  board.onSquareClick = onSquareClick1;
+
   // board.addSavedState("save");
   //
   // board.onSquareClick = onSquareClick;
@@ -24,6 +31,10 @@ function onSquareClick(square){
 
   square.borderColour = "orange";
   square.draw();
+}
+
+function onSquareClick1(square){
+  sqaure.remove();
 }
 
 function testReloadView(board){

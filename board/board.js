@@ -70,104 +70,104 @@ Board.prototype.draw = function(){
     }
   }
 }
-//
-// Board.prototype.getSquare = function(column, row){
-//   if(!this.isPositionValid(row, column)){
-//     return null;
-//   }
-//   return this.squares[column][row];
-// };
-//
-// Board.prototype.isPositionValid = function(column, row){
-//   return !(
-//     (row < 0 || row > this.xSquareCount-1) ||
-//     (column < 0 || column > this.ySquareCount-1)
-//   );
-// }
-//
-// Board.prototype.getSquareTop = function(amount, column, row){
-//   return this.getSquare(column, row-amount);
-// };
-//
-// Board.prototype.getSquareBottom = function(amount, column, row){
-//   return this.getSquare(column, row+amount);
-// };
-//
-// Board.prototype.getSquareLeft = function(amount, column, row){
-//   return this.getSquare(column-amount, row);
-// };
-//
-// Board.prototype.getSquareRight = function(amount, column, row){
-//   return this.getSquare(column+amount, row);
-// };
-//
-// Board.prototype.getSquareTopLeft = function(amount, column, row){
-//   return this.getSquare(column-amount, row-amount);
-// };
-//
-// Board.prototype.getSquareTopRight = function(amount, column, row){
-//   return this.getSquare(column+amount, row-amount);
-// };
-//
-// Board.prototype.getSquareBottomLeft = function(amount, column, row){
-//   return this.getSquare(column-amount, row+amount);
-// };
-//
-// Board.prototype.getSquareBottomRight = function(amount, column, row){
-//   return this.getSquare(column+amount, row+amount);
-// };
-//
-// Board.prototype.getSquareByCoords = function(x, y){
-//
-//   var findPosition = function(coord, canvasSize, squareSize){
-//     var position = 0;
-//     for(var width=squareSize; width<canvasSize; width+=squareSize){
-//       if(coord > width){
-//         position++;
-//       }else{
-//         break;
-//       }
-//     }
-//     return position;
-//   }
-//
-//   var row = findPosition(y, this.height, this.height / this.ySquareCount);
-//   var column = findPosition(x, this.width, this.width / this.xSquareCount);
-//   return this.getSquare(column, row);
-// };
-//
-// Board.prototype.setOnSquareClick = function(callBack){
-//   onSquareClick = callBack;
-// }
-//
-// Board.prototype.cloneSquares = function(squares){
-//   var clonedSqaures = [];
-//
-//   for(var row of squares){
-//     var clonedRow = [];
-//     clonedSqaures.push(clonedRow);
-//     for(var square of row){
-//       clonedRow.push(square.clone());
-//     }
-//   }
-//   return clonedSqaures;
-// }
-//
-// Board.prototype.SavedState = function(board){
-//   this.squares = board.cloneSquares(board.squares);
-//   this.imageData = board.context.getImageData(0,0,board.width,board.height);
-// }
-//
-// Board.prototype.addSavedState = function(key){
-//   this.savedStates[key] = new this.SavedState(this);
-// }
-//
-// Board.prototype.loadSavedState = function(key){
-//   var state = this.savedStates[key]
-//   this.squares = this.cloneSquares(state.squares);
-//   this.context.putImageData(state.imageData, 0, 0);
-// }
-//
-// Board.prototype.removeSavedState = function(key){
-//   delete this.savedStates[key];
-// }
+
+Board.prototype.getSquare = function(column, row){
+  if(!this.isPositionValid(row, column)){
+    return null;
+  }
+  return this.squares[column][row];
+};
+
+Board.prototype.isPositionValid = function(column, row){
+  return !(
+    (row < 0 || row > this.xSquareCount-1) ||
+    (column < 0 || column > this.ySquareCount-1)
+  );
+}
+
+Board.prototype.getSquareTop = function(amount, column, row){
+  return this.getSquare(column, row-amount);
+};
+
+Board.prototype.getSquareBottom = function(amount, column, row){
+  return this.getSquare(column, row+amount);
+};
+
+Board.prototype.getSquareLeft = function(amount, column, row){
+  return this.getSquare(column-amount, row);
+};
+
+Board.prototype.getSquareRight = function(amount, column, row){
+  return this.getSquare(column+amount, row);
+};
+
+Board.prototype.getSquareTopLeft = function(amount, column, row){
+  return this.getSquare(column-amount, row-amount);
+};
+
+Board.prototype.getSquareTopRight = function(amount, column, row){
+  return this.getSquare(column+amount, row-amount);
+};
+
+Board.prototype.getSquareBottomLeft = function(amount, column, row){
+  return this.getSquare(column-amount, row+amount);
+};
+
+Board.prototype.getSquareBottomRight = function(amount, column, row){
+  return this.getSquare(column+amount, row+amount);
+};
+
+Board.prototype.getSquareByCoords = function(x, y){
+
+  var findPosition = function(coord, canvasSize, squareSize){
+    var position = 0;
+    for(var width=squareSize; width<canvasSize; width+=squareSize){
+      if(coord > width){
+        position++;
+      }else{
+        break;
+      }
+    }
+    return position;
+  }
+
+  var row = findPosition(y, this.height, this.height / this.ySquareCount);
+  var column = findPosition(x, this.width, this.width / this.xSquareCount);
+  return this.getSquare(column, row);
+};
+
+Board.prototype.setOnSquareClick = function(callBack){
+  onSquareClick = callBack;
+}
+
+Board.prototype.cloneSquares = function(squares){
+  var clonedSqaures = [];
+
+  for(var row of squares){
+    var clonedRow = [];
+    clonedSqaures.push(clonedRow);
+    for(var square of row){
+      clonedRow.push(square.clone());
+    }
+  }
+  return clonedSqaures;
+}
+
+Board.prototype.SavedState = function(board){
+  this.squares = board.cloneSquares(board.squares);
+  this.imageData = board.context.getImageData(0,0,board.width,board.height);
+}
+
+Board.prototype.addSavedState = function(key){
+  this.savedStates[key] = new this.SavedState(this);
+}
+
+Board.prototype.loadSavedState = function(key){
+  var state = this.savedStates[key]
+  this.squares = this.cloneSquares(state.squares);
+  this.context.putImageData(state.imageData, 0, 0);
+}
+
+Board.prototype.removeSavedState = function(key){
+  delete this.savedStates[key];
+}

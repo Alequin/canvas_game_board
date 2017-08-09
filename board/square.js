@@ -25,7 +25,7 @@ function Square(drawContext, imageContext, coords, position, width, height, bord
   this.data = {};
 }
 
-Square.prototype.draw = function(imagePercentageSize){
+Square.prototype.draw = function(){
   this.drawFill();
   if(this.image) drawImage(1);
 }
@@ -68,11 +68,17 @@ Square.prototype.drawImage = function(percentageSize){
 
   image.addEventListener("load", onLoadImage);
 }
-//
-// Square.prototype.remove = function(){
-//   this.context.clearRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
-// }
-//
+
+Square.prototype.remove = function(){
+  this.drawContext.clearRect(this.coordinates.x+1, this.coordinates.y+1, this.width-2, this.height-2);
+
+  var img = this.imageContext.createImageData(this.width, this.height);
+  for(var j = img.data.length; j >= 0; j--){
+    img.data[j] = 0;
+  }
+  this.imageContext.putImageData(img, this.coordinates.x, this.coordinates.y);
+}
+
 // Square.prototype.isWithin = function(x, y){
 //   return !(x < this.topLeft.x || x >= this.topRight.x) &&
 //         !(y < this.topLeft.y || y >= this.bottomLeft.y);
