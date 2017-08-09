@@ -28,7 +28,7 @@ function Square(drawContext, imageContext, coords, position, width, height, bord
 
 Square.prototype.draw = function(){
   this.drawFill();
-  if(this.image) drawImage();
+  if(this.image) this.drawImage();
 }
 
 Square.prototype.drawBorder = function(){
@@ -87,7 +87,8 @@ Square.prototype.isWithin = function(x, y){
 
 Square.prototype.clone = function(){
   var newSqaure = new Square(
-    this.context,
+    this.drawContext,
+    this.imageContext,
     this.coordinates,
     this.position,
     this.width,

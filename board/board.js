@@ -38,6 +38,7 @@ function Board(container){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
     this.onSquareClick(square);
   }.bind(this));
+
 }
 
 Board.prototype.setLayerSize = function(layer){
@@ -156,7 +157,7 @@ Board.prototype.cloneSquares = function(squares){
 
 Board.prototype.SavedState = function(board){
   this.squares = board.cloneSquares(board.squares);
-  this.imageData = board.context.getImageData(0,0,board.width,board.height);
+  this.imageData = board.drawContext.getImageData(0,0,board.width,board.height);
 }
 
 Board.prototype.addSavedState = function(key){
@@ -166,7 +167,16 @@ Board.prototype.addSavedState = function(key){
 Board.prototype.loadSavedState = function(key){
   var state = this.savedStates[key]
   this.squares = this.cloneSquares(state.squares);
-  this.context.putImageData(state.imageData, 0, 0);
+  this.drawContext.putImageData(state.imageData, 0, 0);
+
+  this.imageContext.clearRect(0, 0, this.width, this.height);
+  for(var row of this.squares){
+    for(var square of row){
+      if(square.image){
+        square.drawImage();
+      }
+    }
+  }
 }
 
 Board.prototype.removeSavedState = function(key){
