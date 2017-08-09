@@ -1,13 +1,13 @@
 window.addEventListener("load", function(){
 
-  var canvas = document.getElementById("main-canvas");
-  var board = new Board(canvas);
+  var boardContainer = document.getElementById("game-board");
+  var board = new Board(boardContainer);
 
-  board.generateSquares(10, 10, "black", "white");
-  board.draw();
-  board.addSavedState("save");
-
-  board.onSquareClick = onSquareClick;
+  // board.generateSquares(10, 10, "black", "white");
+  // board.draw();
+  // board.addSavedState("save");
+  //
+  // board.onSquareClick = onSquareClick;
 
 });
 
