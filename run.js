@@ -3,7 +3,7 @@ window.addEventListener("load", function(){
   var canvas = document.getElementById("main-canvas");
   var board = new Board(canvas);
 
-  board.generateSquares(15, 15, "black", "white");
+  board.generateSquares(10, 10, "black", "white");
   board.draw();
   board.addSavedState("save");
 
@@ -13,11 +13,11 @@ window.addEventListener("load", function(){
 
 function onSquareClick(square){
 
-  if(square.position.x === 13  && square.position.y === 14){
+  if(square.position.x === 8  && square.position.y === 9){
     this.addSavedState("save");
     return;
   }
-  if(square.position.x === 14  && square.position.y === 14){
+  if(square.position.x === 9  && square.position.y === 9){
     this.loadSavedState("save");
     return;
   }

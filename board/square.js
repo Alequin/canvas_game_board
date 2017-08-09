@@ -1,6 +1,10 @@
 function Square(context, coords, position, width, height, borderColour, fillColour){
 
   this.context = context;
+
+  coords.x = Math.floor(coords.x);
+  coords.y = Math.floor(coords.y);
+
   this.coordinates = coords;
   this.position = position;
   this.width = width;
@@ -26,7 +30,7 @@ Square.prototype.draw = function(imagePercentageSize){
 Square.prototype.drawBorder = function(){
   var holdStrokeStyle = this.context.strokeStyle;
   this.context.strokeStyle = this.borderColour;
-  this.context.strokeRect(this.coordinates.x, this.coordinates.y, this.width, this.height);
+  this.context.strokeRect(this.coordinates.x+1, this.coordinates.y+1, this.width-2, this.height-2);
   this.context.strokeStyle = holdStrokeStyle;
 }
 
