@@ -2,10 +2,14 @@ function Board(container){
 
   container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
 
-  this.width = container.offsetWidth;;
-  this.height = container.offsetHeight;
+  this.innerContainer = document.createElement("div");
+  container.appendChild(this.innerContainer);
+  this.innerContainer.style.height = "inherit";
 
-  var canvases = createCanvases(container, this.width, this.height);
+  this.width = this.innerContainer.offsetWidth;
+  this.height = this.innerContainer.offsetHeight;
+
+  var canvases = createCanvases(this.innerContainer, this.width, this.height);
 
   this.drawLayer = canvases.drawLayer;
   this.imageLayer = canvases.imageLayer;
