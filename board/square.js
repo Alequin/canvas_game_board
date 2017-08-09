@@ -19,6 +19,7 @@ function Square(drawContext, imageContext, coords, position, width, height, bord
   this.center = {x: coords.x + width/2, y: coords.y + height/2}
 
   this.image = null;
+  this.imageSize = 1;
   this.borderColour = borderColour;
   this.fillColour = fillColour;
 
@@ -27,7 +28,7 @@ function Square(drawContext, imageContext, coords, position, width, height, bord
 
 Square.prototype.draw = function(){
   this.drawFill();
-  if(this.image) drawImage(1);
+  if(this.image) drawImage();
 }
 
 Square.prototype.drawBorder = function(){
@@ -46,7 +47,7 @@ Square.prototype.drawFill = function(){
   if(this.borderColour !== this.fillColour) this.drawBorder();
 }
 
-Square.prototype.drawImage = function(percentageSize){
+Square.prototype.drawImage = function(){
 
   image = document.createElement("img");
   image.src = this.image;
@@ -56,11 +57,11 @@ Square.prototype.drawImage = function(percentageSize){
     return coord + (diff * (1-percentageSize));
   }
 
-  var x = calcPosition(this.coordinates.x, this.width, percentageSize);
-  var y = calcPosition(this.coordinates.y, this.height, percentageSize);
+  var x = calcPosition(this.coordinates.x, this.width, this.imageSize);
+  var y = calcPosition(this.coordinates.y, this.height, this.imageSize);
 
-  var width = this.width * percentageSize;
-  var height = this.height * percentageSize;
+  var width = this.width * this.imageSize;
+  var height = this.height * this.imageSize;
 
   var onLoadImage = function(){
     this.imageContext.drawImage(image, x, y, width, height);
@@ -69,28 +70,33 @@ Square.prototype.drawImage = function(percentageSize){
   image.addEventListener("load", onLoadImage);
 }
 
+Square.prototype.addImage = function(imageLink, percentageSize){
+  this.image = imageLink;
+  this.imageSize = percentageSize;
+}
+
 Square.prototype.remove = function(){
   this.drawContext.clearRect(this.coordinates.x+1, this.coordinates.y+1, this.width-2, this.height-2);
   this.imageContext.clearRect(this.coordinates.x+1, this.coordinates.y+1, this.width-2, this.height-2);
 }
 
-// Square.prototype.isWithin = function(x, y){
-//   return !(x < this.topLeft.x || x >= this.topRight.x) &&
-//         !(y < this.topLeft.y || y >= this.bottomLeft.y);
-// }
-//
-// Square.prototype.clone = function(){
-//   var newSqaure = new Square(
-//     this.context,
-//     this.coordinates,
-//     this.position,
-//     this.width,
-//     this.height,
-//     this.borderColour,
-//     this.fillColour
-//   );
-//
-//   newSqaure.data = this.data
-//
-//   return newSqaure;
-// }
+Square.prototype.isWithin = function(x, y){
+  return !(x < this.topLeft.x || x >= this.topRight.x) &&
+        !(y < this.topLeft.y || y >= this.bottomLeft.y);
+}
+
+Square.prototype.clone = function(){
+  var newSqaure = new Square(
+    this.context,
+    this.coordinates,
+    this.position,
+    this.width,
+    this.height,
+    this.borderColour,
+    this.fillColour
+  );
+
+  newSqaure.data = this.data
+
+  return newSqaure;
+}

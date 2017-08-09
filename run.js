@@ -8,7 +8,8 @@ window.addEventListener("load", function(){
 
   var square = board.squares[0][0]
   square.image = "cat.png";
-  square.drawImage(1);
+  square.addImage("cat.png", 1);
+  square.drawImage();
 
   board.onSquareClick = onSquareClick1;
 
