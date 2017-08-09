@@ -66,11 +66,9 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
 }
 
 Board.prototype.draw = function(){
-  for(var row of this.squares){
-    for(var square of row){
-      square.draw();
-    }
-  }
+  this.forEachSquare(function(square){
+    square.draw();
+  });
 }
 
 Board.prototype.setOnSquareClick = function(callBack){
@@ -105,13 +103,9 @@ Board.prototype.loadSavedState = function(key){
   this.drawContext.putImageData(state.imageData, 0, 0);
 
   this.imageContext.clearRect(0, 0, this.width, this.height);
-  for(var row of this.squares){
-    for(var square of row){
-      if(square.image){
-        square.drawImage();
-      }
-    }
-  }
+  this.forEachSquare(function(square){
+    if(square.image) square.drawImage();
+  });
 }
 
 Board.prototype.removeSavedState = function(key){
@@ -182,3 +176,11 @@ Board.prototype.getSquareByCoords = function(x, y){
   var column = findPosition(x, this.width, this.width / this.xSquareCount);
   return this.getSquare(column, row);
 };
+
+Board.prototype.forEachSquare = function(callBack){
+  for(var row of this.squares){
+    for(var square of row){
+      callBack(square);
+    }
+  }
+}
