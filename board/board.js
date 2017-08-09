@@ -5,17 +5,11 @@ function Board(container){
   this.width = container.offsetWidth;;
   this.height = container.offsetHeight;
 
-  this.drawLayer = document.createElement("canvas");
-  this.imageLayer = document.createElement("canvas");
-  this.clickLayer = document.createElement("canvas");
+  var canvases = createCanvases(container, this.width, this.height);
 
-  this.setLayerSize(this.drawLayer);
-  this.setLayerSize(this.imageLayer);
-  this.setLayerSize(this.clickLayer);
-
-  container.appendChild(this.drawLayer);
-  container.appendChild(this.imageLayer);
-  container.appendChild(this.clickLayer);
+  this.drawLayer = canvases.drawLayer;
+  this.imageLayer = canvases.imageLayer;
+  this.clickLayer = canvases.clickLayer;
 
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");
@@ -41,9 +35,28 @@ function Board(container){
 
 }
 
-Board.prototype.setLayerSize = function(layer){
-  layer.width = this.width;
-  layer.height = this.height;
+function createCanvases(container, width, height){
+
+  result = {}
+
+  result.drawLayer = document.createElement("canvas");
+  result.imageLayer = document.createElement("canvas");
+  result.clickLayer = document.createElement("canvas");
+
+  var setLayerSize = function(layer){
+    layer.width = width;
+    layer.height = height;
+  }
+
+  setLayerSize(result.drawLayer);
+  setLayerSize(result.imageLayer);
+  setLayerSize(result.clickLayer);
+
+  container.appendChild(result.drawLayer);
+  container.appendChild(result.imageLayer);
+  container.appendChild(result.clickLayer);
+
+  return result;
 }
 
 Board.prototype.generateSquares = function(xCount, yCount, border, fill){
