@@ -2,9 +2,7 @@ function Board(container){
 
   container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
 
-  this.innerContainer = document.createElement("div");
-  container.appendChild(this.innerContainer);
-  this.innerContainer.style.height = "inherit";
+  this.innerContainer = createInnerContainer(container);
 
   this.width = this.innerContainer.offsetWidth;
   this.height = this.innerContainer.offsetHeight;
@@ -37,6 +35,13 @@ function Board(container){
     this.onSquareClick(square);
   }.bind(this));
 
+}
+
+function createInnerContainer(container){
+  innerContainer = document.createElement("div");
+  container.appendChild(innerContainer);
+  innerContainer.style.height = "inherit";
+  return innerContainer;
 }
 
 function createCanvases(container, width, height){
@@ -137,10 +142,15 @@ Board.prototype.getSquare = function(column, row){
 };
 
 Board.prototype.isPositionValid = function(column, row){
-  return !(
-    (row < 0 || row > this.xSquareCount-1) ||
-    (column < 0 || column > this.ySquareCount-1)
-  );
+
+  var isBetween = function(val, min, max){
+    return (val > min && val < max);
+  }
+
+  return (
+    (isBetween(row, 0, this.xSquareCount)) ||
+    (isBetween(column, 0, this.ySquareCount))
+  )
 }
 
 Board.prototype.getSquareTop = function(amount, column, row){

@@ -6,7 +6,7 @@ window.addEventListener("load", function(){
   board.generateSquares(10, 10, "black", "white");
   board.draw();
 
-  board.onSquareClick = onSquareClick;
+  // board.onSquareClick = onSquareClick;
 });
 
 function onSquareClick(square){
