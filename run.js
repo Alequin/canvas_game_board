@@ -34,7 +34,7 @@ function onSquareClick(square){
 }
 
 function onSquareClick1(square){
-  sqaure.remove();
+  square.remove();
 }
 
 function testReloadView(board){

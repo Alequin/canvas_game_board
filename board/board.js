@@ -15,6 +15,7 @@ function Board(container){
 
   container.appendChild(this.drawLayer);
   container.appendChild(this.imageLayer);
+  container.appendChild(this.clickLayer);
 
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");
