@@ -84,10 +84,18 @@ Square.prototype.addImage = function(imageLink, percentageSize){
 }
 
 Square.prototype.remove = function(){
+  this.removeDrawn();
+  this.removeImage();
+}
+
+Square.prototype.removeDrawn = function(){
   this.drawContext.clearRect(
     this.coordinates.x+squareSpace, this.coordinates.y+squareSpace,
     this.width-squareSpace*2, this.height+squareSpace*2
   );
+}
+
+Square.prototype.removeImage = function(){
   this.imageContext.clearRect(
     this.coordinates.x+squareSpace, this.coordinates.y+squareSpace,
     this.width-squareSpace*2, this.height+squareSpace*2
