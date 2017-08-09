@@ -73,6 +73,51 @@ Board.prototype.draw = function(){
   }
 }
 
+Board.prototype.setOnSquareClick = function(callBack){
+  onSquareClick = callBack;
+}
+
+Board.prototype.cloneSquares = function(squares){
+  var clonedSqaures = [];
+
+  for(var row of squares){
+    var clonedRow = [];
+    clonedSqaures.push(clonedRow);
+    for(var square of row){
+      clonedRow.push(square.clone());
+    }
+  }
+  return clonedSqaures;
+}
+
+Board.prototype.SavedState = function(board){
+  this.squares = board.cloneSquares(board.squares);
+  this.imageData = board.drawContext.getImageData(0,0,board.width,board.height);
+}
+
+Board.prototype.addSavedState = function(key){
+  this.savedStates[key] = new this.SavedState(this);
+}
+
+Board.prototype.loadSavedState = function(key){
+  var state = this.savedStates[key]
+  this.squares = this.cloneSquares(state.squares);
+  this.drawContext.putImageData(state.imageData, 0, 0);
+
+  this.imageContext.clearRect(0, 0, this.width, this.height);
+  for(var row of this.squares){
+    for(var square of row){
+      if(square.image){
+        square.drawImage();
+      }
+    }
+  }
+}
+
+Board.prototype.removeSavedState = function(key){
+  delete this.savedStates[key];
+}
+
 Board.prototype.getSquare = function(column, row){
   if(!this.isPositionValid(row, column)){
     return null;
@@ -137,48 +182,3 @@ Board.prototype.getSquareByCoords = function(x, y){
   var column = findPosition(x, this.width, this.width / this.xSquareCount);
   return this.getSquare(column, row);
 };
-
-Board.prototype.setOnSquareClick = function(callBack){
-  onSquareClick = callBack;
-}
-
-Board.prototype.cloneSquares = function(squares){
-  var clonedSqaures = [];
-
-  for(var row of squares){
-    var clonedRow = [];
-    clonedSqaures.push(clonedRow);
-    for(var square of row){
-      clonedRow.push(square.clone());
-    }
-  }
-  return clonedSqaures;
-}
-
-Board.prototype.SavedState = function(board){
-  this.squares = board.cloneSquares(board.squares);
-  this.imageData = board.drawContext.getImageData(0,0,board.width,board.height);
-}
-
-Board.prototype.addSavedState = function(key){
-  this.savedStates[key] = new this.SavedState(this);
-}
-
-Board.prototype.loadSavedState = function(key){
-  var state = this.savedStates[key]
-  this.squares = this.cloneSquares(state.squares);
-  this.drawContext.putImageData(state.imageData, 0, 0);
-
-  this.imageContext.clearRect(0, 0, this.width, this.height);
-  for(var row of this.squares){
-    for(var square of row){
-      if(square.image){
-        square.drawImage();
-      }
-    }
-  }
-}
-
-Board.prototype.removeSavedState = function(key){
-  delete this.savedStates[key];
-}

@@ -50,7 +50,6 @@ Square.prototype.drawFill = function(){
 Square.prototype.drawImage = function(){
 
   image = document.createElement("img");
-  image.src = this.image;
 
   var calcPosition = function(coord, length, percentageSize){
     var diff = (coord + length/2) - coord;
@@ -66,6 +65,7 @@ Square.prototype.drawImage = function(){
   var onLoadImage = function(){
     this.imageContext.drawImage(image, x, y, width, height);
   }.bind(this);
+  image.src = this.image;
 
   image.addEventListener("load", onLoadImage);
 }
@@ -97,6 +97,8 @@ Square.prototype.clone = function(){
     this.fillColour
   );
 
+  newSqaure.image = this.image;
+  newSqaure.imageSize = this.imageSize;
   newSqaure.data = this.data
 
   return newSqaure;
