@@ -3,8 +3,8 @@ window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
   var board = new Board(boardContainer);
 
-  // board.generateSquares(10, 10, "black", "white");
-  // board.draw();
+  board.generateSquares(10, 10, "black", "white");
+  board.draw();
   // board.addSavedState("save");
   //
   // board.onSquareClick = onSquareClick;

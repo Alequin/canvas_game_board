@@ -44,32 +44,32 @@ Board.prototype.setLayerSize = function(layer){
   layer.height = this.height;
 }
 
-// Board.prototype.generateSquares = function(xCount, yCount, border, fill){
-//   this.xSquareCount = xCount;
-//   this.ySquareCount = yCount;
-//
-//   var squareWidth = this.width / xCount;
-//   var squareHeight = this.height / yCount;
-//
-//   for(var x=0; x<this.height; x+=squareHeight){
-//     var row = [];
-//     this.squares.push(row);
-//     for(var y=0; y<this.width; y+=squareWidth){
-//       var coords = {x: x, y: y};
-//       var position = {x: this.squares.length-1, y: row.length};
-//       var nextSquare = new Square(this.context, coords, position, squareWidth, squareHeight, border, fill);
-//       row.push(nextSquare);
-//     }
-//   }
-// }
-//
-// Board.prototype.draw = function(){
-//   for(var row of this.squares){
-//     for(var square of row){
-//       square.draw();
-//     }
-//   }
-// }
+Board.prototype.generateSquares = function(xCount, yCount, border, fill){
+  this.xSquareCount = xCount;
+  this.ySquareCount = yCount;
+
+  var squareWidth = this.width / xCount;
+  var squareHeight = this.height / yCount;
+
+  for(var x=0; x<this.height; x+=squareHeight){
+    var row = [];
+    this.squares.push(row);
+    for(var y=0; y<this.width; y+=squareWidth){
+      var coords = {x: x, y: y};
+      var position = {x: this.squares.length-1, y: row.length};
+      var nextSquare = new Square(this.drawContext, this.imageContext, coords, position, squareWidth, squareHeight, border, fill);
+      row.push(nextSquare);
+    }
+  }
+}
+
+Board.prototype.draw = function(){
+  for(var row of this.squares){
+    for(var square of row){
+      square.draw();
+    }
+  }
+}
 //
 // Board.prototype.getSquare = function(column, row){
 //   if(!this.isPositionValid(row, column)){
