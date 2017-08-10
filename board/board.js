@@ -15,6 +15,7 @@ function Board(container){
 
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");
+  this.clickContext = this.clickLayer.getContext("2d");
 
   this.drawContext.lineWidth = 1;
 
@@ -35,7 +36,6 @@ function Board(container){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
     this.onSquareClick(square);
   }.bind(this));
-
 }
 
 function createInnerContainer(container){
@@ -79,9 +79,10 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   for(var x=0; x<this.width; x+=squareWidth){
     var row = [];
     this.squares.push(row);
+    var xPos = this.squares.length-1;
     for(var y=0; y<this.height; y+=squareHeight){
       var coords = {x: x, y: y};
-      var position = {x: this.squares.length-1, y: row.length};
+      var position = {x: xPos, y: row.length};
       var nextSquare = new Square(this.drawContext, this.imageContext, coords, position, squareWidth, squareHeight, border, fill);
       row.push(nextSquare);
     }
