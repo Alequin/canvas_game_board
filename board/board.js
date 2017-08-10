@@ -127,7 +127,7 @@ Board.prototype.loadSavedState = function(key){
 
   this.imageContext.clearRect(0, 0, this.width, this.height);
   this.forEachSquare(function(square){
-    if(square.image) square.drawImage();
+    if(square.data.image) square.drawImage();
   });
 }
 

@@ -6,7 +6,7 @@ window.addEventListener("load", function(){
   board.generateSquares(10, 10, "black", "white");
   board.draw();
 
-  // board.onSquareClick = onSquareClick;
+  board.onSquareClick = onSquareClick;
 });
 
 function onSquareClick(square){
@@ -20,7 +20,7 @@ function onSquareClick(square){
     return;
   }
 
-  square.borderColour = "orange";
+  square.data.borderColour = "orange";
   square.addImage("cat.png", 1);
   square.draw();
 }
