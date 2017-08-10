@@ -119,7 +119,15 @@ Square.prototype.clone = function(){
     this.data.fillColour
   );
 
-  newSqaure.data = this.data
+  newSqaure.data = this.cloneData(this.data);
 
   return newSqaure;
+}
+
+Square.prototype.cloneData = function(data){
+  var newData = {};
+  for(var key of Object.keys(data)){
+    newData[key] = data[key];
+  }
+  return newData;
 }
