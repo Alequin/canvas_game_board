@@ -26,8 +26,9 @@ function Board(container){
   this.savedStates = {};
 
   this.onSquareClick = function(square){
-    console.log("Clicked: " + square.position.x + "/" + square.position.y);
-    console.log("Clicked: " + square.coordinates.x + "/" + square.coordinates.y);
+    console.log("Clicked Square");
+    console.log("Position: " + square.position.x + "/" + square.position.y);
+    console.log("coordinates: " + square.coordinates.x + "/" + square.coordinates.y);
   }
 
   this.clickLayer.addEventListener("click", function(event){
