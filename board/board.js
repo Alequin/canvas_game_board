@@ -1,4 +1,17 @@
-function Board(container){
+var freeForm = "freeForm";
+var structured = "structured";
+
+function makeFreeFormBoard(container){
+  return new Board(container, freeForm);
+}
+
+function makeStructureBoard(container){
+  return new Board(container, structured);
+}
+
+function Board(container, type){
+
+  this.type = type;
 
   container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
 
@@ -39,7 +52,7 @@ function Board(container){
   }
 
   this.clickLayer.addEventListener("click", function(event){
-    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
+    var sqaure = this.getSquareByCoords(event.offsetX, event.offsetY);
     if(square) this.onSquareClick(square);
   }.bind(this));
 
@@ -200,6 +213,20 @@ Board.prototype.getSquareBottomRight = function(amount, column, row){
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
+  if(type === freeForm) return identifySquareByCoords(x, y);
+  if(type === structured) return identifySquareByCoordsPosition(x, y);
+}
+
+Board.prototype.identifySquareByCoords = function(x, y){
+  var foundSquare = this.forEachSquare(function(square){
+    if(square.isWithin(x,y)){
+      return square;
+    }
+  });
+  return foundSquare;
+}
+
+Board.prototype.identifySquareByCoordsPosition = function(x, y){
   var foundSquare = this.forEachSquare(function(square){
     if(square.isWithin(x,y)){
       return square;
