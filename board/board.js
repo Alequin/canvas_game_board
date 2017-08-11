@@ -67,6 +67,13 @@ function Board(container, type){
     this.currentSquare = square;
   }.bind(this));
 
+  this.clickLayer.addEventListener("mouseout", function(event){
+    if(this.currentSquare){
+      this.currentSquare.onLeave();
+      this.currentSquare = null;
+    }
+  }.bind(this));
+
 }
 
 function createInnerContainer(container){
