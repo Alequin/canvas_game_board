@@ -20,8 +20,10 @@ function Board(container, type){
 
   this.innerContainer = createInnerContainer(container);
 
+  var min = Math.min(this.innerContainer.offsetWidth, this.innerContainer.offsetHeight);
+
   this.width = this.innerContainer.offsetWidth;
-  this.height = this.innerContainer.offsetHeight;
+  this.height = min;
 
   var canvases = createCanvases(this.innerContainer, this.width, this.height);
 
@@ -52,16 +54,17 @@ function Board(container, type){
   this.clickLayer.addEventListener("mousemove", function(event){
     var x = event.offsetX;
     var y = event.offsetY;
-    var square = this.getSquareByCoords(x, x);
+    var square = this.getSquareByCoords(x, y);
     if(square){
       square.onHover();
-      if(this.currentSquare && square !== this.currentSquare){
-        if(this.currentSquare.isWithin(x,y)) this.currentSquare.onLeave();
+      if(square !== this.currentSquare){
         square.onEnter();
       }
-      this.currentSquare = square;
     }
-
+    if(!square && this.currentSquare){
+      this.currentSquare.onLeave();
+    }
+    this.currentSquare = square;
   }.bind(this));
 
 }
@@ -121,6 +124,12 @@ Board.prototype.draw = function(){
   this.forEachSquare(function(square){
     console.log("draw");
     square.draw();
+  });
+}
+
+Board.prototype.drawBorder = function(){
+  this.forEachSquare(function(square){
+    square.drawBorder();
   });
 }
 
@@ -251,10 +260,11 @@ Board.prototype.identifySquareByCoords = function(x, y){
 }
 
 Board.prototype.identifySquareByCoordsPosition = function(x, y){
+
   var findPosition = function(coord, canvasSize, squareSize){
     var position = 0;
-    for(var width=squareSize; width<canvasSize; width+=squareSize){
-      if(coord > width){
+    for(var length=squareSize; length<canvasSize; length+=squareSize){
+      if(coord > length){
         position++;
       }else{
         break;
