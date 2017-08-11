@@ -50,11 +50,13 @@ function Board(container, type){
   this.currentSquare = null;
 
   this.clickLayer.addEventListener("mousemove", function(event){
-    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
+    var x = event.offsetX;
+    var y = event.offsetY;
+    var square = this.getSquareByCoords(x, x);
     if(square){
       square.onHover();
-      if(square !== this.currentSquare){
-        if(this.currentSquare) this.currentSquare.onLeave();
+      if(this.currentSquare && square !== this.currentSquare){
+        if(this.currentSquare.isWithin(x,y)) this.currentSquare.onLeave();
         square.onEnter();
       }
       this.currentSquare = square;
