@@ -32,9 +32,20 @@ function Board(container){
     console.log("coordinates: " + square.coordinates.x + "/" + square.coordinates.y);
   }
 
+  this.onSquareHover = function(square){
+    console.log("Clicked Square");
+    console.log("Position: " + square.position.x + "/" + square.position.y);
+    console.log("coordinates: " + square.coordinates.x + "/" + square.coordinates.y);
+  }
+
   this.clickLayer.addEventListener("click", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
     if(square) this.onSquareClick(square);
+  }.bind(this));
+
+  this.clickLayer.addEventListener("mousemove", function(event){
+    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
+    if(square) this.onSquareHover(square);
   }.bind(this));
 }
 
@@ -194,7 +205,6 @@ Board.prototype.getSquareByCoords = function(x, y){
       return square;
     }
   });
-
   return foundSquare;
 }
 
