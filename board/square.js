@@ -27,8 +27,12 @@ function Square(drawContext, imageContext, coords, position, width, height, bord
 
   this.center = {x: coords.x + width/2, y: coords.y + height/2}
 
-  this.onClick = function(){};
-  this.onHover = function(){};
+  var emptyFunction = function(){};
+
+  this.onClick = emptyFunction;
+  this.onHover = emptyFunction;
+  this.onEnter = emptyFunction;
+  this.onLeave = emptyFunction;
 
   this.style = {
     image: null,

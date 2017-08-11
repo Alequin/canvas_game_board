@@ -47,10 +47,18 @@ function Board(container, type){
     if(square) square.onClick();
   }.bind(this));
 
+  this.currentSquare = null;
+
   this.clickLayer.addEventListener("mousemove", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
     if(square) square.onHover();
+    if(square !== this.currentSquare){
+      if(this.currentSquare) this.currentSquare.onLeave();
+      if(square) square.onEnter();
+    }
+    this.currentSquare = square;
   }.bind(this));
+
 }
 
 function createInnerContainer(container){
@@ -114,6 +122,24 @@ Board.prototype.draw = function(){
 Board.prototype.setOnSquareClick = function(callBack){
   this.forEachSquare(function(square){
     square.onClick = callBack;
+  });
+}
+
+Board.prototype.setOnSquareHover = function(callBack){
+  this.forEachSquare(function(square){
+    square.onHover = callBack;
+  });
+}
+
+Board.prototype.setOnSquareEnter = function(callBack){
+  this.forEachSquare(function(square){
+    square.onEnter = callBack;
+  });
+}
+
+Board.prototype.setOnSquareLeave = function(callBack){
+  this.forEachSquare(function(square){
+    square.onLeave = callBack;
   });
 }
 

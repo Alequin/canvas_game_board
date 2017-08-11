@@ -1,25 +1,21 @@
 window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");
-  var board = makeStructureBoard(boardContainer, 10, 10, "black", "white");
+  var board = makeFreeFormBoard(boardContainer, 10, 10, "black", "white");
 
-  // board.generateSquares(10, 10, "black", "white");
-  // console.log(board);
-  // var square1 = makeSqaureFromCenter(board.drawContext, board.imageContext, {x: 250, y: 250}, {x: 0, y: 0}, 50, 50, "black", "white")
-  //
-  // var row = [];
-  // row.push(square1);
-  // board.squares.push(row);
+  var square1 = makeSqaureFromCenter(board.drawContext, board.imageContext, {x: 250, y: 250}, {x: 0, y: 0}, 50, 50, "black", "white")
+
+  var row = [];
+  row.push(square1);
+  board.squares.push(row);
 
   console.log(board.squares);
 
-  var square = board.getSquareByPosition(0,0);
-  console.log(square);
-  square.onClick = function(){
-    console.log("clicked");
-  };
+  board.setOnSquareEnter(function(){
+    console.log(this.center);
+  });
 
-  board.setOnSquareClick(function(){
+  board.setOnSquareLeave(function(){
     console.log(this.center);
   });
 
