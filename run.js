@@ -11,8 +11,16 @@ window.addEventListener("load", function(){
   // row.push(square1);
   // board.squares.push(row);
 
+  console.log(board.squares);
+
+  var square = board.getSquareByPosition(0,0);
+  console.log(square);
+  square.onClick = function(){
+    console.log("clicked");
+  };
+
   board.setOnSquareClick(function(){
-    console.log(this);
+    console.log(this.center);
   });
 
   board.draw();

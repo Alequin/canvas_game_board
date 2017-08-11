@@ -164,7 +164,7 @@ Board.prototype.getSquareByPosition = function(column, row){
 Board.prototype.isPositionValid = function(column, row){
 
   var isBetween = function(val, min, max){
-    return (val > min && val < max);
+    return (val >= min && val < max);
   }
 
   return (
