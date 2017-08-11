@@ -27,6 +27,8 @@ function Square(drawContext, imageContext, coords, position, width, height, bord
 
   this.center = {x: coords.x + width/2, y: coords.y + height/2}
 
+  this.onClick = null;
+
   this.data = {
     image: null,
     imageSize: 1,

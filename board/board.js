@@ -42,21 +42,9 @@ function Board(container, type){
 
   this.savedStates = {};
 
-  this.onSquareClick = function(square){
-    console.log("Clicked Square");
-    console.log("Position: " + square.position.x + "/" + square.position.y);
-    console.log("coordinates: " + square.coordinates.x + "/" + square.coordinates.y);
-  }
-
-  this.onSquareHover = function(square){
-    console.log("Clicked Square");
-    console.log("Position: " + square.position.x + "/" + square.position.y);
-    console.log("coordinates: " + square.coordinates.x + "/" + square.coordinates.y);
-  }
-
   this.clickLayer.addEventListener("click", function(event){
     var sqaure = this.getSquareByPositionByCoords(event.offsetX, event.offsetY);
-    if(square) this.onSquareClick(square);
+    if(square) square.onClick();
   }.bind(this));
 
   this.clickLayer.addEventListener("mousemove", function(event){
