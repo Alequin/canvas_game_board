@@ -11,6 +11,10 @@ window.addEventListener("load", function(){
   // row.push(square1);
   // board.squares.push(row);
 
+  board.setOnSquareClick(function(){
+    console.log(this);
+  });
+
   board.draw();
 
   // board.onSquareClick = onSquareClick;

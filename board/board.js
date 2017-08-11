@@ -43,13 +43,13 @@ function Board(container, type){
   this.savedStates = {};
 
   this.clickLayer.addEventListener("click", function(event){
-    var sqaure = this.getSquareByPositionByCoords(event.offsetX, event.offsetY);
+    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
     if(square) square.onClick();
   }.bind(this));
 
   this.clickLayer.addEventListener("mousemove", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-    if(square) square.onHover(square);
+    if(square) square.onHover();
   }.bind(this));
 }
 
@@ -112,7 +112,9 @@ Board.prototype.draw = function(){
 }
 
 Board.prototype.setOnSquareClick = function(callBack){
-  onSquareClick = callBack;
+  this.forEachSquare(function(square){
+    square.onClick = callBack;
+  });
 }
 
 Board.prototype.cloneSquares = function(squares){
