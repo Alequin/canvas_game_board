@@ -49,7 +49,7 @@ function Board(container, type){
 
   this.clickLayer.addEventListener("mousemove", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-    if(square) this.onSquareHover(square);
+    if(square) square.onHover(square);
   }.bind(this));
 }
 
