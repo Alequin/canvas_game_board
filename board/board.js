@@ -61,7 +61,7 @@ function Board(container, type){
         square.onEnter();
       }
     }
-    if(!square && this.currentSquare){
+    if( this.currentSquare && ((!square && this.currentSquare) || (square !== this.currentSquare)) ){
       this.currentSquare.onLeave();
     }
     this.currentSquare = square;
