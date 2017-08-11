@@ -91,6 +91,7 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
 
 Board.prototype.draw = function(){
   this.forEachSquare(function(square){
+    console.log("draw");
     square.draw();
   });
 }
