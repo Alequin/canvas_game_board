@@ -251,11 +251,10 @@ Board.prototype.identifySquareByCoords = function(x, y){
 }
 
 Board.prototype.identifySquareByCoordsPosition = function(x, y){
-
   var findPosition = function(coord, canvasSize, squareSize){
     var position = 0;
-    for(var length=squareSize; length<canvasSize; length+=squareSize){
-      if(coord > length){
+    for(var width=squareSize; width<canvasSize; width+=squareSize){
+      if(coord > width){
         position++;
       }else{
         break;
