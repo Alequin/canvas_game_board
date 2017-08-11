@@ -6,7 +6,7 @@ window.addEventListener("load", function(){
   // board.generateSquares(10, 10, "black", "white");
 
   var square1 = makeSqaureFromCenter(board.drawContext, board.imageContext, {x: 250, y: 250}, {x: 0, y: 0}, 50, 50, "black", "white")
-  console.log(square1);
+  
 
   var row = [];
   row.push(square1);

@@ -189,10 +189,9 @@ Board.prototype.getSquareBottomRight = function(amount, column, row){
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
-  var foundSquare = null;
-  this.forEachSquare(function(square){
+  var foundSquare = this.forEachSquare(function(square){
     if(square.isWithin(x,y)){
-      foundSquare = square;
+      return square;
     }
   });
 
@@ -202,7 +201,9 @@ Board.prototype.getSquareByCoords = function(x, y){
 Board.prototype.forEachSquare = function(callBack){
   for(var row of this.squares){
     for(var square of row){
-      callBack(square);
+      if(callBack(square)){
+        return square;
+      };
     }
   }
 }
