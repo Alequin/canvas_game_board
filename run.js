@@ -1,16 +1,15 @@
 window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");
-  var board = new Board(boardContainer);
+  var board = makeStructureBoard(boardContainer, 10, 10, "black", "white");
 
   // board.generateSquares(10, 10, "black", "white");
-
-  var square1 = makeSqaureFromCenter(board.drawContext, board.imageContext, {x: 250, y: 250}, {x: 0, y: 0}, 50, 50, "black", "white")
-  
-
-  var row = [];
-  row.push(square1);
-  board.squares.push(row);
+  // console.log(board);
+  // var square1 = makeSqaureFromCenter(board.drawContext, board.imageContext, {x: 250, y: 250}, {x: 0, y: 0}, 50, 50, "black", "white")
+  //
+  // var row = [];
+  // row.push(square1);
+  // board.squares.push(row);
 
   board.draw();
 

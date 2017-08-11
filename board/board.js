@@ -2,7 +2,8 @@ var freeForm = "freeForm";
 var structured = "structured";
 
 function makeFreeFormBoard(container){
-  var board =  new Board(container, structured);
+  var board =  new Board(container, freeForm);
+  return board;
 }
 
 function makeStructureBoard(container, xCount, yCount, border, fill){
@@ -215,8 +216,8 @@ Board.prototype.getSquareBottomRight = function(amount, column, row){
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
-  if(type === freeForm) return identifySquareByCoords(x, y);
-  if(type === structured) return identifySquareByCoordsPosition(x, y);
+  if(this.type === freeForm) return this.identifySquareByCoords(x, y);
+  if(this.type === structured) return this.identifySquareByCoordsPosition(x, y);
 }
 
 Board.prototype.identifySquareByCoords = function(x, y){
