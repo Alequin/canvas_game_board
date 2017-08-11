@@ -1,16 +1,16 @@
-function makeSqaureFromCorner(drawContext, imageContext, coords, position, width, height, borderColour, fillColour){
-  return new Square(drawContext, imageContext, coords, position, width, height, borderColour, fillColour);
+function makeSqaureFromCorner(board, coords, position, width, height, borderColour, fillColour){
+  return new Square(board, coords, position, width, height, borderColour, fillColour);
 }
 
-function makeSqaureFromCenter(drawContext, imageContext, center, position, width, height, borderColour, fillColour){
+function makeSqaureFromCenter(board, center, position, width, height, borderColour, fillColour){
   var coords = {x: center.x-width/2, y: center.y-height/2};
-  return new Square(drawContext, imageContext, coords, position, width, height, borderColour, fillColour);
+  return new Square(board, coords, position, width, height, borderColour, fillColour);
 }
 
-function Square(drawContext, imageContext, coords, position, width, height, borderColour, fillColour){
+function Square(board, coords, position, width, height, borderColour, fillColour){
 
-  this.drawContext = drawContext;
-  this.imageContext = imageContext;
+  this.drawContext = board.drawContext;
+  this.imageContext = board.imageContext;
 
   coords.x = Math.floor(coords.x);
   coords.y = Math.floor(coords.y);

@@ -106,7 +106,7 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
     for(var y=0; y<this.height; y+=squareHeight){
       var coords = {x: x, y: y};
       var position = {x: xPos, y: row.length};
-      var nextSquare = new Square(this.drawContext, this.imageContext, coords, position, squareWidth, squareHeight, border, fill);
+      var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);
       row.push(nextSquare);
     }
   }
