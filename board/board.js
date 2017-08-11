@@ -51,12 +51,15 @@ function Board(container, type){
 
   this.clickLayer.addEventListener("mousemove", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-    if(square) square.onHover();
-    if(square !== this.currentSquare){
-      if(this.currentSquare) this.currentSquare.onLeave();
-      if(square) square.onEnter();
+    if(square){
+      square.onHover();
+      if(square !== this.currentSquare){
+        if(this.currentSquare) this.currentSquare.onLeave();
+        square.onEnter();
+      }
+      this.currentSquare = square;
     }
-    this.currentSquare = square;
+
   }.bind(this));
 
 }
