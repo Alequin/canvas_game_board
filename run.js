@@ -14,7 +14,7 @@ window.addEventListener("load", function(){
 
   board.draw();
 
-  board.onSquareClick = onSquareClick;
+  // board.onSquareClick = onSquareClick;
 });
 
 function onSquareClick(square){

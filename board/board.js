@@ -34,7 +34,7 @@ function Board(container){
 
   this.clickLayer.addEventListener("click", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-    this.onSquareClick(square);
+    if(square) this.onSquareClick(square);
   }.bind(this));
 }
 
@@ -189,23 +189,15 @@ Board.prototype.getSquareBottomRight = function(amount, column, row){
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
-
-  var findPosition = function(coord, canvasSize, squareSize){
-    var position = 0;
-    for(var width=squareSize; width<canvasSize; width+=squareSize){
-      if(coord > width){
-        position++;
-      }else{
-        break;
-      }
+  var foundSquare = null;
+  this.forEachSquare(function(square){
+    if(square.isWithin(x,y)){
+      foundSquare = square;
     }
-    return position;
-  }
+  });
 
-  var row = findPosition(y, this.height, this.height / this.ySquareCount);
-  var column = findPosition(x, this.width, this.width / this.xSquareCount);
-  return this.getSquare(column, row);
-};
+  return foundSquare;
+}
 
 Board.prototype.forEachSquare = function(callBack){
   for(var row of this.squares){
