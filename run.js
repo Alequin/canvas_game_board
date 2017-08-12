@@ -4,9 +4,7 @@ window.addEventListener("load", function(){
   var board = makeStructureBoard(boardContainer, 10, 10, "black", "white");
   board.draw();
 
-  var square = board.getSquareByCoords(25,25);
-
-  square.onClick = logSquare;
+  board.setOnSquareClick(onSquareClick);
 });
 
 function logSquare(board, square){

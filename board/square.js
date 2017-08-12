@@ -143,6 +143,11 @@ Square.prototype.clone = function(){
     null
   );
 
+  newSquare.onClick = this.onClick;
+  newSquare.onHover = this.onHover;
+  newSquare.onEnter = this.onEnter;
+  newSquare.onLeave = this.onLeave;
+
   newSquare.drawContext = this.drawContext;
   newSquare.imageContext = this.imageContext;
 
