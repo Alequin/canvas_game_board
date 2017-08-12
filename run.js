@@ -2,6 +2,9 @@ window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");
   var board = makeStructureBoard(boardContainer, 10, 10, "black", "white");
+
+  board.translate(250, 250);
+
   board.draw();
 
   // board.setOnSquareClick(onSquareClick);

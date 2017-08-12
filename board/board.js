@@ -34,6 +34,7 @@ function Board(container, type){
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");
   this.clickContext = this.clickLayer.getContext("2d");
+  this.layersContexts = [this.drawContext, this.imageContext, this.clickContext];
 
   this.drawContext.lineWidth = 1;
 
@@ -65,7 +66,7 @@ function Board(container, type){
     if( this.currentSquare && ( (!square && this.currentSquare) || (square !== this.currentSquare) ) ){
       this.currentSquare.onLeave(this, this.currentSquare);
     }
-    
+
     this.currentSquare = square;
   }.bind(this));
 
@@ -140,6 +141,12 @@ Board.prototype.drawBorder = function(){
   this.forEachSquare(function(square){
     square.drawBorder();
   });
+}
+
+Board.prototype.translate = function(x, y){
+  for(var canvas of this.layersContexts){
+    canvas.translate(x, y);
+  }
 }
 
 Board.prototype.setOnSquareClick = function(callBack){
