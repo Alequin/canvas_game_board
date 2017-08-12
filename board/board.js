@@ -56,20 +56,22 @@ function Board(container, type){
     var y = event.offsetY;
     var square = this.getSquareByCoords(x, y);
     if(square){
-      square.onHover();
+      square.onHover(this, square);
       if(square !== this.currentSquare){
-        square.onEnter();
+        square.onEnter(this, square);
       }
     }
-    if( this.currentSquare && ((!square && this.currentSquare) || (square !== this.currentSquare)) ){
-      this.currentSquare.onLeave();
+
+    if( this.currentSquare && ( (!square && this.currentSquare) || (square !== this.currentSquare) ) ){
+      this.currentSquare.onLeave(this, this.currentSquare);
     }
+    
     this.currentSquare = square;
   }.bind(this));
 
   this.clickLayer.addEventListener("mouseout", function(event){
     if(this.currentSquare){
-      this.currentSquare.onLeave();
+      this.currentSquare.onLeave(this, this.currentSquare);
       this.currentSquare = null;
     }
   }.bind(this));
