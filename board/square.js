@@ -127,26 +127,27 @@ Square.prototype.isWithin = function(x, y){
 }
 
 Square.prototype.clone = function(){
-  var newSqaure = new Square(
+  var newSquare = new Square(
     this.drawContext,
     this.imageContext,
     this.coordinates,
     this.position,
     this.width,
     this.height,
-    this.style.borderColour,
-    this.style.fillColour
+    null,
+    null
   );
 
-  newSqaure.data = this.cloneData(this.data);
+  newSquare.style = this.cloneObject(this.style);
+  newSquare.data = this.cloneObject(this.data);
 
-  return newSqaure;
+  return newSquare;
 }
 
-Square.prototype.cloneData = function(data){
-  var newData = {};
-  for(var key of Object.keys(data)){
-    newData[key] = data[key];
+Square.prototype.cloneObject = function(object){
+  var newObject = {};
+  for(var key of Object.keys(object)){
+    newObject[key] = object[key];
   }
-  return newData;
+  return newObject;
 }
