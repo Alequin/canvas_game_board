@@ -27,12 +27,10 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.center = {x: coords.x + width/2, y: coords.y + height/2}
 
-  var emptyFunction = function(){};
-
-  this.onClick = emptyFunction;
-  this.onHover = emptyFunction;
-  this.onEnter = emptyFunction;
-  this.onLeave = emptyFunction;
+  this.onClick = this.initialEvent;
+  this.onHover = this.initialEvent;
+  this.onEnter = this.initialEvent;
+  this.onLeave = this.initialEvent;
 
   this.style = {
     image: null,
@@ -45,6 +43,8 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.squareSpace = 1.25;
 }
+
+Square.prototype.initialEvent = function(board, square){}
 
 Square.prototype.draw = function(){
   this.drawFill();
