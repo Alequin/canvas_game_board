@@ -3,39 +3,23 @@ window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
   var board = makeStructureBoard(boardContainer, 10, 10, "black", "white");
   board.draw();
-  // var square1 = makeSqaureFromCenter(board, {x: 250, y: 250}, {x: 0, y: 0}, 50, 50, "black", "white")
-  //
-  // var row = [];
-  // row.push(square1);
-  // board.squares.push(row);
-  //
-  // console.log(board.squares);
-  //
-  board.setOnSquareEnter(function(){
-    console.log(this.center);
-  });
 
-  board.setOnSquareLeave(function(){
-    console.log(this.center);
-  });
+  board.setOnSquareClick(onSquareClick);
 
-  // board.draw();
-
-  // board.onSquareClick = onSquareClick;
 });
 
-function onSquareClick(square){
+function onSquareClick(board, square){
 
   if(square.position.x === 8  && square.position.y === 9){
-    this.addSavedState("save");
+    board.addSavedState("save");
     return;
   }
   if(square.position.x === 9  && square.position.y === 9){
-    this.loadSavedState("save");
+    board.loadSavedState("save");
     return;
   }
 
-  square.data.borderColour = "orange";
+  square.style.borderColour = "orange";
   square.addImage("cat.png", 1);
   square.draw();
 }

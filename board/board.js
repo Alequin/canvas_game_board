@@ -46,7 +46,7 @@ function Board(container, type){
 
   this.clickLayer.addEventListener("click", function(event){
     var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-    if(square) square.onClick();
+    if(square) square.onClick(this, square);
   }.bind(this));
 
   this.currentSquare = null;
