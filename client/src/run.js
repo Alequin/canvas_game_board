@@ -9,15 +9,15 @@ window.addEventListener("load", function(){
 
   var square = board.getSquareByPosition(0, 0);
 
-  square.handleClick = function(){
-    console.log("click");
+  square.handleEnter = function(){
+    console.log("enter");
   }
-  square.handleHover = function(){
-    console.log("hover");
+  square.handleLeave = function(){
+    console.log("leave");
   }
 
-  board.events.activateOnClick();
-  board.events.activateOnHover();
+  board.events.activateOnEnter();
+  board.events.activateOnLeave();
 });
 
 function logSquare(board, square){

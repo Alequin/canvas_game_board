@@ -23,6 +23,16 @@ BoardEvents.prototype.activateOnHover = function(){
   this.isHoverActive = true;
 }
 
+BoardEvents.prototype.activateOnEnter = function(){
+  if(!this.canvas.onmousemove) this.setOnMouseMove();
+  this.isEnterActive = true;
+}
+
+BoardEvents.prototype.activateOnLeave = function(){
+  if(!this.canvas.onmousemove) this.setOnMouseMove();
+  this.isLeaveActive = true;
+}
+
 BoardEvents.prototype.setOnMouseMove = function(){
   this.canvas.onmousemove = function(event){
     var square = this.board.getSquareByCoords(event.offsetX, event.offsetY);
