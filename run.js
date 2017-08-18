@@ -1,10 +1,11 @@
 window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");
-  var board = makeStructureBoard(boardContainer, 10, 10, "black", "white");
+  var board = new Board(boardContainer);
+  board.generateSquares(10, 10, "black", "white");
   board.draw();
 
-  // board.setOnSquareClick(onSquareClick);
+  board.setOnSquareClick(onSquareClick);
 });
 
 function logSquare(board, square){

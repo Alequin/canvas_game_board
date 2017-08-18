@@ -1,20 +1,5 @@
-var freeForm = "freeForm";
-var structured = "structured";
 
-function makeFreeFormBoard(container){
-  var board =  new Board(container, freeForm);
-  return board;
-}
-
-function makeStructureBoard(container, xCount, yCount, border, fill){
-  var board =  new Board(container, structured);
-  board.generateSquares(xCount, yCount, border, fill);
-  return board;
-}
-
-function Board(container, type){
-
-  this.type = type;
+function Board(container){
 
   container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
 
@@ -132,7 +117,6 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
 
 Board.prototype.draw = function(){
   this.forEachSquare(function(square){
-    console.log("draw");
     square.draw();
   });
 }
@@ -262,36 +246,22 @@ Board.prototype.getSquareBottomRight = function(amount, column, row){
 };
 
 Board.prototype.getSquareByCoords = function(x, y){
-  if(this.type === freeForm) return this.identifySquareByCoords(x, y);
-  if(this.type === structured) return this.identifySquareByCoordsPosition(x, y);
-}
 
-Board.prototype.identifySquareByCoords = function(x, y){
-  var foundSquare = this.forEachSquare(function(square){
-    if(square.isWithin(x,y)){
-      return square;
-    }
-  });
-  return foundSquare;
-}
-
-Board.prototype.identifySquareByCoordsPosition = function(x, y){
-
-  var findPosition = function(coord, canvasSize, squareSize){
-    var position = 0;
-    for(var length=squareSize; length<canvasSize; length+=squareSize){
-      if(coord > length){
-        position++;
-      }else{
-        break;
+    var findPosition = function(coord, canvasSize, squareSize){
+      var position = 0;
+      for(var length=squareSize; length<canvasSize; length+=squareSize){
+        if(coord > length){
+          position++;
+        }else{
+          break;
+        }
       }
+      return position;
     }
-    return position;
-  }
 
-  var row = findPosition(y, this.height, this.height / this.ySquareCount);
-  var column = findPosition(x, this.width, this.width / this.xSquareCount);
-  return this.getSquareByPosition(column, row);
+    var row = findPosition(y, this.height, this.height / this.ySquareCount);
+    var column = findPosition(x, this.width, this.width / this.xSquareCount);
+    return this.getSquareByPosition(column, row);
 }
 
 Board.prototype.forEachSquare = function(callBack){
