@@ -12,8 +12,8 @@ function Square(board, coords, position, width, height, borderColour, fillColour
   this.drawContext = board.drawContext;
   this.imageContext = board.imageContext;
 
-  coords.x = Math.floor(coords.x);
-  coords.y = Math.floor(coords.y);
+  coords.x = coords.x;
+  coords.y = coords.y;
 
   this.coordinates = coords;
   this.position = position;
