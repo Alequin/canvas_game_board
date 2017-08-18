@@ -55,18 +55,6 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   }
 }
 
-Board.prototype.draw = function(){
-  this.forEachSquare(function(square){
-    square.draw();
-  });
-}
-
-Board.prototype.drawBorder = function(){
-  this.forEachSquare(function(square){
-    square.drawBorder();
-  });
-}
-
 Board.prototype.translate = function(x, y){
   for(var canvas of this.layersContexts){
     canvas.translate(x, y);
