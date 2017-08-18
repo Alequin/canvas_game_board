@@ -8,8 +8,12 @@ window.addEventListener("load", function(){
   board.draw();
 
   var square = board.getSquareByPosition(0, 0);
+
   square.handleClick = function(){
-    console.log("hey ho");
+    console.log("click");
+  }
+  square.handleHover = function(){
+    console.log("hover");
   }
 
   board.events.activateOnClick();
