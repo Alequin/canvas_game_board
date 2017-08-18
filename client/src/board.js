@@ -7,10 +7,8 @@ function Board(container){
 
   this.innerContainer = createInnerContainer(container);
 
-  var min = Math.min(this.innerContainer.offsetWidth, this.innerContainer.offsetHeight);
-
   this.width = this.innerContainer.offsetWidth;
-  this.height = min;
+  this.height = this.innerContainer.offsetHeight;
 
   var canvases = createCanvases(this.innerContainer, this.width, this.height);
 
