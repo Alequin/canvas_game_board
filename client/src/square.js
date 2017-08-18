@@ -1,8 +1,8 @@
-function makeSqaureFromCorner(board, coords, position, width, height, borderColour, fillColour){
+function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
   return new Square(board, coords, position, width, height, borderColour, fillColour);
 }
 
-function makeSqaureFromCenter(board, center, position, width, height, borderColour, fillColour){
+function makeSquareFromCenter(board, center, position, width, height, borderColour, fillColour){
   var coords = {x: center.x-width/2, y: center.y-height/2};
   return new Square(board, coords, position, width, height, borderColour, fillColour);
 }
@@ -27,10 +27,10 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.center = {x: coords.x + width/2, y: coords.y + height/2}
 
-  this.onClick = this.initialEvent;
-  this.onHover = this.initialEvent;
-  this.onEnter = this.initialEvent;
-  this.onLeave = this.initialEvent;
+  this.handleClick = null;
+  this.handleHover = null;
+  this.handleEnter = null;
+  this.handleLeave = null;
 
   this.style = {
     image: null,
@@ -43,8 +43,6 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.squareSpace = 1.25;
 }
-
-Square.prototype.initialEvent = function(board, square){}
 
 Square.prototype.draw = function(){
   this.drawFill();
@@ -143,10 +141,10 @@ Square.prototype.copy = function(){
     null
   );
 
-  newSquare.onClick = this.onClick;
+  newSquare.onClick = this.handleClick;
   newSquare.onHover = this.onHover;
   newSquare.onEnter = this.onEnter;
-  newSquare.onLeave = this.onLeave;
+  newSquare.onLeave = this.handleLeave;
 
   newSquare.drawContext = this.drawContext;
   newSquare.imageContext = this.imageContext;
