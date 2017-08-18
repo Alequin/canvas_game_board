@@ -1,5 +1,6 @@
 
 var Square = require("./square");
+var BoardEvents = require("./board_events");
 
 function Board(container){
 
@@ -30,12 +31,9 @@ function Board(container){
 
   this.savedStates = {};
 
-  this.clickLayer.addEventListener("click", function(event){
-    var square = this.getSquareByCoords(event.offsetX, event.offsetY);
-    if(square) square.onClick(this, square);
-  }.bind(this));
-
   this.currentSquare = null;
+
+  this.events = new BoardEvents(this);
 
   this.clickLayer.addEventListener("mousemove", function(event){
     var x = event.offsetX;

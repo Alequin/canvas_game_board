@@ -7,7 +7,12 @@ window.addEventListener("load", function(){
   board.generateSquares(10, 10, "black", "white");
   board.draw();
 
-  board.setOnSquareClick(onSquareClick);
+  var square = board.getSquareByPosition(0, 0);
+  square.handleClick = function(){
+    console.log("hey ho");
+  }
+
+  // board.events.activateOnClick();
 });
 
 function logSquare(board, square){
