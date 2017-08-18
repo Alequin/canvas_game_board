@@ -42,30 +42,6 @@ function createInnerContainer(container){
   return innerContainer;
 }
 
-function createCanvases(count, width, height){
-
-  result = []
-
-  for(var j=0; j<count; j++){
-    var canvas = document.createElement("canvas");
-
-    canvas.classList.add("game-board-canvas-x010x");
-
-    canvas.width = width;
-    canvas.height = height;
-
-    result.push(canvas);
-  }
-
-  return result;
-}
-
-function appendCanvases(container, canvases){
-  for(var canvas of canvases){
-    container.appendChild(canvas);
-  }
-}
-
 Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   this.xSquareCount = xCount;
   this.ySquareCount = yCount;
