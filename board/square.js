@@ -126,7 +126,7 @@ Square.prototype.isWithin = function(x, y){
         !(y < this.topLeft.y || y >= this.bottomLeft.y);
 }
 
-Square.prototype.clone = function(){
+Square.prototype.copy = function(){
 
   var emptyBoard = {
     drawContext: null,
@@ -151,13 +151,13 @@ Square.prototype.clone = function(){
   newSquare.drawContext = this.drawContext;
   newSquare.imageContext = this.imageContext;
 
-  newSquare.style = this.cloneObject(this.style);
-  newSquare.data = this.cloneObject(this.data);
+  newSquare.style = this.copyObject(this.style);
+  newSquare.data = this.copyObject(this.data);
 
   return newSquare;
 }
 
-Square.prototype.cloneObject = function(object){
+Square.prototype.copyObject = function(object){
   var newObject = {};
   for(var key of Object.keys(object)){
     newObject[key] = object[key];
