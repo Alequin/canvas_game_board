@@ -103,30 +103,6 @@ Board.prototype.translate = function(x, y){
   }
 }
 
-Board.prototype.setOnSquareClick = function(callBack){
-  this.forEachSquare(function(square){
-    square.onClick = callBack;
-  });
-}
-
-Board.prototype.setOnSquareHover = function(callBack){
-  this.forEachSquare(function(square){
-    square.onHover = callBack;
-  });
-}
-
-Board.prototype.setOnSquareEnter = function(callBack){
-  this.forEachSquare(function(square){
-    square.onEnter = callBack;
-  });
-}
-
-Board.prototype.setOnSquareLeave = function(callBack){
-  this.forEachSquare(function(square){
-    square.onLeave = callBack;
-  });
-}
-
 Board.prototype.cloneSquares = function(squares){
   var clonedSqaures = [];
 
