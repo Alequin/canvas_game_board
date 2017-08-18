@@ -1,3 +1,5 @@
+var Board = require("./board");
+
 window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");

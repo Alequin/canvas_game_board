@@ -164,3 +164,5 @@ Square.prototype.copyObject = function(object){
   }
   return newObject;
 }
+
+module.exports = Square;

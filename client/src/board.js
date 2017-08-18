@@ -1,4 +1,6 @@
 
+var Square = require("./square");
+
 function Board(container){
 
   container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
@@ -273,3 +275,5 @@ Board.prototype.forEachSquare = function(callBack){
     }
   }
 }
+
+module.exports = Board;
