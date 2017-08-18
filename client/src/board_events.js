@@ -4,6 +4,10 @@ function BoardEvents(board, canvas){
   this.canvas = canvas
   this.context = canvas.context;
 
+  this.isHoverActive = false;
+  this.isEnterActive = false;
+  this.isLeaveActive = false;
+
   this.currentSquare = null;
 }
 
@@ -15,23 +19,27 @@ BoardEvents.prototype.activateOnClick = function(){
 };
 
 BoardEvents.prototype.activateOnHover = function(){
-  setOnMouseMove(this.board, this.canvas);
+  if(!this.canvas.onmousemove) setOnMouseMove(this.board, this.canvas);
+  this.isHoverActive = true;
 }
 
 function setOnMouseMove(board, canvas){
   canvas.onmousemove = function(event){
-    console.log("hover");
-    var x = event.offsetX;
-    var y = event.offsetY;
-    var square = board.getSquareByCoords(x, y);
+    var square = board.getSquareByCoords(event.offsetX, event.offsetY);
+    
     if(square){
-      if(square.handleHover)square.handleHover(this, square);
-      if(square !== this.currentSquare){
+
+      if(this.isHoverActive && square.handleHover){
+        square.handleHover(this, square);
+      }
+
+      if(this.isEnterActive && square !== this.currentSquare){
         if(square.handleEnter)square.handleEnter(this, square);
       }
+
     }
 
-    if( this.currentSquare && ( (!square && this.currentSquare) || (square !== this.currentSquare) ) ){
+    if(this.isLeaveActive && this.currentSquare && ( (!square && this.currentSquare) || (square !== this.currentSquare) ) ){
       if(this.currentSquare.handleLeave){
         this.currentSquare.handleLeave(this, this.currentSquare);
       }
