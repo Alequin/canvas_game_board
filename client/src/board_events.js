@@ -12,10 +12,12 @@ function BoardEvents(board, canvas){
 }
 
 BoardEvents.prototype.activateOnClick = function(){
-  this.canvas.onclick = function(event){
-    var square = this.board.getSquareByCoords(event.offsetX, event.offsetY);
-    if(square && square.handleClick) square.handleClick(this.board, square);
-  }.bind(this);
+  if(!this.canvas.onclick){
+    this.canvas.onclick = function(event){
+      var square = this.board.getSquareByCoords(event.offsetX, event.offsetY);
+      if(square && square.handleClick) square.handleClick(this.board, square);
+    }.bind(this);
+  }
 };
 
 BoardEvents.prototype.activateOnHover = function(){
