@@ -20,9 +20,20 @@ BoardEvents.prototype.activateOnClick = function(){
   }
 };
 
+BoardEvents.prototype.disableOnClick = function(){
+  this.canvas.onclick = null;
+};
+
 BoardEvents.prototype.activateOnHover = function(){
   if(!this.canvas.onmousemove) this.setOnMouseMove();
   this.isHoverActive = true;
+}
+
+BoardEvents.prototype.disableOnHover = function(){
+  this.isHoverActive = false;
+  if(this.areAnyMoveEventsActive()){
+    this.canvas.onmousemove = null;
+  }
 }
 
 BoardEvents.prototype.activateOnEnter = function(){
@@ -30,9 +41,30 @@ BoardEvents.prototype.activateOnEnter = function(){
   this.isEnterActive = true;
 }
 
+BoardEvents.prototype.disableOnEnter = function(){
+  this.isEnterActive = false;
+  if(this.areAnyMoveEventsActive()){
+    this.canvas.onmousemove = null;
+  }
+}
+
 BoardEvents.prototype.activateOnLeave = function(){
   if(!this.canvas.onmousemove) this.setOnMouseMove();
   this.isLeaveActive = true;
+}
+
+BoardEvents.prototype.disableOnLeave = function(){
+  this.isLeaveActive = false;
+  if(this.areAnyMoveEventsActive()){
+    this.canvas.onmousemove = null;
+  }
+}
+
+BoardEvents.prototype.disableMouseEvents = function(){
+  this.disableOnClick();
+  this.disableOnHover();
+  this.disableOnEnter();
+  this.disableOnLeave();
 }
 
 BoardEvents.prototype.setOnMouseMove = function(){
@@ -59,6 +91,10 @@ BoardEvents.prototype.setOnMouseMove = function(){
 
     this.currentSquare = square;
   }.bind(this);
+}
+
+BoardEvents.prototype.areAnyMoveEventsActive = function(){
+  return this.isHoverActive || this.isEnterActive || this.isLeaveActive;
 }
 
 module.exports = BoardEvents;

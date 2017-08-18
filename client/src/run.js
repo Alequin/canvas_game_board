@@ -28,6 +28,8 @@ window.addEventListener("load", function(){
 
   board.events.activateOnEnter();
   board.events.activateOnLeave();
+
+  board.events.disableMouseEvents();
 });
 
 function logSquare(board, square){
