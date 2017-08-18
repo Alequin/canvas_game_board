@@ -7,7 +7,7 @@ function Board(container){
 
   container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
-  this.innerContainer = createInnerContainer(container);
+  this.innerContainer = helper.createInnerContainer(container);
 
   this.width = this.innerContainer.offsetWidth;
   this.height = this.innerContainer.offsetHeight;
@@ -33,13 +33,6 @@ function Board(container){
   this.savedStates = {};
 
   this.events = new BoardEvents(this, this.clickLayer);
-}
-
-function createInnerContainer(container){
-  innerContainer = document.createElement("div");
-  container.appendChild(innerContainer);
-  innerContainer.style.height = "inherit";
-  return innerContainer;
 }
 
 Board.prototype.generateSquares = function(xCount, yCount, border, fill){

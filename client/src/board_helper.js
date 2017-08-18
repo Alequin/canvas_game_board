@@ -1,5 +1,13 @@
 function Helper(){}
 
+
+Helper.prototype.createInnerContainer = function(container){
+  innerContainer = document.createElement("div");
+  container.appendChild(innerContainer);
+  innerContainer.style.height = "inherit";
+  return innerContainer;
+}
+
 Helper.prototype.createCanvases = function(count, width, height, className){
 
   result = []
