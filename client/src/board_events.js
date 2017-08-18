@@ -15,11 +15,15 @@ BoardEvents.prototype.activateOnClick = function(){
 };
 
 BoardEvents.prototype.activateOnHover = function(){
-  this.canvas.onmousemove = function(event){
+  setOnMouseMove(this.board, this.canvas);
+}
+
+function setOnMouseMove(board, canvas){
+  canvas.onmousemove = function(event){
     console.log("hover");
     var x = event.offsetX;
     var y = event.offsetY;
-    var square = this.board.getSquareByCoords(x, y);
+    var square = board.getSquareByCoords(x, y);
     if(square){
       if(square.handleHover)square.handleHover(this, square);
       if(square !== this.currentSquare){
