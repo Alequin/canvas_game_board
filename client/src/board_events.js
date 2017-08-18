@@ -51,6 +51,15 @@ BoardEvents.prototype.disableOnEnter = function(){
 BoardEvents.prototype.activateOnLeave = function(){
   if(!this.canvas.onmousemove) this.setOnMouseMove();
   this.isLeaveActive = true;
+
+  if(!this.canvas.onmouseout){
+    this.canvas.onmouseout = function(event){
+      if(this.currentSquare && this.currentSquare.handleLeave){
+        this.currentSquare.handleLeave(this, this.currentSquare);
+        this.currentSquare = null;
+      }
+    }.bind(this);
+  }
 }
 
 BoardEvents.prototype.disableOnLeave = function(){
@@ -58,6 +67,7 @@ BoardEvents.prototype.disableOnLeave = function(){
   if(this.areAnyMoveEventsActive()){
     this.canvas.onmousemove = null;
   }
+  this.canvas.mouseout = null;
 }
 
 BoardEvents.prototype.disableMouseEvents = function(){

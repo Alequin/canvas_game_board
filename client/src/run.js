@@ -9,27 +9,12 @@ window.addEventListener("load", function(){
 
   var square = board.getSquareByPosition(0, 0);
 
-  square.handleClick = function(){
-    console.log("click");
-  }
-  square.handleHover = function(){
-    console.log("hover");
-  }
-
-  board.events.activateOnClick();
-  board.events.activateOnHover();
-
-  square.handleEnter = function(){
-    console.log("enter");
-  }
   square.handleLeave = function(){
     console.log("leave");
   }
 
-  board.events.activateOnEnter();
   board.events.activateOnLeave();
 
-  board.events.disableMouseEvents();
 });
 
 function logSquare(board, square){

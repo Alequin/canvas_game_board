@@ -32,14 +32,6 @@ function Board(container){
   this.savedStates = {};
 
   this.events = new BoardEvents(this, this.clickLayer);
-
-  this.clickLayer.addEventListener("mouseout", function(event){
-    if(this.currentSquare){
-      this.currentSquare.onLeave(this, this.currentSquare);
-      this.currentSquare = null;
-    }
-  }.bind(this));
-
 }
 
 function createInnerContainer(container){
