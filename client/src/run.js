@@ -5,7 +5,10 @@ window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
   var board = new Board(boardContainer);
   board.generateSquares(10, 10, "black", "white");
-  board.draw();
+  board.forEachSquare(function(square){
+    square.draw();
+  })
+
 
   var square = board.getSquareByPosition(0, 0);
 

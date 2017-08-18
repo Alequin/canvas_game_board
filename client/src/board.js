@@ -98,25 +98,6 @@ Board.prototype.removeSavedState = function(key){
   delete this.savedStates[key];
 }
 
-Board.prototype.getSquareByPosition = function(column, row){
-  if(!this.isPositionValid(row, column)){
-    return null;
-  }
-  return this.squares[column][row];
-};
-
-Board.prototype.isPositionValid = function(column, row){
-
-  var isBetween = function(val, min, max){
-    return (val >= min && val < max);
-  }
-
-  return (
-    (isBetween(row, 0, this.xSquareCount)) ||
-    (isBetween(column, 0, this.ySquareCount))
-  )
-}
-
 Board.prototype.getSquareTop = function(amount, column, row){
   return this.getSquareByPosition(column, row-amount);
 };
@@ -148,6 +129,26 @@ Board.prototype.getSquareBottomLeft = function(amount, column, row){
 Board.prototype.getSquareBottomRight = function(amount, column, row){
   return this.getSquareByPosition(column+amount, row+amount);
 };
+
+
+Board.prototype.getSquareByPosition = function(column, row){
+  if(!this.isPositionValid(row, column)){
+    return null;
+  }
+  return this.squares[column][row];
+};
+
+Board.prototype.isPositionValid = function(column, row){
+
+  var isBetween = function(val, min, max){
+    return (val >= min && val < max);
+  }
+
+  return (
+    (isBetween(row, 0, this.xSquareCount)) ||
+    (isBetween(column, 0, this.ySquareCount))
+  )
+}
 
 Board.prototype.getSquareByCoords = function(x, y){
 
