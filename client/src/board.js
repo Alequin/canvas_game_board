@@ -33,21 +33,23 @@ function Board(container){
 
   this.currentSquare = null;
 
-  this.events = new BoardEvents(this);
+  this.events = new BoardEvents(this, this.clickLayer);
 
   this.clickLayer.addEventListener("mousemove", function(event){
     var x = event.offsetX;
     var y = event.offsetY;
     var square = this.getSquareByCoords(x, y);
     if(square){
-      square.onHover(this, square);
+      if(square.handleHover)square.handleHover(this, square);
       if(square !== this.currentSquare){
-        square.onEnter(this, square);
+        if(square.handleEnter)square.handleEnter(this, square);
       }
     }
 
     if( this.currentSquare && ( (!square && this.currentSquare) || (square !== this.currentSquare) ) ){
-      this.currentSquare.onLeave(this, this.currentSquare);
+      if(this.currentSquare.handleLeave){
+        this.currentSquare.handleLeave(this, this.currentSquare);
+      }
     }
 
     this.currentSquare = square;

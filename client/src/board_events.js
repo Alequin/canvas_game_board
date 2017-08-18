@@ -1,15 +1,15 @@
 
-function BoardEvents(board){
+function BoardEvents(board, canvas){
   this.board = board;
-  this.canvas = board.clickLayer;
-  this.context = this.canvas.context;
+  this.canvas = canvas
+  this.context = canvas.context;
 }
 
 BoardEvents.prototype.activateOnClick = function(){
-  this.canvas.addEventListener("click", function(event){
+  this.canvas.onclick = function(event){
     var square = this.board.getSquareByCoords(event.offsetX, event.offsetY);
     if(square && square.handleClick) square.handleClick(this, square);
-  }.bind(this));
+  }.bind(this);
 };
 
 module.exports = BoardEvents;

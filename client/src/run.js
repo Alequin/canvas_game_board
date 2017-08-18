@@ -12,7 +12,7 @@ window.addEventListener("load", function(){
     console.log("hey ho");
   }
 
-  // board.events.activateOnClick();
+  board.events.activateOnClick();
 });
 
 function logSquare(board, square){
