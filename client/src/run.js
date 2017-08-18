@@ -4,7 +4,7 @@ window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");
   var board = new Board(boardContainer);
-  board.generateSquares(10, 10, "black", "white");
+  board.generateSquares(9, 9, "black", "white");
   board.forEachSquare(function(square){
     square.draw();
   })
