@@ -13,6 +13,7 @@ window.addEventListener("load", function(){
   }
 
   board.events.activateOnClick();
+  board.events.activateOnHover();
 });
 
 function logSquare(board, square){

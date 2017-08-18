@@ -31,29 +31,7 @@ function Board(container){
 
   this.savedStates = {};
 
-  this.currentSquare = null;
-
   this.events = new BoardEvents(this, this.clickLayer);
-
-  this.clickLayer.addEventListener("mousemove", function(event){
-    var x = event.offsetX;
-    var y = event.offsetY;
-    var square = this.getSquareByCoords(x, y);
-    if(square){
-      if(square.handleHover)square.handleHover(this, square);
-      if(square !== this.currentSquare){
-        if(square.handleEnter)square.handleEnter(this, square);
-      }
-    }
-
-    if( this.currentSquare && ( (!square && this.currentSquare) || (square !== this.currentSquare) ) ){
-      if(this.currentSquare.handleLeave){
-        this.currentSquare.handleLeave(this, this.currentSquare);
-      }
-    }
-
-    this.currentSquare = square;
-  }.bind(this));
 
   this.clickLayer.addEventListener("mouseout", function(event){
     if(this.currentSquare){
