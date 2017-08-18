@@ -9,7 +9,8 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "cd client && webpack -w"
   },
   "repository": {
     "type": "git",
