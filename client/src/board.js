@@ -103,7 +103,7 @@ Board.prototype.translate = function(x, y){
   }
 }
 
-Board.prototype.cloneSquares = function(squares){
+Board.prototype.copySquares = function(squares){
   var clonedSqaures = [];
 
   for(var row of squares){
@@ -117,7 +117,7 @@ Board.prototype.cloneSquares = function(squares){
 }
 
 Board.prototype.SavedState = function(board){
-  this.squares = board.cloneSquares(board.squares);
+  this.squares = board.copySquares(board.squares);
   this.imageData = board.drawContext.getImageData(0,0,board.width,board.height);
 }
 
@@ -127,7 +127,7 @@ Board.prototype.addSavedState = function(key){
 
 Board.prototype.loadSavedState = function(key){
   var state = this.savedStates[key]
-  this.squares = this.cloneSquares(state.squares);
+  this.squares = this.copySquares(state.squares);
   this.drawContext.putImageData(state.imageData, 0, 0);
 
   this.imageContext.clearRect(0, 0, this.width, this.height);
