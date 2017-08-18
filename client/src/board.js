@@ -4,18 +4,18 @@ var BoardEvents = require("./board_events");
 
 function Board(container){
 
-  container.innerHTML = '<style type="text/css">canvas{position: absolute;}</style>'
+  container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
   this.innerContainer = createInnerContainer(container);
 
   this.width = this.innerContainer.offsetWidth;
   this.height = this.innerContainer.offsetHeight;
 
-  var canvases = createCanvases(this.innerContainer, this.width, this.height);
-
-  this.drawLayer = canvases.drawLayer;
-  this.imageLayer = canvases.imageLayer;
-  this.clickLayer = canvases.clickLayer;
+  var canvases = createCanvases(3, this.width, this.height);
+  this.drawLayer = canvases[0];
+  this.imageLayer = canvases[1];
+  this.clickLayer = canvases[2];
+  appendCanvases(this.innerContainer, canvases);
 
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");
@@ -41,28 +41,28 @@ function createInnerContainer(container){
   return innerContainer;
 }
 
-function createCanvases(container, width, height){
+function createCanvases(count, width, height){
 
-  result = {}
+  result = []
 
-  result.drawLayer = document.createElement("canvas");
-  result.imageLayer = document.createElement("canvas");
-  result.clickLayer = document.createElement("canvas");
+  for(var j=0; j<count; j++){
+    var canvas = document.createElement("canvas");
 
-  var setLayerSize = function(layer){
-    layer.width = width;
-    layer.height = height;
+    canvas.classList.add("game-board-canvas-x010x");
+
+    canvas.width = width;
+    canvas.height = height;
+
+    result.push(canvas);
   }
 
-  setLayerSize(result.drawLayer);
-  setLayerSize(result.imageLayer);
-  setLayerSize(result.clickLayer);
-
-  container.appendChild(result.drawLayer);
-  container.appendChild(result.imageLayer);
-  container.appendChild(result.clickLayer);
-
   return result;
+}
+
+function appendCanvases(container, canvases){
+  for(var canvas of canvases){
+    container.appendChild(canvas);
+  }
 }
 
 Board.prototype.generateSquares = function(xCount, yCount, border, fill){
