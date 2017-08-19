@@ -731,7 +731,6 @@ Animation.prototype.start = function(){
 
 Animation.prototype.run = function(){
   if(this.shouldRunNextFrame()){
-    console.log("run");
     this.frameCallBack();
   }
   requestAnimationFrame(this.run.bind(this));
