@@ -67,12 +67,12 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var FallingSquares = __webpack_require__(16);
+var PlayerSquare = __webpack_require__(17);
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
-  var fall = new FallingSquares(boardContainer);
-  fall.run();
+  var player = new PlayerSquare(boardContainer);
+  player.run();
 });
 
 
@@ -606,17 +606,7 @@ module.exports = new Helper();
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-function randomInt(min, max){
-  return Math.floor(Math.random() * ((max-min)+1) + min);
-}
-
-module.exports = randomInt;
-
-
-/***/ }),
+/* 6 */,
 /* 7 */,
 /* 8 */,
 /* 9 */,
@@ -659,89 +649,90 @@ module.exports = Animation;
 
 /***/ }),
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Board = __webpack_require__(2);
 var Animation = __webpack_require__(14);
-var randomInt = __webpack_require__(6);
 
-function FallingSquares(container){
-  var boardContainer = document.getElementById("game-board");
-  this.board = new Board(boardContainer);
+function PlayerSquare(container){
 
-  this.width = 10;
-  this.height = 10;
-  this.board.generateSquares(this.width, this.height, "black", "white");
+  this.board = new Board(container);
+  this.board.generateSquares(10, 10, "black", "white");
+
+  this.playerColour = "orange";
+  this.currentSquare = this.board.getSquareByPosition(0,0);
+  this.currentSquare.style.borderColour = this.playerColour;
+
   this.board.draw();
-
-  this.fallingSquareColour = "yellow";
-  this.maxFalling = 10;
-  this.currentFalling = 0;
-  this.fallingSquares = [];
 }
 
-FallingSquares.prototype.run = function(){
-  this.startAnimation();
+PlayerSquare.prototype.run = function(){
+  this.initMovements();
+  console.log("out");
 }
 
-FallingSquares.prototype.startAnimation = function(){
-  this.startTime = Date.now();
-  var animation = new Animation(2, this.prepareFrame.bind(this));
-  animation.start();
+PlayerSquare.prototype.initMovements = function(){
+  this.board.clickLayer.setAttribute("tabindex", "1");
+  this.board.clickLayer.focus();
+  this.board.clickLayer.addEventListener("keydown", function(event){
+    var keyPress = event.key;
+    console.log(keyPress);
+    switch(keyPress){
+      case "ArrowUp":
+        this.moveUp();
+      break;
+      case "ArrowLeft":
+        this.moveLeft();
+      break;
+      case "ArrowRight":
+        this.moveRight();
+      break;
+      case "ArrowDown":
+        this.moveDown();
+      break;
+    }
+  }.bind(this));
 }
 
-FallingSquares.prototype.prepareFrame = function(){
-  for(var index in this.fallingSquares){
-    if(this.fallingSquares[index]) this.moveSquareDown(index);
+PlayerSquare.prototype.moveUp = function(){
+  var nextSquare = this.board.getSquareTop(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  this.move(nextSquare);
+}
+
+PlayerSquare.prototype.moveLeft = function(){
+  var nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  this.move(nextSquare);
+}
+
+PlayerSquare.prototype.moveRight = function(){
+  var nextSquare = this.board.getSquareRight(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  this.move(nextSquare);
+}
+
+PlayerSquare.prototype.moveDown = function(){
+  var nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  this.move(nextSquare);
+}
+
+PlayerSquare.prototype.move = function(nextSquare){
+  if(nextSquare){
+    this.currentSquare.remove();
+    nextSquare.remove();
+
+    this.currentSquare.style.borderColour = "black";
+    nextSquare.style.borderColour = this.playerColour;
+
+    this.currentSquare.drawBorder();
+    nextSquare.drawBorder();
+    console.log("run");
+
+    this.currentSquare = nextSquare;
   }
-
-  if(this.currentFalling < this.maxFalling){
-    var newSquare = this.getNewSquare();
-    this.fallingSquares.push(newSquare);
-    this.currentFalling++;
-    newSquare.style.fillColour = this.fallingSquareColour;
-    newSquare.draw();
-  }
 }
 
-FallingSquares.prototype.getNewSquare = function(){
-  var columnIndex = randomInt(0, this.width-1);
-  var newSquare = this.board.getSquareByPosition(columnIndex, 0);
-  return newSquare;
-}
-
-FallingSquares.prototype.moveSquareDown = function(index){
-  var square = this.fallingSquares[index];
-  var nextSquare = this.board.getSquareBottom(1, square.position.x, square.position.y);
-
-  if(!nextSquare){
-    nextSquare = this.getNewSquare();
-  }
-
-  square.remove();
-  nextSquare.remove();
-
-  square.style.fillColour = "white";
-  nextSquare.style.fillColour = this.fallingSquareColour;
-
-  square.drawBorder();
-  nextSquare.draw();
-
-  this.fallingSquares[index] = nextSquare;
-}
-
-FallingSquares.prototype.removeSquare = function(index){
-  var square = this.fallingSquares[index];
-  this.fallingSquares[index] = null;
-  this.currentFalling--;
-
-  square.style.fillColour = "white";
-  square.removeDrawn();
-  square.draw();
-}
-
-module.exports = FallingSquares;
+module.exports = PlayerSquare;
 
 
 /***/ })

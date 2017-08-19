@@ -1,7 +1,7 @@
-var FallingSquares = require("./games/falling_squares/falling_squares");
+var PlayerSquare = require("./games/user_movement/player_square");
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
-  var fall = new FallingSquares(boardContainer);
-  fall.run();
+  var player = new PlayerSquare(boardContainer);
+  player.run();
 });
