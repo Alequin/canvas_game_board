@@ -1,12 +1,14 @@
 var Board = require("./board");
 var randomInt = require("./random");
 
-function MovementSquare(){
+function MovementSquare(colour){
   var boardContainer = document.getElementById("game-board");
   this.board = new Board(boardContainer);
 
   this.board.generateSquares(9, 9, "black", "white");
   this.currentSquare = null;
+
+  this.colour = colour;
 }
 
 MovementSquare.prototype.run = function(){
@@ -15,12 +17,20 @@ MovementSquare.prototype.run = function(){
 
 MovementSquare.prototype.prepareSquare = function(){
   this.currentSquare = this.board.getSquareByPosition(4,4);
-  this.currentSquare.style.fillColour = "red";
+  this.currentSquare.style.fillColour = this.colour;
   this.board.draw();
 }
 
 MovementSquare.prototype.moveSquare = function(){
+  var nextSquare = this.getNextSquare();
 
+  this.currentSquare.style.fillColour = "white";
+  nextSquare.style.fillColour = this.colour;
+
+  this.currentSquare.draw();
+  nextSquare.draw();
+
+  this.currentSquare = nextSquare;
 }
 
 MovementSquare.prototype.getNextSquare = function(){
