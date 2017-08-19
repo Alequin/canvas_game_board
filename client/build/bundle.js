@@ -67,7 +67,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MovementSquare = __webpack_require__(7);
+var MovementSquare = __webpack_require__(15);
 
 window.addEventListener("load", function(){
   var move = new MovementSquare("red", 5, 5);
@@ -613,7 +613,48 @@ module.exports = randomInt;
 
 
 /***/ }),
-/* 7 */
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
+/***/ (function(module, exports) {
+
+
+function Animation(framesPerSecond, frameCallBack){
+  this.interval = 1000/framesPerSecond;
+  this.startTime = 0;
+  this.frameCallBack = frameCallBack;
+}
+
+Animation.prototype.start = function(){
+  this.startTime = Date.now();
+  requestAnimationFrame(this.run.bind(this));
+}
+
+Animation.prototype.run = function(){
+  if(this.shouldRunNextFrame()){
+    this.frameCallBack();
+  }
+  requestAnimationFrame(this.run.bind(this));
+}
+
+Animation.prototype.shouldRunNextFrame = function(){
+  var now = Date.now();
+  elapsed = now - this.startTime;
+  var shouldRun = elapsed >= this.interval;
+  if(shouldRun) this.startTime = now;
+  return shouldRun;
+}
+
+module.exports = Animation;
+
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Board = __webpack_require__(2);
@@ -705,46 +746,6 @@ MovementSquare.prototype.getNextSquare = function(){
 }
 
 module.exports = MovementSquare;
-
-
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
-/***/ (function(module, exports) {
-
-
-function Animation(framesPerSecond, frameCallBack){
-  this.interval = 1000/framesPerSecond;
-  this.startTime = 0;
-  this.frameCallBack = frameCallBack;
-}
-
-Animation.prototype.start = function(){
-  this.startTime = Date.now();
-  requestAnimationFrame(this.run.bind(this));
-}
-
-Animation.prototype.run = function(){
-  if(this.shouldRunNextFrame()){
-    this.frameCallBack();
-  }
-  requestAnimationFrame(this.run.bind(this));
-}
-
-Animation.prototype.shouldRunNextFrame = function(){
-  var now = Date.now();
-  elapsed = now - this.startTime;
-  var shouldRun = elapsed >= this.interval;
-  if(shouldRun) this.startTime = now;
-  return shouldRun;
-}
-
-module.exports = Animation;
 
 
 /***/ })

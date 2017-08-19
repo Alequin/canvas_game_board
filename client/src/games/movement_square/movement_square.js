@@ -1,6 +1,6 @@
-var Board = require("./../board/board");
-var Animation = require("./../animate/animate");
-var randomInt = require("./../other/random");
+var Board = require("./../../board/board");
+var Animation = require("./../../animate/animate");
+var randomInt = require("./../../other/random");
 
 function MovementSquare(colour, width, height){
   var boardContainer = document.getElementById("game-board");
