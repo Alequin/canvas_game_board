@@ -71,7 +71,7 @@ var MovementSquare = __webpack_require__(7);
 
 window.addEventListener("load", function(){
   var move = new MovementSquare("red", 5, 5);
-  move.time = 500;
+  move.interval = 500;
   move.run();
 });
 
@@ -628,15 +628,30 @@ function MovementSquare(colour, width, height){
 
   this.colour = colour;
 
-  this.time = 25;
+  this.interval = 25;
+  this.startTime = null;
+  this.elapsed = null;
 }
 
 MovementSquare.prototype.run = function(){
   this.prepareSquare();
+  this.startAnimation();
+}
 
-  setInterval(function(){
+MovementSquare.prototype.startAnimation = function(){
+  this.startTime = Date.now();
+  requestAnimationFrame(this.animate.bind(this));
+}
+
+MovementSquare.prototype.animate = function(){
+
+  var now = Date.now();
+  elapsed = now - this.startTime;
+  if(elapsed >= this.interval){
+    this.startTime = now;
     this.moveSquare();
-  }.bind(this), this.time);
+  }
+  requestAnimationFrame(this.animate.bind(this));
 }
 
 MovementSquare.prototype.prepareSquare = function(){
