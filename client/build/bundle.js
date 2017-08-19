@@ -682,9 +682,6 @@ function FallingSquares(container){
 }
 
 FallingSquares.prototype.run = function(){
-  for(var j=0; j<this.maxFalling; j++){
-    this.fallingSquares.push(null);
-  }
   this.startAnimation();
 }
 
@@ -700,24 +697,18 @@ FallingSquares.prototype.prepareFrame = function(){
   }
 
   if(this.currentFalling < this.maxFalling){
-    var newSquare = this.addNewSquare();
+    var newSquare = this.getNewSquare();
+    this.fallingSquares.push(newSquare);
     this.currentFalling++;
+    newSquare.style.fillColour = this.fallingSquareColour;
+    newSquare.draw();
   }
 }
 
-FallingSquares.prototype.addNewSquare = function(){
+FallingSquares.prototype.getNewSquare = function(){
   var columnIndex = randomInt(0, this.width-1);
   var newSquare = this.board.getSquareByPosition(columnIndex, 0);
-
-  for(var index in this.fallingSquares){
-    if(!this.fallingSquares[index]){
-      this.fallingSquares[index] = newSquare;
-      break;
-    }
-  }
-
-  newSquare.style.fillColour = this.fallingSquareColour;
-  newSquare.draw();
+  return newSquare;
 }
 
 FallingSquares.prototype.moveSquareDown = function(index){
@@ -725,8 +716,7 @@ FallingSquares.prototype.moveSquareDown = function(index){
   var nextSquare = this.board.getSquareBottom(1, square.position.x, square.position.y);
 
   if(!nextSquare){
-    this.removeSquare(index);
-    return;
+    nextSquare = this.getNewSquare();
   }
 
   square.remove();
@@ -742,9 +732,10 @@ FallingSquares.prototype.moveSquareDown = function(index){
 }
 
 FallingSquares.prototype.removeSquare = function(index){
+  var square = this.fallingSquares[index];
   this.fallingSquares[index] = null;
   this.currentFalling--;
-  
+
   square.style.fillColour = "white";
   square.removeDrawn();
   square.draw();
