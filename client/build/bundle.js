@@ -232,7 +232,7 @@ Board.prototype.isPositionValid = function(column, row){
   }
 
   return (
-    (isBetween(row, 0, this.xSquareCount)) ||
+    (isBetween(row, 0, this.xSquareCount)) &&
     (isBetween(column, 0, this.ySquareCount))
   )
 }
