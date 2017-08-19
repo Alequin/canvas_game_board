@@ -41,7 +41,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.data = {};
 
-  this.squareSpace = 1.25;
+  this.squareSpace = 0.75;
 }
 
 Square.prototype.draw = function(){

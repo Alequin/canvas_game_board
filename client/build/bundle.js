@@ -316,7 +316,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.data = {};
 
-  this.squareSpace = 1.25;
+  this.squareSpace = 0.75;
 }
 
 Square.prototype.draw = function(){
@@ -605,6 +605,8 @@ module.exports = new Helper();
 var Board = __webpack_require__(1);
 var randomInt = __webpack_require__(6);
 
+var count = 0;
+
 function MovementSquare(colour){
   var boardContainer = document.getElementById("game-board");
   this.board = new Board(boardContainer);
@@ -638,6 +640,7 @@ MovementSquare.prototype.moveSquare = function(){
   this.currentSquare.draw();
   nextSquare.draw();
 
+  console.log("pos", nextSquare.position.x, nextSquare.position.y);
   this.currentSquare = nextSquare;
 }
 
@@ -648,19 +651,21 @@ MovementSquare.prototype.getNextSquare = function(){
   var x = this.currentSquare.position.x;
   var y = this.currentSquare.position.y
 
-  switch(randomInt(0, 4)){
-    case 0:
-      nextSquare = this.board.getSquareTop(1, x, y);
-    break;
-    case 1:
-      nextSquare = this.board.getSquareLeft(1, x, y);
-    break;
-    case 2:
-      nextSquare = this.board.getSquareBottom(1, x, y);
-    break;
-    case 3:
-      nextSquare = this.board.getSquareRight(1, x, y);
-    break;
+  while(!nextSquare){
+    switch(randomInt(0, 3)){
+      case 0:
+        nextSquare = this.board.getSquareTop(1, x, y);
+      break;
+      case 1:
+        nextSquare = this.board.getSquareLeft(1, x, y);
+      break;
+      case 2:
+        nextSquare = this.board.getSquareBottom(1, x, y);
+      break;
+      case 3:
+        nextSquare = this.board.getSquareRight(1, x, y);
+      break;
+    }
   }
 
   return nextSquare;
