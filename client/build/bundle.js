@@ -73,7 +73,7 @@ window.addEventListener("load", function(){
 
   var boardContainer = document.getElementById("game-board");
   var board = new Board(boardContainer);
-  board.generateSquares(10, 10, "black", "white");
+  board.generateSquares(9, 9, "black", "white");
   board.forEachSquare(function(square){
     square.draw();
   })
@@ -328,8 +328,8 @@ function Square(board, coords, position, width, height, borderColour, fillColour
   this.drawContext = board.drawContext;
   this.imageContext = board.imageContext;
 
-  coords.x = Math.floor(coords.x);
-  coords.y = Math.floor(coords.y);
+  coords.x = coords.x;
+  coords.y = coords.y;
 
   this.coordinates = coords;
   this.position = position;
