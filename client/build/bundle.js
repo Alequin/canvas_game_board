@@ -70,7 +70,7 @@
 var MovementSquare = __webpack_require__(5);
 
 window.addEventListener("load", function(){
-  var move = new MovementSquare("red", 3, 6);
+  var move = new MovementSquare("red", 20, 20);
   move.run();
 });
 
@@ -123,12 +123,12 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   var squareWidth = this.width / xCount;
   var squareHeight = this.height / yCount;
 
-  for(var x=0; x<=this.width-squareWidth; x+=squareWidth){
+  for(var x=0; x<xCount; x++){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<=this.height-squareHeight; y+=squareHeight){
-      var coords = {x: x, y: y};
+    for(var y=0; y<=yCount; y++){
+      var coords = {x: x*squareWidth, y: y*squareHeight};
       var position = {x: xPos, y: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);
       row.push(nextSquare);
@@ -620,7 +620,7 @@ MovementSquare.prototype.run = function(){
 
   setInterval(function(){
     this.moveSquare();
-  }.bind(this), 250);
+  }.bind(this), 25);
 }
 
 MovementSquare.prototype.prepareSquare = function(){

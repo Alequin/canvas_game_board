@@ -16,7 +16,7 @@ MovementSquare.prototype.run = function(){
 
   setInterval(function(){
     this.moveSquare();
-  }.bind(this), 250);
+  }.bind(this), 25);
 }
 
 MovementSquare.prototype.prepareSquare = function(){

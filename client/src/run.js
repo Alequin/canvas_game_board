@@ -1,6 +1,6 @@
 var MovementSquare = require("./random_movement");
 
 window.addEventListener("load", function(){
-  var move = new MovementSquare("red", 3, 6);
+  var move = new MovementSquare("red", 20, 20);
   move.run();
 });
