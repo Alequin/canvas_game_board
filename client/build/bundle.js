@@ -70,7 +70,7 @@
 var MovementSquare = __webpack_require__(5);
 
 window.addEventListener("load", function(){
-  var move = new MovementSquare("red");
+  var move = new MovementSquare("red", 3, 6);
   move.run();
 });
 
@@ -123,11 +123,11 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   var squareWidth = this.width / xCount;
   var squareHeight = this.height / yCount;
 
-  for(var x=0; x<this.width-squareWidth; x+=squareWidth){
+  for(var x=0; x<=this.width-squareWidth; x+=squareWidth){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<this.height-squareHeight; y+=squareHeight){
+    for(var y=0; y<=this.height-squareHeight; y+=squareHeight){
       var coords = {x: x, y: y};
       var position = {x: xPos, y: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);
@@ -605,13 +605,11 @@ module.exports = new Helper();
 var Board = __webpack_require__(1);
 var randomInt = __webpack_require__(6);
 
-var count = 0;
-
-function MovementSquare(colour){
+function MovementSquare(colour, width, height){
   var boardContainer = document.getElementById("game-board");
   this.board = new Board(boardContainer);
 
-  this.board.generateSquares(9, 9, "black", "white");
+  this.board.generateSquares(width, height, "black", "white");
   this.currentSquare = null;
 
   this.colour = colour;
@@ -626,7 +624,7 @@ MovementSquare.prototype.run = function(){
 }
 
 MovementSquare.prototype.prepareSquare = function(){
-  this.currentSquare = this.board.getSquareByPosition(4,4);
+  this.currentSquare = this.board.getSquareByPosition(0,0);
   this.currentSquare.style.fillColour = this.colour;
   this.board.draw();
 }
@@ -640,7 +638,6 @@ MovementSquare.prototype.moveSquare = function(){
   this.currentSquare.draw();
   nextSquare.draw();
 
-  console.log("pos", nextSquare.position.x, nextSquare.position.y);
   this.currentSquare = nextSquare;
 }
 
