@@ -10,6 +10,7 @@ function MovementSquare(){
 MovementSquare.prototype.run = function(){
   var startSquare = this.board.getSquareByPosition(4,4);
   startSquare.style.fillColour = "red";
+  this.board.draw();
 }
 
 module.exports = MovementSquare;
