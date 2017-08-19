@@ -1,4 +1,5 @@
 var Board = require("./board");
+var randomInt = require("./random");
 
 function MovementSquare(){
   var boardContainer = document.getElementById("game-board");
@@ -20,8 +21,29 @@ MovementSquare.prototype.prepareSquare = function(){
 
 MovementSquare.prototype.moveSquare = function(){
 
+}
 
+MovementSquare.prototype.getNextSquare = function(){
 
+  var nextSquare = null;
+  while(!nextSquare){
+    switch(randomInt(0, 4)){
+      case 0:
+        nextSquare = this.currentSquare.getSquareTop();
+      break;
+      case 1:
+        nextSquare = this.currentSquare.getSquareLeft();
+      break;
+      case 2:
+        nextSquare = this.currentSquare.getSquareBottom();
+      break;
+      case 3:
+        nextSquare = this.currentSquare.getSquareRight();
+      break;
+    }
+  }
+
+  return nextSquare;
 }
 
 module.exports = MovementSquare;

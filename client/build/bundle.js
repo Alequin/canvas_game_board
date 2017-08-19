@@ -604,6 +604,7 @@ module.exports = new Helper();
 /***/ (function(module, exports, __webpack_require__) {
 
 var Board = __webpack_require__(1);
+var randomInt = __webpack_require__(6);
 
 function MovementSquare(){
   var boardContainer = document.getElementById("game-board");
@@ -625,11 +626,43 @@ MovementSquare.prototype.prepareSquare = function(){
 
 MovementSquare.prototype.moveSquare = function(){
 
+}
 
+MovementSquare.prototype.getNextSquare = function(){
 
+  var nextSquare = null;
+  while(!nextSquare){
+    switch(randomInt(0, 4)){
+      case 0:
+        nextSquare = this.currentSquare.getSquareTop();
+      break;
+      case 1:
+        nextSquare = this.currentSquare.getSquareLeft();
+      break;
+      case 2:
+        nextSquare = this.currentSquare.getSquareBottom();
+      break;
+      case 3:
+        nextSquare = this.currentSquare.getSquareRight();
+      break;
+    }
+  }
+
+  return nextSquare;
 }
 
 module.exports = MovementSquare;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+function randomInt(min, max){
+  return Math.floor(Math.random() * ((max-min)+1) + min);
+}
+
+module.exports = randomInt;
 
 
 /***/ })
