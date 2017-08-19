@@ -22,17 +22,6 @@ MovementSquare.prototype.startAnimation = function(){
   animation.start();
 }
 
-MovementSquare.prototype.animate = function(){
-
-  var now = Date.now();
-  elapsed = now - this.startTime;
-  if(elapsed >= this.interval){
-    this.startTime = now;
-    this.moveSquare();
-  }
-  requestAnimationFrame(this.animate.bind(this));
-}
-
 MovementSquare.prototype.prepareSquare = function(){
   this.currentSquare = this.board.getSquareByPosition(0,0);
   this.currentSquare.style.fillColour = this.colour;
