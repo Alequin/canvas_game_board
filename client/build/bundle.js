@@ -617,6 +617,7 @@ module.exports = randomInt;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Board = __webpack_require__(2);
+var Animation = __webpack_require__(14);
 var randomInt = __webpack_require__(6);
 
 function MovementSquare(colour, width, height){
@@ -640,7 +641,8 @@ MovementSquare.prototype.run = function(){
 
 MovementSquare.prototype.startAnimation = function(){
   this.startTime = Date.now();
-  requestAnimationFrame(this.animate.bind(this));
+  var animation = new Animation(2, this.moveSquare.bind(this));
+  animation.start();
 }
 
 MovementSquare.prototype.animate = function(){
@@ -703,6 +705,47 @@ MovementSquare.prototype.getNextSquare = function(){
 }
 
 module.exports = MovementSquare;
+
+
+/***/ }),
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
+/***/ (function(module, exports) {
+
+
+function Animation(framesPerSecond, frameCallBack){
+  this.interval = 1000/framesPerSecond;
+  this.startTime = 0;
+  this.frameCallBack = frameCallBack;
+}
+
+Animation.prototype.start = function(){
+  this.startTime = Date.now();
+  requestAnimationFrame(this.run.bind(this));
+}
+
+Animation.prototype.run = function(){
+  if(this.shouldRunNextFrame()){
+    console.log("run");
+    this.frameCallBack();
+  }
+  requestAnimationFrame(this.run.bind(this));
+}
+
+Animation.prototype.shouldRunNextFrame = function(){
+  var now = Date.now();
+  elapsed = now - this.startTime;
+  var shouldRun = elapsed >= this.interval;
+  if(shouldRun) this.startTime = now;
+  return shouldRun;
+}
+
+module.exports = Animation;
 
 
 /***/ })

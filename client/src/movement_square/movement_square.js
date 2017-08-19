@@ -1,4 +1,5 @@
 var Board = require("./../board/board");
+var Animation = require("./../animate/animate");
 var randomInt = require("./../other/random");
 
 function MovementSquare(colour, width, height){
@@ -22,7 +23,8 @@ MovementSquare.prototype.run = function(){
 
 MovementSquare.prototype.startAnimation = function(){
   this.startTime = Date.now();
-  requestAnimationFrame(this.animate.bind(this));
+  var animation = new Animation(2, this.moveSquare.bind(this));
+  animation.start();
 }
 
 MovementSquare.prototype.animate = function(){
