@@ -70,12 +70,11 @@
 var MovementSquare = __webpack_require__(15);
 
 window.addEventListener("load", function(){
-  var move = new MovementSquare("red", 5, 5);
+  var boardContainer = document.getElementById("game-board");
+  var move = new MovementSquare(boardContainer, "red", 5, 5);
   move.interval = 500;
   move.run();
 });
-
- 
 
 
 /***/ }),
@@ -663,18 +662,13 @@ var Board = __webpack_require__(2);
 var Animation = __webpack_require__(14);
 var randomInt = __webpack_require__(6);
 
-function MovementSquare(colour, width, height){
-  var boardContainer = document.getElementById("game-board");
-  this.board = new Board(boardContainer);
+function MovementSquare(container, colour, width, height){
+  this.board = new Board(container);
 
   this.board.generateSquares(width, height, "black", "white");
   this.currentSquare = null;
 
   this.colour = colour;
-
-  this.interval = 25;
-  this.startTime = null;
-  this.elapsed = null;
 }
 
 MovementSquare.prototype.run = function(){

@@ -2,18 +2,13 @@ var Board = require("./../../board/board");
 var Animation = require("./../../animate/animate");
 var randomInt = require("./../../other/random");
 
-function MovementSquare(colour, width, height){
-  var boardContainer = document.getElementById("game-board");
-  this.board = new Board(boardContainer);
+function MovementSquare(container, colour, width, height){
+  this.board = new Board(container);
 
   this.board.generateSquares(width, height, "black", "white");
   this.currentSquare = null;
 
   this.colour = colour;
-
-  this.interval = 25;
-  this.startTime = null;
-  this.elapsed = null;
 }
 
 MovementSquare.prototype.run = function(){
