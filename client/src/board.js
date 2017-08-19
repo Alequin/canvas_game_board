@@ -42,11 +42,11 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
   var squareWidth = this.width / xCount;
   var squareHeight = this.height / yCount;
 
-  for(var x=0; x<this.width; x+=squareWidth){
+  for(var x=0; x<this.width-squareWidth; x+=squareWidth){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<this.height; y+=squareHeight){
+    for(var y=0; y<this.height-squareHeight; y+=squareHeight){
       var coords = {x: x, y: y};
       var position = {x: xPos, y: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);
