@@ -1,8 +1,7 @@
-var MovementSquare = require("./games/movement_square/movement_square");
+var FallingSquares = require("./games/falling_squares/falling_squares");
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
-  var move = new MovementSquare(boardContainer, "red", 5, 5);
-  move.interval = 500;
-  move.run();
+  var fall = new FallingSquares(boardContainer);
+  fall.run();
 });

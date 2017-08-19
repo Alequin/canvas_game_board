@@ -67,13 +67,12 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MovementSquare = __webpack_require__(15);
+var FallingSquares = __webpack_require__(16);
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
-  var move = new MovementSquare(boardContainer, "red", 5, 5);
-  move.interval = 500;
-  move.run();
+  var fall = new FallingSquares(boardContainer);
+  fall.run();
 });
 
 
@@ -655,82 +654,73 @@ module.exports = Animation;
 
 
 /***/ }),
-/* 15 */
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Board = __webpack_require__(2);
 var Animation = __webpack_require__(14);
 var randomInt = __webpack_require__(6);
 
-function MovementSquare(container, colour, width, height){
-  this.board = new Board(container);
+function FallingSquares(container){
+  var boardContainer = document.getElementById("game-board");
+  this.board = new Board(boardContainer);
 
-  this.board.generateSquares(width, height, "black", "white");
-  this.currentSquare = null;
+  this.width = 10;
+  this.height = 10;
+  this.board.generateSquares(this.width, this.height, "black", "white");
+  this.board.draw();
 
-  this.colour = colour;
+  this.maxFalling = 3;
+  this.fallingSquares = [];
 }
 
-MovementSquare.prototype.run = function(){
-  this.prepareSquare();
+FallingSquares.prototype.run = function(){
   this.startAnimation();
 }
 
-MovementSquare.prototype.startAnimation = function(){
+FallingSquares.prototype.startAnimation = function(){
   this.startTime = Date.now();
-  var animation = new Animation(2, this.moveSquare.bind(this));
+  var animation = new Animation(2, this.prepareFrame.bind(this));
   animation.start();
 }
 
-MovementSquare.prototype.prepareSquare = function(){
-  this.currentSquare = this.board.getSquareByPosition(0,0);
-  this.currentSquare.style.fillColour = this.colour;
-  this.board.draw();
-}
-
-MovementSquare.prototype.moveSquare = function(){
-  var nextSquare = this.getNextSquare();
-
-  this.currentSquare.style.fillColour = "white";
-  nextSquare.style.fillColour = this.colour;
-
-  this.currentSquare.remove();
-  nextSquare.remove();
-
-  this.currentSquare.draw();
-  nextSquare.draw();
-
-  this.currentSquare = nextSquare;
-}
-
-MovementSquare.prototype.getNextSquare = function(){
-
-  var nextSquare = null;
-
-  var x = this.currentSquare.position.x;
-  var y = this.currentSquare.position.y
-
-  while(!nextSquare){
-    switch(randomInt(0, 3)){
-      case 0:
-        nextSquare = this.board.getSquareTop(1, x, y);
-      break;
-      case 1:
-        nextSquare = this.board.getSquareLeft(1, x, y);
-      break;
-      case 2:
-        nextSquare = this.board.getSquareBottom(1, x, y);
-      break;
-      case 3:
-        nextSquare = this.board.getSquareRight(1, x, y);
-      break;
-    }
+FallingSquares.prototype.prepareFrame = function(){
+  for(var index in this.fallingSquares){
+    this.moveSquareDown(index);
   }
 
-  return nextSquare;
+  var currentFalling = this.fallingSquares.length;
+  if(currentFalling < this.maxFalling){
+    var newSquare = this.getNewSquare();
+    this.fallingSquares.push(newSquare);
+    newSquare.style.fillColour = "yellow";
+    newSquare.draw();
+  }
 }
 
-module.exports = MovementSquare;
+FallingSquares.prototype.getNewSquare = function(){
+  var columnIndex = randomInt(0, this.width-1);
+  return this.board.getSquareByPosition(columnIndex, 0);
+}
+
+FallingSquares.prototype.moveSquareDown = function(index){
+  var square = this.fallingSquares[index];
+  var nextSquare = this.board.getSquareBottom(1, square.position.x, square.position.y);
+
+  square.remove();
+  nextSquare.remove();
+
+  square.style.fillColour = "white";
+  nextSquare.style.fillColour = "yellow";
+
+  square.drawBorder();
+  nextSquare.draw();
+
+  this.fallingSquares[index] = nextSquare;
+}
+
+module.exports = FallingSquares;
 
 
 /***/ })
