@@ -177,7 +177,7 @@ Board.prototype.loadSavedState = function(key){
   this.squares = this.copySquares(state.squares);
   this.drawContext.putImageData(state.imageData, 0, 0);
 
-  this.imageContext.clearRect(0, 0, this.width, this.height);
+  this.clearBoard();
   this.forEachSquare(function(square){
     if(square.style.image) square.drawImage();
   });
@@ -185,6 +185,10 @@ Board.prototype.loadSavedState = function(key){
 
 Board.prototype.removeSavedState = function(key){
   delete this.savedStates[key];
+}
+
+Board.prototype.clearBoard = function(){
+  this.imageContext.clearRect(0, 0, this.width, this.height);
 }
 
 Board.prototype.getSquareTop = function(amount, column, row){
