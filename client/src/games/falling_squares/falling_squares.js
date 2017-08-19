@@ -11,11 +11,16 @@ function FallingSquares(container){
   this.board.generateSquares(this.width, this.height, "black", "white");
   this.board.draw();
 
-  this.maxFalling = 3;
+  this.fallingSquareColour = "yellow";
+  this.maxFalling = 10;
+  this.currentFalling = 0;
   this.fallingSquares = [];
 }
 
 FallingSquares.prototype.run = function(){
+  for(var j=0; j<this.maxFalling; j++){
+    this.fallingSquares.push(null);
+  }
   this.startAnimation();
 }
 
@@ -27,32 +32,46 @@ FallingSquares.prototype.startAnimation = function(){
 
 FallingSquares.prototype.prepareFrame = function(){
   for(var index in this.fallingSquares){
-    this.moveSquareDown(index);
+    if(this.fallingSquares[index]) this.moveSquareDown(index);
   }
 
-  var currentFalling = this.fallingSquares.length;
-  if(currentFalling < this.maxFalling){
-    var newSquare = this.getNewSquare();
-    this.fallingSquares.push(newSquare);
-    newSquare.style.fillColour = "yellow";
-    newSquare.draw();
+  if(this.currentFalling < this.maxFalling){
+    var newSquare = this.addNewSquare();
+    this.currentFalling++;
   }
 }
 
-FallingSquares.prototype.getNewSquare = function(){
+FallingSquares.prototype.addNewSquare = function(){
   var columnIndex = randomInt(0, this.width-1);
-  return this.board.getSquareByPosition(columnIndex, 0);
+  var newSquare = this.board.getSquareByPosition(columnIndex, 0);
+  for(var index in this.fallingSquares){
+    if(!this.fallingSquares[index]){
+      this.fallingSquares[index] = newSquare;
+      break;
+    }
+  }
+  newSquare.style.fillColour = this.fallingSquareColour;
+  newSquare.draw();
 }
 
 FallingSquares.prototype.moveSquareDown = function(index){
   var square = this.fallingSquares[index];
   var nextSquare = this.board.getSquareBottom(1, square.position.x, square.position.y);
 
+  if(!nextSquare){
+    this.fallingSquares[index] = null;
+    this.currentFalling--;
+    square.style.fillColour = "white";
+    square.removeDrawn();
+    square.draw();
+    return;
+  }
+
   square.remove();
   nextSquare.remove();
 
   square.style.fillColour = "white";
-  nextSquare.style.fillColour = "yellow";
+  nextSquare.style.fillColour = this.fallingSquareColour;
 
   square.drawBorder();
   nextSquare.draw();
