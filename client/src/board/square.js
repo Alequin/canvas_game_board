@@ -41,7 +41,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.data = {};
 
-  this.squareSpace = 0.75;
+  this.squareSpace = 1;
 }
 
 Square.prototype.draw = function(){
@@ -106,16 +106,17 @@ Square.prototype.remove = function(){
 }
 
 Square.prototype.removeDrawn = function(){
+  var space = this.squareSpace/2;
   this.drawContext.clearRect(
-    this.coordinates.x+squareSpace, this.coordinates.y+squareSpace,
-    this.width-squareSpace*2, this.height+squareSpace*2
+    this.coordinates.x, this.coordinates.y,
+    this.width, this.height
   );
 }
 
 Square.prototype.removeImage = function(){
   this.imageContext.clearRect(
-    this.coordinates.x+squareSpace, this.coordinates.y+squareSpace,
-    this.width-squareSpace*2, this.height+squareSpace*2
+    this.coordinates.x+this.squareSpace, this.coordinates.y+this.squareSpace,
+    this.width-this.squareSpace*2, this.height+this.squareSpace*2
   );
 }
 

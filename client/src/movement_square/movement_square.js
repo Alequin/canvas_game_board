@@ -1,5 +1,5 @@
-var Board = require("./board");
-var randomInt = require("./random");
+var Board = require("./../board/board");
+var randomInt = require("./../other/random");
 
 function MovementSquare(colour, width, height){
   var boardContainer = document.getElementById("game-board");
@@ -32,6 +32,9 @@ MovementSquare.prototype.moveSquare = function(){
 
   this.currentSquare.style.fillColour = "white";
   nextSquare.style.fillColour = this.colour;
+
+  this.currentSquare.remove();
+  nextSquare.remove();
 
   this.currentSquare.draw();
   nextSquare.draw();

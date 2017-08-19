@@ -67,23 +67,24 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MovementSquare = __webpack_require__(5);
+var MovementSquare = __webpack_require__(7);
 
 window.addEventListener("load", function(){
-  var move = new MovementSquare("red", 20, 20);
-  move.time = 1000;
+  var move = new MovementSquare("red", 5, 5);
+  move.time = 500;
   move.run();
 });
 
 
 /***/ }),
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Square = __webpack_require__(2);
-var BoardEvents = __webpack_require__(3);
-var helper = __webpack_require__(4);
+var Square = __webpack_require__(3);
+var BoardEvents = __webpack_require__(4);
+var helper = __webpack_require__(5);
 
 function Board(container){
 
@@ -271,7 +272,7 @@ module.exports = Board;
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
@@ -317,7 +318,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.data = {};
 
-  this.squareSpace = 0.75;
+  this.squareSpace = 1;
 }
 
 Square.prototype.draw = function(){
@@ -382,16 +383,17 @@ Square.prototype.remove = function(){
 }
 
 Square.prototype.removeDrawn = function(){
+  var space = this.squareSpace/2;
   this.drawContext.clearRect(
-    this.coordinates.x+squareSpace, this.coordinates.y+squareSpace,
-    this.width-squareSpace*2, this.height+squareSpace*2
+    this.coordinates.x, this.coordinates.y,
+    this.width, this.height
   );
 }
 
 Square.prototype.removeImage = function(){
   this.imageContext.clearRect(
-    this.coordinates.x+squareSpace, this.coordinates.y+squareSpace,
-    this.width-squareSpace*2, this.height+squareSpace*2
+    this.coordinates.x+this.squareSpace, this.coordinates.y+this.squareSpace,
+    this.width-this.squareSpace*2, this.height+this.squareSpace*2
   );
 }
 
@@ -443,7 +445,7 @@ module.exports = Square;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -559,7 +561,7 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 function Helper(){}
@@ -600,10 +602,21 @@ module.exports = new Helper();
 
 
 /***/ }),
-/* 5 */
+/* 6 */
+/***/ (function(module, exports) {
+
+function randomInt(min, max){
+  return Math.floor(Math.random() * ((max-min)+1) + min);
+}
+
+module.exports = randomInt;
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Board = __webpack_require__(1);
+var Board = __webpack_require__(2);
 var randomInt = __webpack_require__(6);
 
 function MovementSquare(colour, width, height){
@@ -637,6 +650,9 @@ MovementSquare.prototype.moveSquare = function(){
 
   this.currentSquare.style.fillColour = "white";
   nextSquare.style.fillColour = this.colour;
+
+  this.currentSquare.remove();
+  nextSquare.remove();
 
   this.currentSquare.draw();
   nextSquare.draw();
@@ -672,17 +688,6 @@ MovementSquare.prototype.getNextSquare = function(){
 }
 
 module.exports = MovementSquare;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-function randomInt(min, max){
-  return Math.floor(Math.random() * ((max-min)+1) + min);
-}
-
-module.exports = randomInt;
 
 
 /***/ })
