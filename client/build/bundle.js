@@ -71,6 +71,7 @@ var MovementSquare = __webpack_require__(5);
 
 window.addEventListener("load", function(){
   var move = new MovementSquare("red", 20, 20);
+  move.time = 1000;
   move.run();
 });
 
@@ -613,6 +614,8 @@ function MovementSquare(colour, width, height){
   this.currentSquare = null;
 
   this.colour = colour;
+
+  this.time = 25;
 }
 
 MovementSquare.prototype.run = function(){
@@ -620,7 +623,7 @@ MovementSquare.prototype.run = function(){
 
   setInterval(function(){
     this.moveSquare();
-  }.bind(this), 25);
+  }.bind(this), this.time);
 }
 
 MovementSquare.prototype.prepareSquare = function(){

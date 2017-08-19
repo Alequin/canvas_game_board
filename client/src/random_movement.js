@@ -9,6 +9,8 @@ function MovementSquare(colour, width, height){
   this.currentSquare = null;
 
   this.colour = colour;
+
+  this.time = 25;
 }
 
 MovementSquare.prototype.run = function(){
@@ -16,7 +18,7 @@ MovementSquare.prototype.run = function(){
 
   setInterval(function(){
     this.moveSquare();
-  }.bind(this), 25);
+  }.bind(this), this.time);
 }
 
 MovementSquare.prototype.prepareSquare = function(){
