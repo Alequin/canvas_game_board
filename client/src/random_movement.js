@@ -13,6 +13,10 @@ function MovementSquare(colour){
 
 MovementSquare.prototype.run = function(){
   this.prepareSquare();
+
+  setInterval(function(){
+    this.moveSquare();
+  }.bind(this), 250);
 }
 
 MovementSquare.prototype.prepareSquare = function(){
@@ -39,16 +43,16 @@ MovementSquare.prototype.getNextSquare = function(){
   while(!nextSquare){
     switch(randomInt(0, 4)){
       case 0:
-        nextSquare = this.currentSquare.getSquareTop();
+        nextSquare = this.board.getSquareTop(1, this.currentSquare.position.x, this.currentSquare.position.y);
       break;
       case 1:
-        nextSquare = this.currentSquare.getSquareLeft();
+        nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.x, this.currentSquare.position.y);
       break;
       case 2:
-        nextSquare = this.currentSquare.getSquareBottom();
+        nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.x, this.currentSquare.position.y);
       break;
       case 3:
-        nextSquare = this.currentSquare.getSquareRight();
+        nextSquare = this.board.getSquareRight(1, this.currentSquare.position.x, this.currentSquare.position.y);
       break;
     }
   }
