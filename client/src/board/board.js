@@ -23,7 +23,7 @@ function Board(container){
   this.clickContext = this.clickLayer.getContext("2d");
   this.layersContexts = [this.drawContext, this.imageContext, this.clickContext];
 
-  this.drawContext.lineWidth = 1;
+  // this.drawContext.lineWidth = 1;
 
   this.xSquareCount = 0;
   this.ySquareCount = 0;
