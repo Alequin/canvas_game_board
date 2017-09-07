@@ -74,7 +74,7 @@ Board.prototype.copySquares = function(squares){
     var clonedRow = [];
     clonedSqaures.push(clonedRow);
     for(var square of row){
-      clonedRow.push(square.clone());
+      clonedRow.push(square.copy());
     }
   }
   return clonedSqaures;
