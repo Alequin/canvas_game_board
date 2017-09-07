@@ -1,8 +1,8 @@
 var playerMovementConfig = {
   entry: __dirname + "/src/games/user_movement/run.js",
   output: {
-    filename: "player_movement_bundle.js",
-    path: __dirname + "/build"
+    filename: "user_movement_bundle.js",
+    path: __dirname + "/build/user_movement"
   },
   devtool: 'source-map'
 }

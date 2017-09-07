@@ -80,8 +80,10 @@ window.addEventListener("load", function(){
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Board = __webpack_require__(2);
-var Animation = __webpack_require__(6);
+const Board = __webpack_require__(2);
+const Animation = __webpack_require__(6);
+
+const swordImg = "./../images/sword.png"
 
 function PlayerSquare(container){
 
@@ -90,7 +92,7 @@ function PlayerSquare(container){
 
   this.playerColour = "red";
   this.currentSquare = this.board.getSquareByPosition(0,0);
-  this.currentSquare.addImage("./images/sword.png", 0.8);
+  this.currentSquare.addImage(swordImg, 0.8);
   this.currentSquare.style.borderColour = this.playerColour;
 
   this.board.draw();
@@ -125,22 +127,24 @@ PlayerSquare.prototype.initMovements = function(){
 }
 
 PlayerSquare.prototype.moveUp = function(){
-  var nextSquare = this.board.getSquareTop(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  var nextSquare = this.board.getSquareTop(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveLeft = function(){
-  var nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  var nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveRight = function(){
-  var nextSquare = this.board.getSquareRight(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  console.log("column: ", this.currentSquare.position.column);
+  console.log("row: ", this.currentSquare.position.row);
+  var nextSquare = this.board.getSquareRight(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveDown = function(){
-  var nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  var nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
@@ -152,7 +156,7 @@ PlayerSquare.prototype.move = function(nextSquare){
     this.currentSquare.style.borderColour = "black";
     nextSquare.style.borderColour = this.playerColour;
     this.currentSquare.style.image = null;
-    nextSquare.addImage("./images/sword.png", 0.8);
+    nextSquare.addImage(swordImg, 0.8);
 
     this.currentSquare.drawBorder();
     nextSquare.drawBorder();
@@ -382,7 +386,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
   this.imageContext = board.imageContext;
 
   this.coordinates = {x: coords.x, y: coords.y};
-  this.position = {x: position.column, y: position.row};
+  this.position = {column: position.column, row: position.row};
   this.width = width;
   this.height = height;
 
@@ -726,4 +730,4 @@ module.exports = Animation;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=player_movement_bundle.js.map
+//# sourceMappingURL=user_movement_bundle.js.map
