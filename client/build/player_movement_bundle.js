@@ -90,7 +90,7 @@ function PlayerSquare(container){
 
   this.playerColour = "red";
   this.currentSquare = this.board.getSquareByPosition(0,0);
-  this.currentSquare.addImage("./../images/sword.png", 0.8);
+  this.currentSquare.addImage("./images/sword.png", 0.8);
   this.currentSquare.style.borderColour = this.playerColour;
 
   this.board.draw();
@@ -152,7 +152,7 @@ PlayerSquare.prototype.move = function(nextSquare){
     this.currentSquare.style.borderColour = "black";
     nextSquare.style.borderColour = this.playerColour;
     this.currentSquare.style.image = null;
-    nextSquare.addImage("./../images/sword.png", 0.8);
+    nextSquare.addImage("./images/sword.png", 0.8);
 
     this.currentSquare.drawBorder();
     nextSquare.drawBorder();
@@ -194,7 +194,7 @@ function Board(container){
   this.clickContext = this.clickLayer.getContext("2d");
   this.layersContexts = [this.drawContext, this.imageContext, this.clickContext];
 
-  this.drawContext.lineWidth = 1;
+  // this.drawContext.lineWidth = 1;
 
   this.xSquareCount = 0;
   this.ySquareCount = 0;
@@ -217,7 +217,7 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<=yCount; y++){
+    for(var y=0; y<yCount; y++){
       var coords = {x: x*squareWidth, y: y*squareHeight};
       var position = {x: xPos, y: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);
