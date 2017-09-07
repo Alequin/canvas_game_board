@@ -46,7 +46,7 @@ Board.prototype.generateSquares = function(xCount, yCount, border, fill){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<=yCount; y++){
+    for(var y=0; y<yCount; y++){
       var coords = {x: x*squareWidth, y: y*squareHeight};
       var position = {x: xPos, y: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);
