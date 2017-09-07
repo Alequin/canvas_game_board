@@ -1,5 +1,7 @@
-var Board = require("./../../board/board");
-var Animation = require("./../../animate/animate");
+const Board = require("./../../board/board");
+const Animation = require("./../../animate/animate");
+
+const swordImg = "./../images/sword.png"
 
 function PlayerSquare(container){
 
@@ -8,7 +10,7 @@ function PlayerSquare(container){
 
   this.playerColour = "red";
   this.currentSquare = this.board.getSquareByPosition(0,0);
-  this.currentSquare.addImage("./images/sword.png", 0.8);
+  this.currentSquare.addImage(swordImg, 0.8);
   this.currentSquare.style.borderColour = this.playerColour;
 
   this.board.draw();
@@ -43,22 +45,24 @@ PlayerSquare.prototype.initMovements = function(){
 }
 
 PlayerSquare.prototype.moveUp = function(){
-  var nextSquare = this.board.getSquareTop(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  var nextSquare = this.board.getSquareTop(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveLeft = function(){
-  var nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  var nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveRight = function(){
-  var nextSquare = this.board.getSquareRight(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  console.log("column: ", this.currentSquare.position.column);
+  console.log("row: ", this.currentSquare.position.row);
+  var nextSquare = this.board.getSquareRight(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveDown = function(){
-  var nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.x, this.currentSquare.position.y);
+  var nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
@@ -70,7 +74,7 @@ PlayerSquare.prototype.move = function(nextSquare){
     this.currentSquare.style.borderColour = "black";
     nextSquare.style.borderColour = this.playerColour;
     this.currentSquare.style.image = null;
-    nextSquare.addImage("./images/sword.png", 0.8);
+    nextSquare.addImage(swordImg, 0.8);
 
     this.currentSquare.drawBorder();
     nextSquare.drawBorder();
