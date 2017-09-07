@@ -8,7 +8,7 @@ function PlayerSquare(container){
 
   this.playerColour = "red";
   this.currentSquare = this.board.getSquareByPosition(0,0);
-  this.currentSquare.addImage("./../images/sword.png", 0.8);
+  this.currentSquare.addImage("./images/sword.png", 0.8);
   this.currentSquare.style.borderColour = this.playerColour;
 
   this.board.draw();
@@ -70,7 +70,7 @@ PlayerSquare.prototype.move = function(nextSquare){
     this.currentSquare.style.borderColour = "black";
     nextSquare.style.borderColour = this.playerColour;
     this.currentSquare.style.image = null;
-    nextSquare.addImage("./../images/sword.png", 0.8);
+    nextSquare.addImage("./images/sword.png", 0.8);
 
     this.currentSquare.drawBorder();
     nextSquare.drawBorder();
