@@ -51,4 +51,15 @@ describe("Board", function(){
     }
 
   });
+
+  it("can correctly amount if it is undefined", function(){
+      const expected1 = board.manageOffset(undefined);
+      assert.strictEqual(1, expected1);
+      const expected2 = board.manageOffset(-1);
+      assert.strictEqual(-1, expected2);
+      const expected3 = board.manageOffset(0);
+      assert.strictEqual(0, expected3);
+      const expected4 = board.manageOffset(1);
+      assert.strictEqual(1, expected4);
+  });
 });

@@ -140,6 +140,10 @@ Board.prototype.getSquareBottomRight = function(amount, column, row){
   return this.getSquareByPosition(column+amount, row+amount);
 };
 
+Board.prototype.manageOffset = function(amount){
+  if(amount || amount === 0) return amount;
+  return 1;
+}
 
 Board.prototype.getSquareByPosition = function(column, row){
   if(!this.isPositionValid(row, column)){
