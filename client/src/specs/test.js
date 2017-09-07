@@ -3,12 +3,29 @@ var assert = require("assert");
 
 require('jsdom-global')();
 
-describe("test", function(){
+describe("Board", function(){
 
-  it("should do something", function(){
-    var div = document.createElement('div')
-    var board = new Board(div);
-    assert.strictEqual(!board, false);
+  let board;
+
+  beforeEach(function(){
+    const div = document.createElement('div')
+    board = new Board(div);
+  })
+
+  it("can generateSquare columns correctly", function(){
+    const width = 3;
+    const height = 3;
+    board.generateSquares(width,height, "", "");
+    assert.strictEqual(board.squares.length, width);
+  });
+
+  it("can generateSquare rows correctly", function(){
+    const width = 3;
+    const height = 3;
+    board.generateSquares(width,height, "", "");
+    for(let row of board.squares){
+      assert.strictEqual(row.length, height);
+    }
   });
 
 });
