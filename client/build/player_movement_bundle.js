@@ -245,7 +245,7 @@ Board.prototype.copySquares = function(squares){
     var clonedRow = [];
     clonedSqaures.push(clonedRow);
     for(var square of row){
-      clonedRow.push(square.clone());
+      clonedRow.push(square.copy());
     }
   }
   return clonedSqaures;
@@ -380,9 +380,6 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
   this.drawContext = board.drawContext;
   this.imageContext = board.imageContext;
-
-  coords.x = coords.x;
-  coords.y = coords.y;
 
   this.coordinates = coords;
   this.position = position;
