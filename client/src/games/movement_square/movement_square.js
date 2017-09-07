@@ -47,22 +47,22 @@ MovementSquare.prototype.getNextSquare = function(){
 
   var nextSquare = null;
 
-  var x = this.currentSquare.position.x;
-  var y = this.currentSquare.position.y
+  var column = this.currentSquare.position.column;
+  var row = this.currentSquare.position.row;
 
   while(!nextSquare){
     switch(randomInt(0, 3)){
       case 0:
-        nextSquare = this.board.getSquareTop(1, x, y);
+        nextSquare = this.board.getSquareTop(1, column, row);
       break;
       case 1:
-        nextSquare = this.board.getSquareLeft(1, x, y);
+        nextSquare = this.board.getSquareLeft(1, column, row);
       break;
       case 2:
-        nextSquare = this.board.getSquareBottom(1, x, y);
+        nextSquare = this.board.getSquareBottom(1, column, row);
       break;
       case 3:
-        nextSquare = this.board.getSquareRight(1, x, y);
+        nextSquare = this.board.getSquareRight(1, column, row);
       break;
     }
   }
