@@ -53,16 +53,16 @@ MovementSquare.prototype.getNextSquare = function(){
   while(!nextSquare){
     switch(randomInt(0, 3)){
       case 0:
-        nextSquare = this.board.getSquareTop(1, column, row);
+        nextSquare = this.board.getSquareTop(column, row);
       break;
       case 1:
-        nextSquare = this.board.getSquareLeft(1, column, row);
+        nextSquare = this.board.getSquareLeft(column, row);
       break;
       case 2:
-        nextSquare = this.board.getSquareBottom(1, column, row);
+        nextSquare = this.board.getSquareBottom(column, row);
       break;
       case 3:
-        nextSquare = this.board.getSquareRight(1, column, row);
+        nextSquare = this.board.getSquareRight(column, row);
       break;
     }
   }

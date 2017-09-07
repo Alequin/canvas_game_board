@@ -45,24 +45,24 @@ PlayerSquare.prototype.initMovements = function(){
 }
 
 PlayerSquare.prototype.moveUp = function(){
-  var nextSquare = this.board.getSquareTop(1, this.currentSquare.position.column, this.currentSquare.position.row);
+  var nextSquare = this.board.getSquareTop(this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveLeft = function(){
-  var nextSquare = this.board.getSquareLeft(1, this.currentSquare.position.column, this.currentSquare.position.row);
+  var nextSquare = this.board.getSquareLeft(this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveRight = function(){
   console.log("column: ", this.currentSquare.position.column);
   console.log("row: ", this.currentSquare.position.row);
-  var nextSquare = this.board.getSquareRight(1, this.currentSquare.position.column, this.currentSquare.position.row);
+  var nextSquare = this.board.getSquareRight(this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 
 PlayerSquare.prototype.moveDown = function(){
-  var nextSquare = this.board.getSquareBottom(1, this.currentSquare.position.column, this.currentSquare.position.row);
+  var nextSquare = this.board.getSquareBottom(this.currentSquare.position.column, this.currentSquare.position.row);
   this.move(nextSquare);
 }
 

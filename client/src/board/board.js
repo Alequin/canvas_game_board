@@ -108,35 +108,43 @@ Board.prototype.clearBoard = function(){
   this.imageContext.clearRect(0, 0, this.width, this.height);
 }
 
-Board.prototype.getSquareTop = function(amount, column, row){
+Board.prototype.getSquareTop = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column, row-amount);
 };
 
-Board.prototype.getSquareBottom = function(amount, column, row){
+Board.prototype.getSquareBottom = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column, row+amount);
 };
 
-Board.prototype.getSquareLeft = function(amount, column, row){
+Board.prototype.getSquareLeft = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column-amount, row);
 };
 
-Board.prototype.getSquareRight = function(amount, column, row){
+Board.prototype.getSquareRight = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column+amount, row);
 };
 
-Board.prototype.getSquareTopLeft = function(amount, column, row){
+Board.prototype.getSquareTopLeft = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column-amount, row-amount);
 };
 
-Board.prototype.getSquareTopRight = function(amount, column, row){
+Board.prototype.getSquareTopRight = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column+amount, row-amount);
 };
 
-Board.prototype.getSquareBottomLeft = function(amount, column, row){
+Board.prototype.getSquareBottomLeft = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column-amount, row+amount);
 };
 
-Board.prototype.getSquareBottomRight = function(amount, column, row){
+Board.prototype.getSquareBottomRight = function(column, row, amount){
+  amount = this.manageOffset(amount);
   return this.getSquareByPosition(column+amount, row+amount);
 };
 

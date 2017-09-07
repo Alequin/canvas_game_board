@@ -49,7 +49,7 @@ FallingSquares.prototype.getNewSquare = function(){
 
 FallingSquares.prototype.moveSquareDown = function(index){
   var square = this.fallingSquares[index];
-  var nextSquare = this.board.getSquareBottom(1, square.position.column, square.position.row);
+  var nextSquare = this.board.getSquareBottom(square.position.column, square.position.row);
 
   if(!nextSquare){
     nextSquare = this.getNewSquare();
