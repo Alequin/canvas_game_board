@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "mocha client/src/specs",
-    "pack": "cd client && webpack -w"
+    "start": "cd client && webpack -w"
   },
   "repository": {
     "type": "git",
