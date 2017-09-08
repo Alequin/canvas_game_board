@@ -1,5 +1,5 @@
-var Board = require("./../../board/board");
-var Animation = require("./../../animate/animate");
+var Board = require("./../../board/version1/board");
+var Animation = require("./../../board/version1/animate");
 var randomInt = require("./../../other/random");
 
 function MovementSquare(container, colour, width, height){

@@ -80,8 +80,8 @@ window.addEventListener("load", function(){
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Board = __webpack_require__(2);
-const Animation = __webpack_require__(6);
+const Board = __webpack_require__(3);
+const Animation = __webpack_require__(2);
 
 const swordImg = "./../images/sword.png"
 
@@ -171,12 +171,46 @@ module.exports = PlayerSquare;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+
+function Animation(framesPerSecond, frameCallBack){
+  this.interval = 1000/framesPerSecond;
+  this.startTime = 0;
+  this.frameCallBack = frameCallBack;
+}
+
+Animation.prototype.start = function(){
+  this.startTime = Date.now();
+  requestAnimationFrame(this.run.bind(this));
+}
+
+Animation.prototype.run = function(){
+  if(this.shouldRunNextFrame()){
+    this.frameCallBack();
+  }
+  requestAnimationFrame(this.run.bind(this));
+}
+
+Animation.prototype.shouldRunNextFrame = function(){
+  var now = Date.now();
+  elapsed = now - this.startTime;
+  var shouldRun = elapsed >= this.interval;
+  if(shouldRun) this.startTime = now;
+  return shouldRun;
+}
+
+module.exports = Animation;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Square = __webpack_require__(3);
-var BoardEvents = __webpack_require__(4);
-var helper = __webpack_require__(5);
+var Square = __webpack_require__(4);
+var BoardEvents = __webpack_require__(5);
+var helper = __webpack_require__(6);
 
 function Board(container){
 
@@ -380,7 +414,7 @@ module.exports = Board;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
@@ -550,7 +584,7 @@ module.exports = Square;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 
@@ -666,7 +700,7 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 function Helper(){}
@@ -704,40 +738,6 @@ Helper.prototype.appendCanvases = function(container, canvases){
 }
 
 module.exports = new Helper();
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-
-function Animation(framesPerSecond, frameCallBack){
-  this.interval = 1000/framesPerSecond;
-  this.startTime = 0;
-  this.frameCallBack = frameCallBack;
-}
-
-Animation.prototype.start = function(){
-  this.startTime = Date.now();
-  requestAnimationFrame(this.run.bind(this));
-}
-
-Animation.prototype.run = function(){
-  if(this.shouldRunNextFrame()){
-    this.frameCallBack();
-  }
-  requestAnimationFrame(this.run.bind(this));
-}
-
-Animation.prototype.shouldRunNextFrame = function(){
-  var now = Date.now();
-  elapsed = now - this.startTime;
-  var shouldRun = elapsed >= this.interval;
-  if(shouldRun) this.startTime = now;
-  return shouldRun;
-}
-
-module.exports = Animation;
 
 
 /***/ })

@@ -1,5 +1,5 @@
-const Board = require("./../../board/board");
-const Animation = require("./../../animate/animate");
+const Board = require("./../../board/version1/board");
+const Animation = require("./../../board/version1/animate");
 
 const swordImg = "./../images/sword.png"
 
