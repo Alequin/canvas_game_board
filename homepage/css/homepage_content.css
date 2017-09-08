@@ -1,16 +1,16 @@
 #main-inner-container{
   width: 800px;
   margin: auto;
-  background-color: black;
   display: flex;
 }
 
 #main-inner-container section{
+  background-color: black;
   flex: 6;
   height: 300px;
 }
 
 #main-inner-container .canvas{
-  background-color: red;
   flex: 2;
+  height: 300px;
 }
