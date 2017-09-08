@@ -1,0 +1,15 @@
+#main-inner-container{
+  width: 800px;
+  margin: auto;
+  background-color: black;
+  display: flex;
+}
+
+#main-inner-container section{
+  flex: 6;
+}
+
+#main-inner-container .canvas{
+  background-color: red;
+  flex: 2;
+}
