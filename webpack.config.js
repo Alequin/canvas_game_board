@@ -10,7 +10,6 @@ function Config(name){
   }
 }
 
-
 var fallingSquaresConfig = new Config("falling_squares");
 var movementSquareConfig = new Config("movement_square");
 var userMovementConfig = new Config("user_movement");
