@@ -4,7 +4,7 @@ function Config(name){
     entry: __dirname + `/src/games/${name}/run.js`,
     output: {
       filename: `${name}_bundle.js`,
-      path: __dirname + `/build/${name}`
+      path: __dirname + `/canvas_games/${name}`
     },
     devtool: 'source-map'
   }
