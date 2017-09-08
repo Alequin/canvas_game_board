@@ -12,8 +12,8 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
-    "test": "mocha client/src/specs",
-    "start": "cd client && webpack -w"
+    "test": "mocha src/specs",
+    "start": "webpack -w"
   },
   "repository": {
     "type": "git",

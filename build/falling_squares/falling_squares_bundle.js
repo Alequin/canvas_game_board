@@ -80,9 +80,9 @@ window.addEventListener("load", function(){
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Board = __webpack_require__(3);
-var Animation = __webpack_require__(7);
-var randomInt = __webpack_require__(2);
+var Board = __webpack_require__(2);
+var Animation = __webpack_require__(6);
+var randomInt = __webpack_require__(7);
 
 function FallingSquares(container){
   var boardContainer = document.getElementById("game-board");
@@ -164,23 +164,12 @@ module.exports = FallingSquares;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-function randomInt(min, max){
-  return Math.floor(Math.random() * ((max-min)+1) + min);
-}
-
-module.exports = randomInt;
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Square = __webpack_require__(4);
-var BoardEvents = __webpack_require__(5);
-var helper = __webpack_require__(6);
+var Square = __webpack_require__(3);
+var BoardEvents = __webpack_require__(4);
+var helper = __webpack_require__(5);
 
 function Board(container){
 
@@ -384,7 +373,7 @@ module.exports = Board;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
@@ -554,7 +543,7 @@ module.exports = Square;
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -670,7 +659,7 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 function Helper(){}
@@ -711,7 +700,7 @@ module.exports = new Helper();
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -742,6 +731,17 @@ Animation.prototype.shouldRunNextFrame = function(){
 }
 
 module.exports = Animation;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+function randomInt(min, max){
+  return Math.floor(Math.random() * ((max-min)+1) + min);
+}
+
+module.exports = randomInt;
 
 
 /***/ })
