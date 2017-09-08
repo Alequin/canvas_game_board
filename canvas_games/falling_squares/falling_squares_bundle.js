@@ -71,7 +71,14 @@ var FallingSquares = __webpack_require__(1);
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
-  var fallingSquares = new FallingSquares(boardContainer, 10, 10, 10, 2);
+
+  var colour = {
+    borderColour: "black",
+    fillColour: "white",
+    fallingSquareColour: "yellow"
+  }
+
+  var fallingSquares = new FallingSquares(boardContainer, 10, 10, 10, 2, colour);
   fallingSquares.run();
 });
 
@@ -84,18 +91,17 @@ var Board = __webpack_require__(2);
 var Animation = __webpack_require__(6);
 var randomInt = __webpack_require__(7);
 
-function FallingSquares(container, width, height, maxFalling, fps){
-  var boardContainer = document.getElementById("game-board");
-  this.board = new Board(boardContainer);
+function FallingSquares(container, width, height, maxFalling, fps, colour){
+  this.board = new Board(container);
 
   this.width = width;
   this.height = height;
-  this.board.generateSquares(this.width, this.height, "black", "white");
+  this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
   this.board.draw();
 
   this.fps = fps;
 
-  this.fallingSquareColour = "yellow";
+  this.fallingSquareColour = colour.fallingSquareColour;
   this.maxFalling = maxFalling;
   this.currentFalling = 0;
   this.fallingSquares = [];

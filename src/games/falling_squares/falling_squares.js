@@ -2,18 +2,17 @@ var Board = require("./../../board/version1/board");
 var Animation = require("./../../board/version1/animate");
 var randomInt = require("./../../other/random");
 
-function FallingSquares(container, width, height, maxFalling, fps){
-  var boardContainer = document.getElementById("game-board");
-  this.board = new Board(boardContainer);
+function FallingSquares(container, width, height, maxFalling, fps, colour){
+  this.board = new Board(container);
 
   this.width = width;
   this.height = height;
-  this.board.generateSquares(this.width, this.height, "black", "white");
+  this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
   this.board.draw();
 
   this.fps = fps;
 
-  this.fallingSquareColour = "yellow";
+  this.fallingSquareColour = colour.fallingSquareColour;
   this.maxFalling = maxFalling;
   this.currentFalling = 0;
   this.fallingSquares = [];
