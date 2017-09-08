@@ -657,7 +657,6 @@ module.exports = BoardEvents;
 
 function Helper(){}
 
-
 Helper.prototype.createInnerContainer = function(container){
   innerContainer = document.createElement("div");
   container.appendChild(innerContainer);

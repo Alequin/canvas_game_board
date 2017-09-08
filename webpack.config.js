@@ -1,4 +1,13 @@
 
+var homepageConfig = {
+  entry: __dirname + `/homepage/javascript/homepage_run.js`,
+  output: {
+    filename: `homepage_bundle.js`,
+    path: __dirname
+  },
+  devtool: 'source-map'
+}
+
 function Config(name){
   this.configObject = {
     entry: __dirname + `/src/games/${name}/run.js`,
@@ -15,6 +24,7 @@ var movementSquareConfig = new Config("movement_square");
 var userMovementConfig = new Config("user_movement");
 
 module.exports = [
+  homepageConfig,
   fallingSquaresConfig.configObject,
   movementSquareConfig.configObject,
   userMovementConfig.configObject
