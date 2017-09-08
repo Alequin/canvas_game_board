@@ -1,0 +1,31 @@
+
+#full-nav{
+  background-color: #ff6200;
+  padding: 0 100px 0 100px;
+}
+
+#full-nav nav{
+  display: flex;
+  margin: auto;
+}
+
+#full-nav div{
+  flex: 1;
+}
+
+#nav-right{
+  text-align: right;
+}
+
+#nav-right ul{
+  list-style-type: none;
+  display: inline-block;
+  margin-top: 22px;
+}
+
+#nav-right li{
+  display: inline-block;
+  margin-right: 25px;
+  font-size: 18px;
+  padding: 3px;
+}
