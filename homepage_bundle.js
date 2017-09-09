@@ -191,17 +191,18 @@ module.exports = FallingSquares;
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Square = __webpack_require__(4);
-var BoardEvents = __webpack_require__(5);
-var helper = __webpack_require__(6);
+var Square = __webpack_require__(3);
+var BoardEvents = __webpack_require__(4);
+var helper = __webpack_require__(5);
 
 function Board(container){
 
-  container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
+  this.container = container;
+  this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
   this.innerContainer = helper.createInnerContainer(container);
 
@@ -266,6 +267,10 @@ Board.prototype.translate = function(x, y){
   for(var canvas of this.layersContexts){
     canvas.translate(x, y);
   }
+}
+
+Board.prototype.remove = function(){
+  this.container.removeChild(this.innerContainer);
 }
 
 Board.prototype.copySquares = function(squares){
@@ -406,7 +411,7 @@ module.exports = Board;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
@@ -576,7 +581,7 @@ module.exports = Square;
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -692,7 +697,7 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 function Helper(){}
@@ -700,7 +705,7 @@ function Helper(){}
 Helper.prototype.createInnerContainer = function(container){
   innerContainer = document.createElement("div");
   container.appendChild(innerContainer);
-  innerContainer.style.height = "inherit";
+  innerContainer.style.height = "100%";
   return innerContainer;
 }
 
@@ -732,7 +737,7 @@ module.exports = new Helper();
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -766,7 +771,7 @@ module.exports = Animation;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 function randomInt(min, max){
