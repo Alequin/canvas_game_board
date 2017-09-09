@@ -167,6 +167,7 @@ var helper = __webpack_require__(5);
 function Board(container){
 
   this.container = container;
+
   this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
   this.innerContainer = helper.createInnerContainer(container);
@@ -631,15 +632,15 @@ BoardEvents.prototype.disableMouseEvents = function(){
 BoardEvents.prototype.setOnMouseMove = function(){
   this.canvas.onmousemove = function(event){
     var square = this.board.getSquareByCoords(event.offsetX, event.offsetY);
-
     if(square){
 
       if(this.isHoverActive){
-        if(square.handleHover) square.handleHover(this.board, this.square);
+        if(square.handleHover) square.handleHover(this.board, square);
       }
 
       if(this.isEnterActive && square !== this.currentSquare){
-        if(square.handleEnter) square.handleEnter(this.board, this.square);
+
+        if(square.handleEnter) square.handleEnter(this.board, square);
       }
 
     }
