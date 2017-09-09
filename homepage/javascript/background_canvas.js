@@ -20,7 +20,7 @@ BackgroundCanvas.prototype.buildCanvas = function(){
   const rowCount = canvasHeight / 7.5;
 
   if(this.fallingBoard) this.fallingBoard.board.remove();
-  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*3, 40, this.colour);
+  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*2, 40, this.colour);
   this.fallingBoard.run();
 }
 
