@@ -158,9 +158,8 @@ PlayerSquare.prototype.move = function(nextSquare){
     this.currentSquare.style.image = null;
     nextSquare.addImage(swordImg, 0.8);
 
-    this.currentSquare.drawBorder();
-    nextSquare.drawBorder();
-    nextSquare.drawImage();
+    this.currentSquare.draw();
+    nextSquare.draw();
 
     this.currentSquare = nextSquare;
   }
