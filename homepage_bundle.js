@@ -94,6 +94,8 @@ function FallingSquares(container, width, height, maxFalling, fps, colour){
 
   this.fps = fps;
 
+  this.borderColour = colour.borderColour;
+  this.fillColour = colour.fillColour;
   this.fallingSquareColour = colour.fallingSquareColour;
   this.maxFalling = maxFalling;
   this.currentFalling = 0;
@@ -141,23 +143,13 @@ FallingSquares.prototype.moveSquareDown = function(index){
   square.remove();
   nextSquare.remove();
 
-  square.style.fillColour = "white";
+  square.style.fillColour = this.fillColour;
   nextSquare.style.fillColour = this.fallingSquareColour;
 
-  square.drawBorder();
+  square.draw();
   nextSquare.draw();
 
   this.fallingSquares[index] = nextSquare;
-}
-
-FallingSquares.prototype.removeSquare = function(index){
-  var square = this.fallingSquares[index];
-  this.fallingSquares[index] = null;
-  this.currentFalling--;
-
-  square.style.fillColour = "white";
-  square.removeDrawn();
-  square.draw();
 }
 
 module.exports = FallingSquares;
@@ -781,7 +773,7 @@ BackgroundCanvas.prototype.buildCanvas = function(){
   const rowCount = canvasHeight / 7.5;
 
   if(this.fallingBoard) this.fallingBoard.board.remove();
-  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*3, 40, this.colour);
+  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*2, 40, this.colour);
   this.fallingBoard.run();
 }
 
