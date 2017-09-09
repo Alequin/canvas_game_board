@@ -67,40 +67,55 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const FallingSquares = __webpack_require__(2);
+const FallingSquares = __webpack_require__(1);
+
+let fallingBoard;
+let cavansDiv;
+let colour;
 
 window.addEventListener("load", function(){
 
-  const cavansDivs = document.getElementsByClassName("canvas");
+  cavansDiv = document.getElementById("canvas");
 
-  var colour = {
-    borderColour: "transparent",
+  colour = {
+    borderColour: "black",
     fillColour: "transparent",
     fallingSquareColour: "#ff6200",
   }
 
-  const leftBoard = new FallingSquares(cavansDivs[0], 4, 10, 15, 2, colour);
-  const rightBoard = new FallingSquares(cavansDivs[1], 4, 10, 15, 2, colour);
-
-  leftBoard.run();
-  rightBoard.run();
+  buildCanvas();
 });
+
+window.addEventListener("resize", function(){
+  buildCanvas();
+});
+
+function buildCanvas(){
+
+  const canvasWidth = cavansDiv.offsetWidth;
+  const canvasHeight = cavansDiv.offsetHeight;
+  const columnCount = canvasWidth / 30;
+  const rowCount = canvasHeight / 30;
+
+  if(fallingBoard) fallingBoard.board.remove();
+  fallingBoard = new FallingSquares(cavansDiv, columnCount, rowCount, 15, 2, colour);
+  fallingBoard.run();
+}
 
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Board = __webpack_require__(3);
-var Animation = __webpack_require__(7);
-var randomInt = __webpack_require__(8);
+var Board = __webpack_require__(2);
+var Animation = __webpack_require__(6);
+var randomInt = __webpack_require__(7);
 
 function FallingSquares(container, width, height, maxFalling, fps, colour){
   this.board = new Board(container);
 
-  this.width = width;
-  this.height = height;
+  this.width = Math.floor(width);
+  this.height = Math.floor(height);
   this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
   this.board.draw();
 
@@ -217,17 +232,22 @@ function Board(container){
 }
 
 Board.prototype.generateSquares = function(xCount, yCount, border, fill){
+
+  if(xCount % 1 !== 0 && yCount % 1 !== 0){
+    throw "Both xCount and yCount must be whole numbers. I recommend using Math.floor."
+  }
+
   this.xSquareCount = xCount;
   this.ySquareCount = yCount;
 
-  var squareWidth = this.width / xCount;
-  var squareHeight = this.height / yCount;
+  var squareWidth = this.width / this.xSquareCount;
+  var squareHeight = this.height / this.ySquareCount;
 
-  for(var x=0; x<xCount; x++){
+  for(var x=0; x<this.xSquareCount; x++){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<yCount; y++){
+    for(var y=0; y<this.ySquareCount; y++){
       var coords = {x: x*squareWidth, y: y*squareHeight};
       var position = {column: xPos, row: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);

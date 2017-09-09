@@ -36,17 +36,22 @@ function Board(container){
 }
 
 Board.prototype.generateSquares = function(xCount, yCount, border, fill){
+
+  if(xCount % 1 !== 0 && yCount % 1 !== 0){
+    throw "Both xCount and yCount must be whole numbers. I recommend using Math.floor."
+  }
+
   this.xSquareCount = xCount;
   this.ySquareCount = yCount;
 
-  var squareWidth = this.width / xCount;
-  var squareHeight = this.height / yCount;
+  var squareWidth = this.width / this.xSquareCount;
+  var squareHeight = this.height / this.ySquareCount;
 
-  for(var x=0; x<xCount; x++){
+  for(var x=0; x<this.xSquareCount; x++){
     var row = [];
     this.squares.push(row);
     var xPos = this.squares.length-1;
-    for(var y=0; y<yCount; y++){
+    for(var y=0; y<this.ySquareCount; y++){
       var coords = {x: x*squareWidth, y: y*squareHeight};
       var position = {column: xPos, row: row.length};
       var nextSquare = new Square(this, coords, position, squareWidth, squareHeight, border, fill);

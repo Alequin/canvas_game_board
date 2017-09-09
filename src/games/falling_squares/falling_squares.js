@@ -5,8 +5,8 @@ var randomInt = require("./../../other/random");
 function FallingSquares(container, width, height, maxFalling, fps, colour){
   this.board = new Board(container);
 
-  this.width = width;
-  this.height = height;
+  this.width = Math.floor(width);
+  this.height = Math.floor(height);
   this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
   this.board.draw();
 
