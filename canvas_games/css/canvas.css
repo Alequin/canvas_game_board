@@ -1,4 +1,13 @@
+html, body{
+  background-color: #ff6200;
+}
+
 #game-board{
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  margin-top: -125px;
+  margin-left: -250px;
   width: 500px;
   height: 500px;
   border: 1px solid black;
