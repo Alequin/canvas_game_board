@@ -11,7 +11,7 @@ window.addEventListener("load", function(){
   colour = {
     borderColour: "transparent",
     fillColour: "transparent",
-    fallingSquareColour: "#ff6200",
+    fallingSquareColour: "rgba(255,0,0,0.6)",
   }
 
   buildCanvas();
