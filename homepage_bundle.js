@@ -67,40 +67,13 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const FallingSquares = __webpack_require__(1);
 
-let fallingBoard;
-let cavansDiv;
-let colour;
+const BackgroundCanvas = __webpack_require__(8);
 
 window.addEventListener("load", function(){
-
-  cavansDiv = document.getElementById("canvas");
-
-  colour = {
-    borderColour: "transparent",
-    fillColour: "transparent",
-    fallingSquareColour: "rgba(255,0,0,0.6)",
-  }
-
-  buildCanvas();
+  const backgroundCanvas = new BackgroundCanvas();
+  backgroundCanvas.buildCanvas();
 });
-
-window.addEventListener("resize", function(){
-  buildCanvas();
-});
-
-function buildCanvas(){
-
-  const canvasWidth = cavansDiv.offsetWidth;
-  const canvasHeight = cavansDiv.offsetHeight;
-  const columnCount = canvasWidth / 7.5;
-  const rowCount = canvasHeight / 7.5;
-
-  if(fallingBoard) fallingBoard.board.remove();
-  fallingBoard = new FallingSquares(cavansDiv, columnCount, rowCount, rowCount*3, 40, colour);
-  fallingBoard.run();
-}
 
 
 /***/ }),
@@ -779,6 +752,39 @@ function randomInt(min, max){
 }
 
 module.exports = randomInt;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const FallingSquares = __webpack_require__(1);
+
+function BackgroundCanvas(){
+  this.fallingBoard;
+  this.cavansDiv = document.getElementById("background-canvas");
+  this.colour = {
+    borderColour: "transparent",
+    fillColour: "transparent",
+    fallingSquareColour: "rgba(255,0,0,0.6)",
+  }
+
+  window.addEventListener("resize", () => {this.buildCanvas();});
+}
+
+BackgroundCanvas.prototype.buildCanvas = function(){
+
+  const canvasWidth = this.cavansDiv.offsetWidth;
+  const canvasHeight = this.cavansDiv.offsetHeight;
+  const columnCount = canvasWidth / 7.5;
+  const rowCount = canvasHeight / 7.5;
+
+  if(this.fallingBoard) this.fallingBoard.board.remove();
+  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*3, 40, this.colour);
+  this.fallingBoard.run();
+}
+
+module.exports = BackgroundCanvas;
 
 
 /***/ })
