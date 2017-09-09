@@ -166,7 +166,8 @@ var helper = __webpack_require__(5);
 
 function Board(container){
 
-  container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
+  this.container = container;
+  this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
   this.innerContainer = helper.createInnerContainer(container);
 
@@ -231,6 +232,10 @@ Board.prototype.translate = function(x, y){
   for(var canvas of this.layersContexts){
     canvas.translate(x, y);
   }
+}
+
+Board.prototype.remove = function(){
+  this.container.removeChild(this.innerContainer);
 }
 
 Board.prototype.copySquares = function(squares){
@@ -665,7 +670,7 @@ function Helper(){}
 Helper.prototype.createInnerContainer = function(container){
   innerContainer = document.createElement("div");
   container.appendChild(innerContainer);
-  innerContainer.style.height = "inherit";
+  innerContainer.style.height = "100%";
   return innerContainer;
 }
 
