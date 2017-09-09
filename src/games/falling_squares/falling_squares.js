@@ -5,6 +5,8 @@ var randomInt = require("./../../other/random");
 function FallingSquares(container, width, height, maxFalling, fps, colour){
   this.board = new Board(container);
 
+  this.colour = colour;
+
   this.width = Math.floor(width);
   this.height = Math.floor(height);
   this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
@@ -12,7 +14,6 @@ function FallingSquares(container, width, height, maxFalling, fps, colour){
 
   this.fps = fps;
 
-  this.fallingSquareColour = colour.fallingSquareColour;
   this.maxFalling = maxFalling;
   this.currentFalling = 0;
   this.fallingSquares = [];
@@ -37,7 +38,7 @@ FallingSquares.prototype.prepareFrame = function(){
     var newSquare = this.getNewSquare();
     this.fallingSquares.push(newSquare);
     this.currentFalling++;
-    newSquare.style.fillColour = this.fallingSquareColour;
+    newSquare.style.fillColour = this.colour.fallingSquareColour;
     newSquare.draw();
   }
 }
@@ -59,23 +60,13 @@ FallingSquares.prototype.moveSquareDown = function(index){
   square.remove();
   nextSquare.remove();
 
-  square.style.fillColour = "white";
-  nextSquare.style.fillColour = this.fallingSquareColour;
+  square.style.fillColour = this.colour.fillColour;
+  nextSquare.style.fillColour = this.colour.fallingSquareColour;
 
   square.drawBorder();
   nextSquare.draw();
 
   this.fallingSquares[index] = nextSquare;
-}
-
-FallingSquares.prototype.removeSquare = function(index){
-  var square = this.fallingSquares[index];
-  this.fallingSquares[index] = null;
-  this.currentFalling--;
-
-  square.style.fillColour = "white";
-  square.removeDrawn();
-  square.draw();
 }
 
 module.exports = FallingSquares;
