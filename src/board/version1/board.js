@@ -5,7 +5,8 @@ var helper = require("./board_helper");
 
 function Board(container){
 
-  container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
+  this.container = container;
+  this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
   this.innerContainer = helper.createInnerContainer(container);
 
@@ -70,6 +71,10 @@ Board.prototype.translate = function(x, y){
   for(var canvas of this.layersContexts){
     canvas.translate(x, y);
   }
+}
+
+Board.prototype.remove = function(){
+  this.container.removeChild(this.innerContainer);
 }
 
 Board.prototype.copySquares = function(squares){
