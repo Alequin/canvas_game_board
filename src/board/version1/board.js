@@ -6,6 +6,7 @@ var helper = require("./board_helper");
 function Board(container){
 
   this.container = container;
+
   this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
   this.innerContainer = helper.createInnerContainer(container);
