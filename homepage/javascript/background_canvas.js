@@ -6,7 +6,7 @@ function BackgroundCanvas(){
   this.colour = {
     borderColour: "transparent",
     fillColour: "transparent",
-    fallingSquareColour: "rgba(255,0,0,0.6)",
+    fallingSquareColour: "rgba(0,0,0,0.3)",
   }
 
   window.addEventListener("resize", () => {this.buildCanvas();});
