@@ -1,15 +1,19 @@
-#main-inner-container{
+
+html, body{
+  height: 100%;
+}
+
+#canvas{
+  display: fixed;
+  height: 91%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px 0 10px;
+}
+
+#main-container section{
   width: 800px;
   margin: auto;
-  display: flex;
-}
-
-#main-inner-container section{
   background-color: black;
-  flex: 6;
-}
-
-#main-inner-container .canvas{
-  flex: 2;
-  height: 300px;
+  height: 30px;
 }
