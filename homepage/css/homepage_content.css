@@ -5,15 +5,18 @@ html, body{
 
 #canvas{
   display: fixed;
+  position: absolute;
   height: 91%;
   width: 100%;
   box-sizing: border-box;
   padding: 0 10px 0 10px;
+  z-index: -1;
 }
 
 #main-container section{
   width: 800px;
   margin: auto;
   background-color: black;
-  height: 30px;
+  height: 500px;
+  z-index: 1;
 }
