@@ -78,7 +78,7 @@ window.addEventListener("load", function(){
   cavansDiv = document.getElementById("canvas");
 
   colour = {
-    borderColour: "black",
+    borderColour: "transparent",
     fillColour: "transparent",
     fallingSquareColour: "#ff6200",
   }
@@ -94,11 +94,11 @@ function buildCanvas(){
 
   const canvasWidth = cavansDiv.offsetWidth;
   const canvasHeight = cavansDiv.offsetHeight;
-  const columnCount = canvasWidth / 30;
-  const rowCount = canvasHeight / 30;
+  const columnCount = canvasWidth / 7.5;
+  const rowCount = canvasHeight / 7.5;
 
   if(fallingBoard) fallingBoard.board.remove();
-  fallingBoard = new FallingSquares(cavansDiv, columnCount, rowCount, 15, 2, colour);
+  fallingBoard = new FallingSquares(cavansDiv, columnCount, rowCount, rowCount*3, 40, colour);
   fallingBoard.run();
 }
 
