@@ -5,8 +5,6 @@ var randomInt = require("./../../other/random");
 function FallingSquares(container, width, height, maxFalling, fps, colour){
   this.board = new Board(container);
 
-  this.colour = colour;
-
   this.width = Math.floor(width);
   this.height = Math.floor(height);
   this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
@@ -14,6 +12,9 @@ function FallingSquares(container, width, height, maxFalling, fps, colour){
 
   this.fps = fps;
 
+  this.borderColour = colour.borderColour;
+  this.fillColour = colour.fillColour;
+  this.fallingSquareColour = colour.fallingSquareColour;
   this.maxFalling = maxFalling;
   this.currentFalling = 0;
   this.fallingSquares = [];
@@ -38,7 +39,7 @@ FallingSquares.prototype.prepareFrame = function(){
     var newSquare = this.getNewSquare();
     this.fallingSquares.push(newSquare);
     this.currentFalling++;
-    newSquare.style.fillColour = this.colour.fallingSquareColour;
+    newSquare.style.fillColour = this.fallingSquareColour;
     newSquare.draw();
   }
 }
@@ -60,10 +61,10 @@ FallingSquares.prototype.moveSquareDown = function(index){
   square.remove();
   nextSquare.remove();
 
-  square.style.fillColour = this.colour.fillColour;
-  nextSquare.style.fillColour = this.colour.fallingSquareColour;
+  square.style.fillColour = this.fillColour;
+  nextSquare.style.fillColour = this.fallingSquareColour;
 
-  square.drawBorder();
+  square.draw();
   nextSquare.draw();
 
   this.fallingSquares[index] = nextSquare;
