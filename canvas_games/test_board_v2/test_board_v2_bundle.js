@@ -67,12 +67,13 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-const BackgroundCanvas = __webpack_require__(1);
+var Board = __webpack_require__(1);
 
 window.addEventListener("load", function(){
-  const backgroundCanvas = new BackgroundCanvas();
-  backgroundCanvas.buildCanvas();
+  var boardContainer = document.getElementById("game-board");
+  var board = new Board(boardContainer);
+  board.generateSquares(5, 5, "black", "white");
+  board.draw();
 });
 
 
@@ -80,122 +81,10 @@ window.addEventListener("load", function(){
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const FallingSquares = __webpack_require__(2);
 
-function BackgroundCanvas(){
-  this.fallingBoard;
-  this.cavansDiv = document.getElementById("background-canvas");
-  this.colour = {
-    borderColour: "transparent",
-    fillColour: "transparent",
-    fallingSquareColour: "rgba(0,0,0,0.3)",
-  }
-
-  window.addEventListener("resize", () => {this.buildCanvas();});
-}
-
-BackgroundCanvas.prototype.buildCanvas = function(){
-
-  const canvasWidth = this.cavansDiv.offsetWidth;
-  const canvasHeight = this.cavansDiv.offsetHeight;
-  const columnCount = canvasWidth / 7.5;
-  const rowCount = canvasHeight / 7.5;
-
-  if(this.fallingBoard) this.fallingBoard.board.remove();
-  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*2, 40, this.colour);
-  this.fallingBoard.run();
-}
-
-module.exports = BackgroundCanvas;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Board = __webpack_require__(3);
-var Animation = __webpack_require__(7);
-var randomInt = __webpack_require__(8);
-
-function FallingSquares(container, width, height, maxFalling, fps, colour){
-  this.board = new Board(container);
-
-  this.width = Math.floor(width);
-  this.height = Math.floor(height);
-  this.board.generateSquares(this.width, this.height, colour.borderColour, colour.fillColour);
-  this.board.draw();
-
-  this.fps = fps;
-
-  this.borderColour = colour.borderColour;
-  this.fillColour = colour.fillColour;
-  this.fallingSquareColour = colour.fallingSquareColour;
-  this.maxFalling = maxFalling;
-  this.currentFalling = 0;
-  this.fallingSquares = [];
-}
-
-FallingSquares.prototype.run = function(){
-  this.startAnimation();
-}
-
-FallingSquares.prototype.startAnimation = function(){
-  this.startTime = Date.now();
-  var animation = new Animation(this.fps, this.prepareFrame.bind(this));
-  animation.start();
-}
-
-FallingSquares.prototype.prepareFrame = function(){
-  for(var index in this.fallingSquares){
-    if(this.fallingSquares[index]) this.moveSquareDown(index);
-  }
-
-  if(this.currentFalling < this.maxFalling){
-    var newSquare = this.getNewSquare();
-    this.fallingSquares.push(newSquare);
-    this.currentFalling++;
-    newSquare.style.fillColour = this.fallingSquareColour;
-    newSquare.draw();
-  }
-}
-
-FallingSquares.prototype.getNewSquare = function(){
-  var columnIndex = randomInt(0, this.width-1);
-  var newSquare = this.board.getSquareByPosition(columnIndex, 0);
-  return newSquare;
-}
-
-FallingSquares.prototype.moveSquareDown = function(index){
-  var square = this.fallingSquares[index];
-  var nextSquare = this.board.getSquareBottom(square.position.column, square.position.row);
-
-  if(!nextSquare){
-    nextSquare = this.getNewSquare();
-  }
-
-  square.remove();
-  nextSquare.remove();
-
-  square.style.fillColour = this.fillColour;
-  nextSquare.style.fillColour = this.fallingSquareColour;
-
-  square.draw();
-  nextSquare.draw();
-
-  this.fallingSquares[index] = nextSquare;
-}
-
-module.exports = FallingSquares;
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var Square = __webpack_require__(4);
-var BoardEvents = __webpack_require__(5);
-var helper = __webpack_require__(6);
+var Square = __webpack_require__(2);
+var BoardEvents = __webpack_require__(3);
+var helper = __webpack_require__(4);
 
 function Board(container){
 
@@ -410,7 +299,7 @@ module.exports = Board;
 
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, exports) {
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
@@ -424,8 +313,10 @@ function makeSquareFromCenter(board, center, position, width, height, borderColo
 
 function Square(board, coords, position, width, height, borderColour, fillColour){
 
-  this.drawContext = board.drawContext;
-  this.imageContext = board.imageContext;
+  this.board = board;
+
+  this.drawContext = this.board.drawContext;
+  this.imageContext = this.board.imageContext;
 
   this.coordinates = {x: coords.x, y: coords.y};
   this.position = {column: position.column, row: position.row};
@@ -458,6 +349,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
 Square.prototype.draw = function(){
   this.drawFill();
+  if(this.style.borderColour !== this.style.fillColour) this.drawBorder();
   if(this.style.image) this.drawImage();
 }
 
@@ -479,8 +371,6 @@ Square.prototype.drawFill = function(){
     this.width-this.squareSpace*2, this.height-this.squareSpace*2
   );
   this.drawContext.fillStyle = holdFillStyle;
-
-  if(this.style.borderColour !== this.style.fillColour) this.drawBorder();
 }
 
 Square.prototype.drawImage = function(){
@@ -539,13 +429,8 @@ Square.prototype.isWithin = function(x, y){
 
 Square.prototype.copy = function(){
 
-  var emptyBoard = {
-    drawContext: null,
-    imageContext: null
-  }
-
   var newSquare = new Square(
-    emptyBoard,
+    this.board,
     this.coordinates,
     this.position,
     this.width,
@@ -558,9 +443,6 @@ Square.prototype.copy = function(){
   newSquare.onHover = this.onHover;
   newSquare.onEnter = this.onEnter;
   newSquare.onLeave = this.handleLeave;
-
-  newSquare.drawContext = this.drawContext;
-  newSquare.imageContext = this.imageContext;
 
   newSquare.style = this.copyObject(this.style);
   newSquare.data = this.copyObject(this.data);
@@ -580,7 +462,7 @@ module.exports = Square;
 
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, exports) {
 
 
@@ -696,7 +578,7 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports) {
 
 function Helper(){}
@@ -735,51 +617,6 @@ Helper.prototype.appendCanvases = function(container, canvases){
 module.exports = new Helper();
 
 
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-
-function Animation(framesPerSecond, frameCallBack){
-  this.interval = 1000/framesPerSecond;
-  this.startTime = 0;
-  this.frameCallBack = frameCallBack;
-}
-
-Animation.prototype.start = function(){
-  this.startTime = Date.now();
-  requestAnimationFrame(this.run.bind(this));
-}
-
-Animation.prototype.run = function(){
-  if(this.shouldRunNextFrame()){
-    this.frameCallBack();
-  }
-  requestAnimationFrame(this.run.bind(this));
-}
-
-Animation.prototype.shouldRunNextFrame = function(){
-  var now = Date.now();
-  elapsed = now - this.startTime;
-  var shouldRun = elapsed >= this.interval;
-  if(shouldRun) this.startTime = now;
-  return shouldRun;
-}
-
-module.exports = Animation;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-function randomInt(min, max){
-  return Math.floor(Math.random() * ((max-min)+1) + min);
-}
-
-module.exports = randomInt;
-
-
 /***/ })
 /******/ ]);
-//# sourceMappingURL=homepage_bundle.js.map
+//# sourceMappingURL=test_board_v2_bundle.js.map
