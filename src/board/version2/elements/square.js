@@ -1,3 +1,5 @@
+const copyObject = require("./../services/copy");
+
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
   return new Square(board, coords, position, width, height, borderColour, fillColour);
 }
@@ -140,18 +142,10 @@ Square.prototype.copy = function(){
   newSquare.onEnter = this.onEnter;
   newSquare.onLeave = this.handleLeave;
 
-  newSquare.style = this.copyObject(this.style);
-  newSquare.data = this.copyObject(this.data);
+  newSquare.style = copyObject(this.style);
+  newSquare.data = copyObject(this.data);
 
   return newSquare;
-}
-
-Square.prototype.copyObject = function(object){
-  var newObject = {};
-  for(var key of Object.keys(object)){
-    newObject[key] = object[key];
-  }
-  return newObject;
 }
 
 module.exports = Square;
