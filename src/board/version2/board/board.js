@@ -119,9 +119,9 @@ Board.prototype.clearBoard = function(){
   this.imageContext.clearRect(0, 0, this.width, this.height);
 }
 
-Board.prototype.getSquareTop = function(column, row, amount){
+Board.prototype.getSquareTop = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column, row-amount);
+  return this.getSquareByPosition(position.column, position.row-amount);
 };
 
 Board.prototype.getSquareBottom = function(column, row, amount){

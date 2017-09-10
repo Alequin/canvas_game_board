@@ -74,7 +74,16 @@ window.addEventListener("load", function(){
   var board = new Board(boardContainer);
   board.generateSquares(5, 5, "black", "white");
   board.draw();
+
+  canGetSquareAbove(board)
 });
+
+function canGetSquareAbove(board){
+  const square = board.getSquareByPosition(0,2);
+  const square2 = board.getSquareTop(square.position);
+  square2.style.fillColour = "blue";
+  square2.draw();
+}
 
 
 /***/ }),
@@ -202,9 +211,9 @@ Board.prototype.clearBoard = function(){
   this.imageContext.clearRect(0, 0, this.width, this.height);
 }
 
-Board.prototype.getSquareTop = function(column, row, amount){
+Board.prototype.getSquareTop = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column, row-amount);
+  return this.getSquareByPosition(position.column, position.row-amount);
 };
 
 Board.prototype.getSquareBottom = function(column, row, amount){
@@ -300,7 +309,9 @@ module.exports = Board;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const copyObject = __webpack_require__(5);
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
   return new Square(board, coords, position, width, height, borderColour, fillColour);
@@ -444,18 +455,10 @@ Square.prototype.copy = function(){
   newSquare.onEnter = this.onEnter;
   newSquare.onLeave = this.handleLeave;
 
-  newSquare.style = this.copyObject(this.style);
-  newSquare.data = this.copyObject(this.data);
+  newSquare.style = copyObject(this.style);
+  newSquare.data = copyObject(this.data);
 
   return newSquare;
-}
-
-Square.prototype.copyObject = function(object){
-  var newObject = {};
-  for(var key of Object.keys(object)){
-    newObject[key] = object[key];
-  }
-  return newObject;
 }
 
 module.exports = Square;
@@ -615,6 +618,20 @@ Helper.prototype.appendCanvases = function(container, canvases){
 }
 
 module.exports = new Helper();
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+
+module.exports = function(object){
+  const newObject = {};
+  for(let key of Object.keys(object)){
+    newObject[key] = object[key];
+  }
+  return newObject;
+}
 
 
 /***/ })
