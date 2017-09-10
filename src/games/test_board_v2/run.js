@@ -11,7 +11,7 @@ window.addEventListener("load", function(){
 
 function canGetSquareAbove(board){
   const square = board.getSquareByPosition(0,2);
-  const square2 = board.getSquareTop(square.position);
+  const square2 = square.getTop();
   square2.style.fillColour = "blue";
   square2.draw();
 }
