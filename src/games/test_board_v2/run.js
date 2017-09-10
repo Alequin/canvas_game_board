@@ -6,7 +6,7 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canGetSquareAbove(board)
+  canGetSquareAbove(board);
 });
 
 function canGetSquareAbove(board){

@@ -75,7 +75,7 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canGetSquareAbove(board)
+  canGetSquareAbove(board);
 });
 
 function canGetSquareAbove(board){
@@ -216,39 +216,39 @@ Board.prototype.getSquareTop = function(position, amount){
   return this.getSquareByPosition(position.column, position.row-amount);
 };
 
-Board.prototype.getSquareBottom = function(column, row, amount){
+Board.prototype.getSquareBottom = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column, row+amount);
+  return this.getSquareByPosition(position.column, position.row+amount);
 };
 
-Board.prototype.getSquareLeft = function(column, row, amount){
+Board.prototype.getSquareLeft = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column-amount, row);
+  return this.getSquareByPosition(position.column-amount, position.row);
 };
 
-Board.prototype.getSquareRight = function(column, row, amount){
+Board.prototype.getSquareRight = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column+amount, row);
+  return this.getSquareByPosition(position.column+amount, position.row);
 };
 
-Board.prototype.getSquareTopLeft = function(column, row, amount){
+Board.prototype.getSquareTopLeft = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column-amount, row-amount);
+  return this.getSquareByPosition(position.column-amount, position.row-amount);
 };
 
-Board.prototype.getSquareTopRight = function(column, row, amount){
+Board.prototype.getSquareTopRight = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column+amount, row-amount);
+  return this.getSquareByPosition(position.column+amount, position.row-amount);
 };
 
-Board.prototype.getSquareBottomLeft = function(column, row, amount){
+Board.prototype.getSquareBottomLeft = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column-amount, row+amount);
+  return this.getSquareByPosition(position.column-amount, position.row+amount);
 };
 
-Board.prototype.getSquareBottomRight = function(column, row, amount){
+Board.prototype.getSquareBottomRight = function(position, amount){
   amount = this.manageOffset(amount);
-  return this.getSquareByPosition(column+amount, row+amount);
+  return this.getSquareByPosition(position.column+amount, position.row+amount);
 };
 
 Board.prototype.manageOffset = function(amount){
