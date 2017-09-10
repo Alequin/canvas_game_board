@@ -45,6 +45,7 @@ function Square(board, coords, position, width, height, borderColour, fillColour
 
 Square.prototype.draw = function(){
   this.drawFill();
+  if(this.style.borderColour !== this.style.fillColour) this.drawBorder();
   if(this.style.image) this.drawImage();
 }
 
@@ -66,8 +67,6 @@ Square.prototype.drawFill = function(){
     this.width-this.squareSpace*2, this.height-this.squareSpace*2
   );
   this.drawContext.fillStyle = holdFillStyle;
-
-  if(this.style.borderColour !== this.style.fillColour) this.drawBorder();
 }
 
 Square.prototype.drawImage = function(){
@@ -126,13 +125,8 @@ Square.prototype.isWithin = function(x, y){
 
 Square.prototype.copy = function(){
 
-  var emptyBoard = {
-    drawContext: null,
-    imageContext: null
-  }
-
   var newSquare = new Square(
-    emptyBoard,
+    this.board,
     this.coordinates,
     this.position,
     this.width,
@@ -145,9 +139,6 @@ Square.prototype.copy = function(){
   newSquare.onHover = this.onHover;
   newSquare.onEnter = this.onEnter;
   newSquare.onLeave = this.handleLeave;
-
-  newSquare.drawContext = this.drawContext;
-  newSquare.imageContext = this.imageContext;
 
   newSquare.style = this.copyObject(this.style);
   newSquare.data = this.copyObject(this.data);

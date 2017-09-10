@@ -1,5 +1,5 @@
 
-var Square = require("./square");
+var Square = require("./../elements/square");
 var BoardEvents = require("./board_events");
 var helper = require("./board_helper");
 
