@@ -329,8 +329,8 @@ function Square(board, coords, position, width, height, borderColour, fillColour
   this.drawContext = this.board.drawContext;
   this.imageContext = this.board.imageContext;
 
-  this.coordinates = {x: coords.x, y: coords.y};
-  this.position = {column: position.column, row: position.row};
+  this.coordinates = copyObject(coordinates);
+  this.position = copyObject(position);
   this.width = width;
   this.height = height;
 
