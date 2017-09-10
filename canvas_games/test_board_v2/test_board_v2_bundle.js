@@ -438,6 +438,51 @@ Square.prototype.isWithin = function(x, y){
         !(y < this.topLeft.y || y >= this.bottomLeft.y);
 }
 
+Square.prototype.getTop = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column, this.position.row-amount);
+};
+
+Square.prototype.getBottom = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column, this.position.row+amount);
+};
+
+Square.prototype.getLeft = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column-amount, this.position.row);
+};
+
+Square.prototype.getRight = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column+amount, this.position.row);
+};
+
+Square.prototype.getTopLeft = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column-amount, this.position.row-amount);
+};
+
+Square.prototype.getTopRight = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column+amount, this.position.row-amount);
+};
+
+Square.prototype.getBottomLeft = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column-amount, this.position.row+amount);
+};
+
+Square.prototype.getBottomRight = function(amount){
+  amount = this.manageOffset(amount);
+  return this.getSquareByPosition(this.position.column+amount, this.position.row+amount);
+};
+
+Square.prototype.manageOffset = function(amount){
+  if(amount || amount === 0) return amount;
+  return 1;
+}
+
 Square.prototype.copy = function(){
 
   var newSquare = new Square(
