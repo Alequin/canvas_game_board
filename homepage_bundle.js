@@ -68,7 +68,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 
-const BackgroundCanvas = __webpack_require__(1);
+const BackgroundCanvas = __webpack_require__(8);
 
 window.addEventListener("load", function(){
   const backgroundCanvas = new BackgroundCanvas();
@@ -80,42 +80,9 @@ window.addEventListener("load", function(){
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const FallingSquares = __webpack_require__(2);
-
-function BackgroundCanvas(){
-  this.fallingBoard;
-  this.cavansDiv = document.getElementById("background-canvas");
-  this.colour = {
-    borderColour: "transparent",
-    fillColour: "transparent",
-    fallingSquareColour: "rgba(0,0,0,0.3)",
-  }
-
-  window.addEventListener("resize", () => {this.buildCanvas();});
-}
-
-BackgroundCanvas.prototype.buildCanvas = function(){
-
-  const canvasWidth = this.cavansDiv.offsetWidth;
-  const canvasHeight = this.cavansDiv.offsetHeight;
-  const columnCount = canvasWidth / 7.5;
-  const rowCount = canvasHeight / 7.5;
-
-  if(this.fallingBoard) this.fallingBoard.board.remove();
-  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*2, 40, this.colour);
-  this.fallingBoard.run();
-}
-
-module.exports = BackgroundCanvas;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Board = __webpack_require__(3);
-var Animation = __webpack_require__(7);
-var randomInt = __webpack_require__(8);
+var Board = __webpack_require__(2);
+var Animation = __webpack_require__(6);
+var randomInt = __webpack_require__(7);
 
 function FallingSquares(container, width, height, maxFalling, fps, colour){
   this.board = new Board(container);
@@ -189,13 +156,13 @@ module.exports = FallingSquares;
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Square = __webpack_require__(4);
-var BoardEvents = __webpack_require__(5);
-var helper = __webpack_require__(6);
+var Square = __webpack_require__(3);
+var BoardEvents = __webpack_require__(4);
+var helper = __webpack_require__(5);
 
 function Board(container){
 
@@ -410,7 +377,7 @@ module.exports = Board;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
@@ -580,7 +547,7 @@ module.exports = Square;
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -696,7 +663,7 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 function Helper(){}
@@ -736,7 +703,7 @@ module.exports = new Helper();
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -770,7 +737,7 @@ module.exports = Animation;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 function randomInt(min, max){
@@ -778,6 +745,39 @@ function randomInt(min, max){
 }
 
 module.exports = randomInt;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const FallingSquares = __webpack_require__(1);
+
+function BackgroundCanvas(){
+  this.fallingBoard;
+  this.cavansDiv = document.getElementById("background-canvas");
+  this.colour = {
+    borderColour: "transparent",
+    fillColour: "transparent",
+    fallingSquareColour: "rgba(0,0,0,0.3)",
+  }
+
+  window.addEventListener("resize", () => {this.buildCanvas();});
+}
+
+BackgroundCanvas.prototype.buildCanvas = function(){
+
+  const canvasWidth = this.cavansDiv.offsetWidth;
+  const canvasHeight = this.cavansDiv.offsetHeight;
+  const columnCount = canvasWidth / 7.5;
+  const rowCount = canvasHeight / 7.5;
+
+  if(this.fallingBoard) this.fallingBoard.board.remove();
+  this.fallingBoard = new FallingSquares(this.cavansDiv, columnCount, rowCount, rowCount*2, 40, this.colour);
+  this.fallingBoard.run();
+}
+
+module.exports = BackgroundCanvas;
 
 
 /***/ })
