@@ -75,9 +75,19 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canSwitchSquaresUsingBoard(board);
+  canSwitchSquaresUsingSquare(board);
   // canGetSquareAbove(board);
 });
+
+function canSwitchSquaresUsingSquare(board){
+  const square = board.getSquareByPosition(0,2);
+  square.style.fillColour = "blue";
+  const square2 = board.getSquareByPosition(2,2);
+  square2.style.fillColour = "yellow";
+  square.switchWith(square2);
+  square.draw();
+  square2.draw();
+}
 
 function canSwitchSquaresUsingBoard(board){
   const square = board.getSquareByPosition(0,2);
@@ -534,6 +544,10 @@ Square.prototype.getBottomRight = function(amount){
 Square.prototype.manageOffset = function(amount){
   if(amount || amount === 0) return amount;
   return 1;
+}
+
+Square.prototype.switchWith = function(squareToSwitch){
+  this.board.switchSquares(this, squareToSwitch);
 }
 
 Square.prototype.copy = function(){

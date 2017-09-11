@@ -195,6 +195,10 @@ Square.prototype.manageOffset = function(amount){
   return 1;
 }
 
+Square.prototype.switchWith = function(squareToSwitch){
+  this.board.switchSquares(this, squareToSwitch);
+}
+
 Square.prototype.copy = function(){
 
   var newSquare = new Square(
