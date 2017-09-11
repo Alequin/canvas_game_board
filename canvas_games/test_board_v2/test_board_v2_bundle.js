@@ -76,8 +76,34 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canDrawBlock(board);
+  canMoveBlockDown(board);
 });
+
+function canMoveBlockDown(board){
+
+  const squares = [
+    board.getSquareByPosition(1,1),
+    board.getSquareByPosition(1,2),
+    board.getSquareByPosition(2,2)
+  ]
+
+  const block = new Block(board, squares);
+  block.setFill("blue");
+  block.draw();
+
+  setTimeout(() => {
+    const newBlock = block.getBlockBottom();
+
+    block.setFill("white");
+    block.remove();
+    block.draw();
+
+    newBlock.setFill("blue");
+    newBlock.remove();
+    newBlock.draw();
+  }, 1000);
+
+}
 
 function canRemoveBlock(board){
 
@@ -846,6 +872,16 @@ Block.prototype.forEachSquare = function(callBack){
       return square;
     }
   }
+}
+
+Block.prototype.getBlockBottom = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getBottom(amount));
+  });
+
+  return new Block(this.board, blockSquares);
 }
 
 module.exports = Block;

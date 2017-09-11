@@ -28,4 +28,14 @@ Block.prototype.forEachSquare = function(callBack){
   }
 }
 
+Block.prototype.getBlockBottom = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getBottom(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
 module.exports = Block;
