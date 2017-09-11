@@ -7,10 +7,10 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canMoveBlockDown(board);
+  canMoveBlock(board);
 });
 
-function canMoveBlockDown(board){
+function canMoveBlock(board){
 
   const squares = [
     board.getSquareByPosition(1,1),
@@ -23,7 +23,7 @@ function canMoveBlockDown(board){
   block.draw();
 
   setTimeout(() => {
-    const newBlock = block.getBlockBottom();
+    const newBlock = block.getBlockTopRight();
 
     block.setFill("white");
     block.remove();

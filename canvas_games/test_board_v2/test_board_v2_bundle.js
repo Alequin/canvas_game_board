@@ -76,10 +76,10 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canMoveBlockDown(board);
+  canMoveBlock(board);
 });
 
-function canMoveBlockDown(board){
+function canMoveBlock(board){
 
   const squares = [
     board.getSquareByPosition(1,1),
@@ -92,7 +92,7 @@ function canMoveBlockDown(board){
   block.draw();
 
   setTimeout(() => {
-    const newBlock = block.getBlockBottom();
+    const newBlock = block.getBlockTopRight();
 
     block.setFill("white");
     block.remove();
@@ -846,6 +846,9 @@ module.exports = SavedState;
 
 
 function Block(board, squares){
+  for(let square of squares){
+    if(!square) throw "All squares must be valid"
+  }
   this.board = board;
   this.squares = squares
 }
@@ -874,11 +877,81 @@ Block.prototype.forEachSquare = function(callBack){
   }
 }
 
+Block.prototype.getBlockTop = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getTop(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
 Block.prototype.getBlockBottom = function(amount){
 
   const blockSquares = []
   this.forEachSquare((square) => {
     blockSquares.push(square.getBottom(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
+Block.prototype.getBlockLeft = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getLeft(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
+Block.prototype.getBlockRight = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getRight(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
+Block.prototype.getBlockTopLeft = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getTopLeft(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
+Block.prototype.getBlockTopRight = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getTopRight(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
+Block.prototype.getBlockBottomLeft = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getBottomLeft(amount));
+  });
+
+  return new Block(this.board, blockSquares);
+}
+
+Block.prototype.getBlockBottomRight = function(amount){
+
+  const blockSquares = []
+  this.forEachSquare((square) => {
+    blockSquares.push(square.getBottomRight(amount));
   });
 
   return new Block(this.board, blockSquares);
