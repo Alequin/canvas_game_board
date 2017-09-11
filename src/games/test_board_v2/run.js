@@ -6,8 +6,19 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canGetSquareAbove(board);
+  canSwitchSquaresUsingBoard(board);
+  // canGetSquareAbove(board);
 });
+
+function canSwitchSquaresUsingBoard(board){
+  const square = board.getSquareByPosition(0,2);
+  square.style.fillColour = "blue";
+  const square2 = board.getSquareByPosition(2,2);
+  square2.style.fillColour = "yellow";
+  board.switchSquares(square2, square);
+  square.draw();
+  square2.draw();
+}
 
 function canGetSquareAbove(board){
   const square = board.getSquareByPosition(0,2);

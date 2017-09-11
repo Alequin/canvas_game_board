@@ -75,8 +75,19 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canGetSquareAbove(board);
+  canSwitchSquaresUsingBoard(board);
+  // canGetSquareAbove(board);
 });
+
+function canSwitchSquaresUsingBoard(board){
+  const square = board.getSquareByPosition(0,2);
+  square.style.fillColour = "blue";
+  const square2 = board.getSquareByPosition(2,2);
+  square2.style.fillColour = "yellow";
+  board.switchSquares(square2, square);
+  square.draw();
+  square2.draw();
+}
 
 function canGetSquareAbove(board){
   const square = board.getSquareByPosition(0,2);
@@ -256,6 +267,23 @@ Board.prototype.manageOffset = function(amount){
   return 1;
 }
 
+Board.prototype.switchSquares = function(square1, square2){
+
+  this.squares[square1.position.column][square1.position.row] = square2;
+  this.squares[square2.position.column][square2.position.row] = square1;
+
+  const square1Position = square1.position;
+  const square1Coordinates = square1.coordinates;
+  const square2Position = square2.position;
+  const square2Coordinates = square2.coordinates;
+
+  square1.setPosition(square2Position);
+  square1.setCoordinates(square2Coordinates);
+
+  square2.setPosition(square1Position);
+  square2.setCoordinates(square1Coordinates);
+}
+
 Board.prototype.getSquareByPosition = function(column, row){
   if(!this.isPositionValid(row, column)){
     return null;
@@ -334,12 +362,12 @@ function Square(board, coords, position, width, height, borderColour, fillColour
   this.width = width;
   this.height = height;
 
-  this.topLeft = {x: coords.x, y: coords.y};
-  this.topRight = {x: coords.x + width, y: coords.y};
-  this.bottomLeft = {x: coords.x, y: coords.y + height};
-  this.bottomRight = {x: coords.x + width, y: coords.y + height};
+  this.topLeft = {x: this.coordinates.x, y: this.coordinates.y};
+  this.topRight = {x: this.coordinates.x + this.width, y: this.coordinates.y};
+  this.bottomLeft = {x: this.coordinates.x, y: this.coordinates.y + this.height};
+  this.bottomRight = {x: this.coordinates.x + this.width, y: this.coordinates.y + this.height};
 
-  this.center = {x: coords.x + width/2, y: coords.y + height/2}
+  this.center = {x: this.coordinates.x + this.width/2, y: this.coordinates.y + this.height/2}
 
   this.handleClick = null;
   this.handleHover = null;
@@ -431,6 +459,29 @@ Square.prototype.removeImage = function(){
     this.coordinates.x+this.squareSpace, this.coordinates.y+this.squareSpace,
     this.width-this.squareSpace*2, this.height+this.squareSpace*2
   );
+}
+
+Square.prototype.setPosition = function(position){
+  const keys = Object.keys(position);
+  if(keys[0] !== "column" && keys[1] !== "row"){
+    throw "Incorrect keys on given object. Key 1 must be column. Key 2 must be row."
+  }
+  this.position = copyObject(position);
+}
+
+Square.prototype.setCoordinates = function(coordinates){
+  const keys = Object.keys(coordinates);
+  if(keys[0] !== "x" && keys[1] !== "y"){
+    throw "Incorrect keys on given object. Key 1 must be . Key 2 must be y."
+  }
+  this.coordinates = copyObject(coordinates);
+
+  this.topLeft = {x: this.coordinates.x, y: this.coordinates.y};
+  this.topRight = {x: this.coordinates.x + this.width, y: this.coordinates.y};
+  this.bottomLeft = {x: this.coordinates.x, y: this.coordinates.y + this.height};
+  this.bottomRight = {x: this.coordinates.x + this.width, y: this.coordinates.y + this.height};
+
+  this.center = {x: this.coordinates.x + this.width/2, y: this.coordinates.y + this.height/2}
 }
 
 Square.prototype.isWithin = function(x, y){

@@ -164,6 +164,23 @@ Board.prototype.manageOffset = function(amount){
   return 1;
 }
 
+Board.prototype.switchSquares = function(square1, square2){
+
+  this.squares[square1.position.column][square1.position.row] = square2;
+  this.squares[square2.position.column][square2.position.row] = square1;
+
+  const square1Position = square1.position;
+  const square1Coordinates = square1.coordinates;
+  const square2Position = square2.position;
+  const square2Coordinates = square2.coordinates;
+
+  square1.setPosition(square2Position);
+  square1.setCoordinates(square2Coordinates);
+
+  square2.setPosition(square1Position);
+  square2.setCoordinates(square1Coordinates);
+}
+
 Board.prototype.getSquareByPosition = function(column, row){
   if(!this.isPositionValid(row, column)){
     return null;
