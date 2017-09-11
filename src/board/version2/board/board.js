@@ -1,7 +1,7 @@
 
 var Square = require("./../elements/square");
 var BoardEvents = require("./board_events");
-var helper = require("./board_helper");
+var Helper = require("./board_helper");
 
 function Board(container){
 
@@ -9,16 +9,16 @@ function Board(container){
 
   this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
-  this.innerContainer = helper.createInnerContainer(container);
+  this.innerContainer = Helper.createInnerContainer(container);
 
   this.width = this.innerContainer.offsetWidth;
   this.height = this.innerContainer.offsetHeight;
 
-  var canvases = helper.createCanvases(3, this.width, this.height, "game-board-canvas-x010x");
+  var canvases = Helper.createCanvases(3, this.width, this.height, "game-board-canvas-x010x");
   this.drawLayer = canvases[0];
   this.imageLayer = canvases[1];
   this.clickLayer = canvases[2];
-  helper.appendCanvases(this.innerContainer, canvases);
+  Helper.appendCanvases(this.innerContainer, canvases);
 
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");

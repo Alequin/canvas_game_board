@@ -1,13 +1,13 @@
 function Helper(){}
 
-Helper.prototype.createInnerContainer = function(container){
+Helper.createInnerContainer = function(container){
   innerContainer = document.createElement("div");
   container.appendChild(innerContainer);
   innerContainer.style.height = "100%";
   return innerContainer;
 }
 
-Helper.prototype.createCanvases = function(count, width, height, className){
+Helper.createCanvases = function(count, width, height, className){
 
   result = []
 
@@ -25,10 +25,10 @@ Helper.prototype.createCanvases = function(count, width, height, className){
   return result;
 }
 
-Helper.prototype.appendCanvases = function(container, canvases){
+Helper.appendCanvases = function(container, canvases){
   for(var canvas of canvases){
     container.appendChild(canvas);
   }
 }
 
-module.exports = new Helper();
+module.exports = Helper;
