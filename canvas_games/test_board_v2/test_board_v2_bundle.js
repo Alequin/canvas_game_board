@@ -75,9 +75,29 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canSwitchSquaresUsingSquare(board);
-  // canGetSquareAbove(board);
+  canUseSavedStates(board);
 });
+
+function canUseSavedStates(board){
+
+  board.saveState("blank");
+
+  const firstColumn = board.squares[0];
+
+  for(let square of firstColumn){
+    square.style.fillColour = "blue";
+    square.addImage("./../images/cat.png", 1);
+  }
+
+  setTimeout(() => {
+    for(let square of firstColumn){
+      square.remove();
+      square.draw();
+    }
+
+    board.loadSavedState("blank");
+  }, 20);
+}
 
 function canSwitchSquaresUsingSquare(board){
   const square = board.getSquareByPosition(0,2);
@@ -112,9 +132,10 @@ function canGetSquareAbove(board){
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Square = __webpack_require__(2);
-var BoardEvents = __webpack_require__(3);
-var helper = __webpack_require__(4);
+const Square = __webpack_require__(2);
+const BoardEvents = __webpack_require__(4);
+const Helper = __webpack_require__(5);
+const SavedState = __webpack_require__(6);
 
 function Board(container){
 
@@ -122,16 +143,16 @@ function Board(container){
 
   this.container.innerHTML = '<style type="text/css">.game-board-canvas-x010x{position: absolute;}</style>'
 
-  this.innerContainer = helper.createInnerContainer(container);
+  this.innerContainer = Helper.createInnerContainer(container);
 
   this.width = this.innerContainer.offsetWidth;
   this.height = this.innerContainer.offsetHeight;
 
-  var canvases = helper.createCanvases(3, this.width, this.height, "game-board-canvas-x010x");
+  var canvases = Helper.createCanvases(3, this.width, this.height, "game-board-canvas-x010x");
   this.drawLayer = canvases[0];
   this.imageLayer = canvases[1];
   this.clickLayer = canvases[2];
-  helper.appendCanvases(this.innerContainer, canvases);
+  Helper.appendCanvases(this.innerContainer, canvases);
 
   this.drawContext = this.drawLayer.getContext("2d");
   this.imageContext = this.imageLayer.getContext("2d");
@@ -204,23 +225,24 @@ Board.prototype.copySquares = function(squares){
   return clonedSqaures;
 }
 
-Board.prototype.SavedState = function(board){
-  this.squares = board.copySquares(board.squares);
-  this.imageData = board.drawContext.getImageData(0,0,board.width,board.height);
+Board.prototype.saveState = function(key){
+  this.savedStates[key] = new SavedState(this);
 }
 
-Board.prototype.addSavedState = function(key){
-  this.savedStates[key] = new this.SavedState(this);
-}
-
+/*
+* Save state works with images but due to the requirement of images to load
+* the desired image first if the time between the call to square.drawImage()
+* and board.loadSavedState() is not great enough (when tested on my machine
+* 20ms was required, though time can never be grarunteed) the images will not
+* be removed. There are no time issues with drawn elements
+*/
 Board.prototype.loadSavedState = function(key){
-  var state = this.savedStates[key]
+  const state = this.savedStates[key]
   this.squares = this.copySquares(state.squares);
-  this.drawContext.putImageData(state.imageData, 0, 0);
 
   this.clearBoard();
   this.forEachSquare(function(square){
-    if(square.style.image) square.drawImage();
+    square.draw();
   });
 }
 
@@ -229,6 +251,7 @@ Board.prototype.removeSavedState = function(key){
 }
 
 Board.prototype.clearBoard = function(){
+  this.drawContext.clearRect(0, 0, this.width, this.height);
   this.imageContext.clearRect(0, 0, this.width, this.height);
 }
 
@@ -349,7 +372,7 @@ module.exports = Board;
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const copyObject = __webpack_require__(5);
+const copyObject = __webpack_require__(3);
 
 function makeSquareFromCorner(board, coords, position, width, height, borderColour, fillColour){
   return new Square(board, coords, position, width, height, borderColour, fillColour);
@@ -426,8 +449,6 @@ Square.prototype.drawFill = function(){
 
 Square.prototype.drawImage = function(){
 
-  this.imageTag = document.createElement("img");
-
   var calcPosition = function(coord, length, percentageSize){
     var diff = (coord + length/2) - coord;
     return coord + (diff * (1-percentageSize));
@@ -440,16 +461,15 @@ Square.prototype.drawImage = function(){
   var height = this.height * this.style.imageSize;
 
   var onLoadImage = function(){
-    this.imageContext.drawImage(this.imageTag, x, y, width, height);
-    this.imageTag = undefined;
+    this.imageContext.drawImage(this.style.image, x, y, width, height);
   }.bind(this);
-  this.imageTag.src = this.style.image;
 
-  this.imageTag.addEventListener("load", onLoadImage);
+  this.style.image.addEventListener("load", onLoadImage);
 }
 
 Square.prototype.addImage = function(imageLink, percentageSize){
-  this.style.image = imageLink;
+  this.style.image = document.createElement("img");
+  this.style.image.src = imageLink;
   this.style.imageSize = percentageSize;
 }
 
@@ -567,7 +587,11 @@ Square.prototype.copy = function(){
   newSquare.onEnter = this.onEnter;
   newSquare.onLeave = this.handleLeave;
 
-  newSquare.style = copyObject(this.style);
+  newSquare.style.image = this.style.image;
+  newSquare.style.imageSize = this.style.imageSize;
+  newSquare.style.fillColour = this.style.fillColour;
+  newSquare.style.borderColour = this.style.borderColour;
+
   newSquare.data = copyObject(this.data);
 
   return newSquare;
@@ -578,6 +602,20 @@ module.exports = Square;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+
+module.exports = function(object){
+  const newObject = {};
+  for(let key of Object.keys(object)){
+    newObject[key] = object[key];
+  }
+  return newObject;
+}
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -693,19 +731,19 @@ module.exports = BoardEvents;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 function Helper(){}
 
-Helper.prototype.createInnerContainer = function(container){
+Helper.createInnerContainer = function(container){
   innerContainer = document.createElement("div");
   container.appendChild(innerContainer);
   innerContainer.style.height = "100%";
   return innerContainer;
 }
 
-Helper.prototype.createCanvases = function(count, width, height, className){
+Helper.createCanvases = function(count, width, height, className){
 
   result = []
 
@@ -723,27 +761,25 @@ Helper.prototype.createCanvases = function(count, width, height, className){
   return result;
 }
 
-Helper.prototype.appendCanvases = function(container, canvases){
+Helper.appendCanvases = function(container, canvases){
   for(var canvas of canvases){
     container.appendChild(canvas);
   }
 }
 
-module.exports = new Helper();
+module.exports = Helper;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
-module.exports = function(object){
-  const newObject = {};
-  for(let key of Object.keys(object)){
-    newObject[key] = object[key];
-  }
-  return newObject;
+function SavedState(board){
+  this.squares = board.copySquares(board.squares);
 }
+
+module.exports = SavedState;
 
 
 /***/ })

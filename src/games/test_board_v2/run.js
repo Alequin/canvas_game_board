@@ -6,9 +6,29 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canSwitchSquaresUsingSquare(board);
-  // canGetSquareAbove(board);
+  canUseSavedStates(board);
 });
+
+function canUseSavedStates(board){
+
+  board.saveState("blank");
+
+  const firstColumn = board.squares[0];
+
+  for(let square of firstColumn){
+    square.style.fillColour = "blue";
+    square.addImage("./../images/cat.png", 1);
+  }
+
+  setTimeout(() => {
+    for(let square of firstColumn){
+      square.remove();
+      square.draw();
+    }
+
+    board.loadSavedState("blank");
+  }, 20);
+}
 
 function canSwitchSquaresUsingSquare(board){
   const square = board.getSquareByPosition(0,2);
