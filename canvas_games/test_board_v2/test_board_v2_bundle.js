@@ -79,6 +79,19 @@ window.addEventListener("load", function(){
   canDrawBlock(board);
 });
 
+function canRemoveBlock(board){
+
+  const squares = [
+    board.getSquareByPosition(1,1),
+    board.getSquareByPosition(1,2),
+    board.getSquareByPosition(2,2)
+  ]
+
+  const block = new Block(board, squares);
+  block.remove();
+
+}
+
 function canDrawBlock(board){
 
   const squares = [
@@ -89,6 +102,7 @@ function canDrawBlock(board){
 
   const block = new Block(board, squares);
   block.setFill("blue");
+  block.setBorder("yellow");
   block.draw();
 
 }
@@ -812,6 +826,14 @@ function Block(board, squares){
 
 Block.prototype.draw = function(){
   this.forEachSquare((square) => {square.draw()});
+}
+
+Block.prototype.remove = function(){
+  this.forEachSquare((square) => {square.remove()});
+}
+
+Block.prototype.setBorder = function(colour){
+  this.forEachSquare((square) => {square.style.borderColour = colour});
 }
 
 Block.prototype.setFill = function(colour){
