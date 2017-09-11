@@ -1,4 +1,5 @@
 var Board = require("./../../board/version2/board/board");
+var Block = require("./../../board/version2/elements/block");
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
@@ -6,10 +7,22 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-
+  canDrawBlock(board);
 });
 
+function canDrawBlock(board){
 
+  const squares = [
+    board.getSquareByPosition(1,1),
+    board.getSquareByPosition(1,2),
+    board.getSquareByPosition(2,2)
+  ]
+
+  const block = new Block(board, squares);
+  block.setFill("blue");
+  block.draw();
+
+}
 
 function canUseSavedStates(board){
 

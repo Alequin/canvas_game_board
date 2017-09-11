@@ -68,6 +68,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var Board = __webpack_require__(1);
+var Block = __webpack_require__(7);
 
 window.addEventListener("load", function(){
   var boardContainer = document.getElementById("game-board");
@@ -75,10 +76,22 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-
+  canDrawBlock(board);
 });
 
+function canDrawBlock(board){
 
+  const squares = [
+    board.getSquareByPosition(1,1),
+    board.getSquareByPosition(1,2),
+    board.getSquareByPosition(2,2)
+  ]
+
+  const block = new Block(board, squares);
+  block.setFill("blue");
+  block.draw();
+
+}
 
 function canUseSavedStates(board){
 
@@ -785,6 +798,35 @@ function SavedState(board){
 }
 
 module.exports = SavedState;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+
+function Block(board, squares){
+  this.board = board;
+  this.squares = squares
+}
+
+Block.prototype.draw = function(){
+  this.forEachSquare((square) => {square.draw()});
+}
+
+Block.prototype.setFill = function(colour){
+  this.forEachSquare((square) => {square.style.fillColour = colour});
+}
+
+Block.prototype.forEachSquare = function(callBack){
+  for(let square of this.squares){
+    if(callBack(square)){
+      return square;
+    }
+  }
+}
+
+module.exports = Block;
 
 
 /***/ })
