@@ -21,12 +21,12 @@ function Square(board, coords, position, width, height, borderColour, fillColour
   this.width = width;
   this.height = height;
 
-  this.topLeft = {x: coords.x, y: coords.y};
-  this.topRight = {x: coords.x + width, y: coords.y};
-  this.bottomLeft = {x: coords.x, y: coords.y + height};
-  this.bottomRight = {x: coords.x + width, y: coords.y + height};
+  this.topLeft = {x: this.coordinates.x, y: this.coordinates.y};
+  this.topRight = {x: this.coordinates.x + this.width, y: this.coordinates.y};
+  this.bottomLeft = {x: this.coordinates.x, y: this.coordinates.y + this.height};
+  this.bottomRight = {x: this.coordinates.x + this.width, y: this.coordinates.y + this.height};
 
-  this.center = {x: coords.x + width/2, y: coords.y + height/2}
+  this.center = {x: this.coordinates.x + this.width/2, y: this.coordinates.y + this.height/2}
 
   this.handleClick = null;
   this.handleHover = null;
@@ -118,6 +118,29 @@ Square.prototype.removeImage = function(){
     this.coordinates.x+this.squareSpace, this.coordinates.y+this.squareSpace,
     this.width-this.squareSpace*2, this.height+this.squareSpace*2
   );
+}
+
+Square.prototype.setPosition = function(position){
+  const keys = Object.keys(position);
+  if(keys[0] !== "column" && keys[1] !== "row"){
+    throw "Incorrect keys on given object. Key 1 must be column. Key 2 must be row."
+  }
+  this.position = copyObject(position);
+}
+
+Square.prototype.setCoordinates = function(coordinates){
+  const keys = Object.keys(coordinates);
+  if(keys[0] !== "x" && keys[1] !== "y"){
+    throw "Incorrect keys on given object. Key 1 must be . Key 2 must be y."
+  }
+  this.coordinates = copyObject(coordinates);
+
+  this.topLeft = {x: this.coordinates.x, y: this.coordinates.y};
+  this.topRight = {x: this.coordinates.x + this.width, y: this.coordinates.y};
+  this.bottomLeft = {x: this.coordinates.x, y: this.coordinates.y + this.height};
+  this.bottomRight = {x: this.coordinates.x + this.width, y: this.coordinates.y + this.height};
+
+  this.center = {x: this.coordinates.x + this.width/2, y: this.coordinates.y + this.height/2}
 }
 
 Square.prototype.isWithin = function(x, y){
