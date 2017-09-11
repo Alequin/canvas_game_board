@@ -9,9 +9,13 @@ function Collison(container){
 
   this.blueSquare = this.board.getSquareByPosition(3,0);
   this.blueSquare.style.fillColour = "blue";
+  this.blueSquare.data.speed = 2;
+  this.blueSquare.data.type = "wall";
   this.shouldBlueMoveDown = true;
-  this.yellowSquare = this.board.getSquareByPosition(4,9);
+  this.yellowSquare = this.board.getSquareByPosition(3,9);
   this.yellowSquare.style.fillColour = "yellow";
+  this.yellowSquare.data.speed = 5;
+  this.yellowSquare.data.type = "wall";
   this.shouldYellowMoveDown = false;
   this.yellowDirection = -1;
 
@@ -28,56 +32,70 @@ Collison.prototype.start = function(){
 Collison.prototype.buildFrame = function(){
   this.tick++;
   if(this.shouldBlueMoveDown){
-    this.moveBlueSquareDown();
-    if(!this.blueSquare.getBottom()) this.shouldBlueMoveDown = false;
+    const bottom = this.blueSquare.getBottom();
+    if(!bottom || bottom.data.type === "wall") {
+      this.shouldBlueMoveDown = false;
+    }else{
+      if(this.tick % this.blueSquare.data.speed === 0){
+        this.moveBlueSquareDown();
+      }
+    }
   }else{
-    this.moveBlueSquareUp();
-    if(!this.blueSquare.getTop()) this.shouldBlueMoveDown = true;
-  }
-  if(this.shouldYellowMoveDown){
-    this.moveYellowSquareDown();
-    if(!this.yellowSquare.getBottom()) this.shouldYellowMoveDown = false;
-  }else{
-    this.moveYellowSquareUp();
-    if(!this.yellowSquare.getTop()) this.shouldYellowMoveDown = true;
+    if(!this.blueSquare.getTop()) {
+      this.shouldBlueMoveDown = true;
+    }else{
+      if(this.tick % this.blueSquare.data.speed === 0){
+        this.moveBlueSquareUp();
+      }
+    }
   }
 
+  if(this.shouldYellowMoveDown){
+  if(!this.yellowSquare.getBottom()) {
+    this.shouldYellowMoveDown = false;
+  }else{
+    if(this.tick % this.yellowSquare.data.speed === 0){
+      this.moveYellowSquareDown();
+    }
+  }
+  }else{
+    const top = this.yellowSquare.getTop();
+    if(!top || top.data.type === "wall"){
+      this.shouldYellowMoveDown = true;
+    } else{
+      if(this.tick % this.yellowSquare.data.speed === 0){
+        this.moveYellowSquareUp();
+      }
+    }
+  }
 }
 
 Collison.prototype.moveBlueSquareDown = function(){
   const blueSwitchSquare = this.blueSquare.getBottom();
-  this.blueSquare.switchWith(blueSwitchSquare);
-  blueSwitchSquare.remove();
-  this.blueSquare.remove();
-  blueSwitchSquare.draw();
-  this.blueSquare.draw();
+  this.switchAndDrawSquares(this.blueSquare, blueSwitchSquare);
 }
 
 Collison.prototype.moveBlueSquareUp = function(){
   const blueSwitchSquare = this.blueSquare.getTop();
-  this.blueSquare.switchWith(blueSwitchSquare);
-  blueSwitchSquare.remove();
-  this.blueSquare.remove();
-  blueSwitchSquare.draw();
-  this.blueSquare.draw();
+  this.switchAndDrawSquares(this.blueSquare, blueSwitchSquare);
 }
 
 Collison.prototype.moveYellowSquareDown = function(){
   const yellowSwitchSquare = this.yellowSquare.getBottom();
-  this.yellowSquare.switchWith(yellowSwitchSquare);
-  yellowSwitchSquare.remove();
-  this.yellowSquare.remove();
-  yellowSwitchSquare.draw();
-  this.yellowSquare.draw();
+  this.switchAndDrawSquares(this.yellowSquare, yellowSwitchSquare);
 }
 
 Collison.prototype.moveYellowSquareUp = function(){
   const yellowSwitchSquare = this.yellowSquare.getTop();
-  this.yellowSquare.switchWith(yellowSwitchSquare);
-  yellowSwitchSquare.remove();
-  this.yellowSquare.remove();
-  yellowSwitchSquare.draw();
-  this.yellowSquare.draw();
+  this.switchAndDrawSquares(this.yellowSquare, yellowSwitchSquare);
+}
+
+Collison.prototype.switchAndDrawSquares = function(square1, square2){
+  square1.switchWith(square2);
+  square1.remove();
+  square2.remove();
+  square1.draw();
+  square2.draw();
 }
 
 module.exports = Collison;
