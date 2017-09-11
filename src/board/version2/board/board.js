@@ -1,7 +1,8 @@
 
-var Square = require("./../elements/square");
-var BoardEvents = require("./board_events");
-var Helper = require("./board_helper");
+const Square = require("./../elements/square");
+const BoardEvents = require("./board_events");
+const Helper = require("./board_helper");
+const SavedState = require("./saved_state");
 
 function Board(container){
 
@@ -91,23 +92,24 @@ Board.prototype.copySquares = function(squares){
   return clonedSqaures;
 }
 
-Board.prototype.SavedState = function(board){
-  this.squares = board.copySquares(board.squares);
-  this.imageData = board.drawContext.getImageData(0,0,board.width,board.height);
+Board.prototype.saveState = function(key){
+  this.savedStates[key] = new SavedState(this);
 }
 
-Board.prototype.addSavedState = function(key){
-  this.savedStates[key] = new this.SavedState(this);
-}
-
+/*
+* Save state works with images but due to the requirement of images to load
+* the desired image first if the time between the call to square.drawImage()
+* and board.loadSavedState() is not great enough (when tested on my machine
+* 20ms was required, though time can never be grarunteed) the images will not
+* be removed. There are no time issues with drawn elements
+*/
 Board.prototype.loadSavedState = function(key){
-  var state = this.savedStates[key]
+  const state = this.savedStates[key]
   this.squares = this.copySquares(state.squares);
-  this.drawContext.putImageData(state.imageData, 0, 0);
 
   this.clearBoard();
   this.forEachSquare(function(square){
-    if(square.style.image) square.drawImage();
+    square.draw();
   });
 }
 
@@ -116,6 +118,7 @@ Board.prototype.removeSavedState = function(key){
 }
 
 Board.prototype.clearBoard = function(){
+  this.drawContext.clearRect(0, 0, this.width, this.height);
   this.imageContext.clearRect(0, 0, this.width, this.height);
 }
 
