@@ -6,8 +6,10 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canUseSavedStates(board);
+
 });
+
+
 
 function canUseSavedStates(board){
 
