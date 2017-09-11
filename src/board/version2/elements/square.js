@@ -75,8 +75,6 @@ Square.prototype.drawFill = function(){
 
 Square.prototype.drawImage = function(){
 
-  this.imageTag = document.createElement("img");
-
   var calcPosition = function(coord, length, percentageSize){
     var diff = (coord + length/2) - coord;
     return coord + (diff * (1-percentageSize));
@@ -89,16 +87,15 @@ Square.prototype.drawImage = function(){
   var height = this.height * this.style.imageSize;
 
   var onLoadImage = function(){
-    this.imageContext.drawImage(this.imageTag, x, y, width, height);
-    this.imageTag = undefined;
+    this.imageContext.drawImage(this.style.image, x, y, width, height);
   }.bind(this);
-  this.imageTag.src = this.style.image;
 
-  this.imageTag.addEventListener("load", onLoadImage);
+  this.style.image.addEventListener("load", onLoadImage);
 }
 
 Square.prototype.addImage = function(imageLink, percentageSize){
-  this.style.image = imageLink;
+  this.style.image = document.createElement("img");
+  this.style.image.src = imageLink;
   this.style.imageSize = percentageSize;
 }
 
@@ -216,7 +213,11 @@ Square.prototype.copy = function(){
   newSquare.onEnter = this.onEnter;
   newSquare.onLeave = this.handleLeave;
 
-  newSquare.style = copyObject(this.style);
+  newSquare.style.image = this.style.image;
+  newSquare.style.imageSize = this.style.imageSize;
+  newSquare.style.fillColour = this.style.fillColour;
+  newSquare.style.borderColour = this.style.borderColour;
+
   newSquare.data = copyObject(this.data);
 
   return newSquare;
