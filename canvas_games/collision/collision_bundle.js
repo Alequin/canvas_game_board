@@ -88,14 +88,14 @@ var randomInt = __webpack_require__(9);
 function Collison(container){
 
   this.board = new Board(container);
-  this.board.generateSquares(10,10, "black", "white");
+  this.board.generateSquares(3,10, "black", "white");
 
-  this.blueSquare = this.board.getSquareByPosition(3,0);
+  this.blueSquare = this.board.getSquareByPosition(1,0);
   this.blueSquare.style.fillColour = "blue";
   this.blueSquare.data.speed = 2;
   this.blueSquare.data.type = "wall";
   this.shouldBlueMoveDown = true;
-  this.yellowSquare = this.board.getSquareByPosition(3,9);
+  this.yellowSquare = this.board.getSquareByPosition(1,9);
   this.yellowSquare.style.fillColour = "yellow";
   this.yellowSquare.data.speed = 5;
   this.yellowSquare.data.type = "wall";
