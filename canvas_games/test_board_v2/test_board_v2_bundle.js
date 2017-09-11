@@ -96,7 +96,7 @@ function canUseSavedStates(board){
     }
 
     board.loadSavedState("blank");
-  }, 20);
+  }, 40);
 }
 
 function canSwitchSquaresUsingSquare(board){
@@ -231,10 +231,13 @@ Board.prototype.saveState = function(key){
 
 /*
 * Save state works with images but due to the requirement of images to load
-* the desired image first if the time between the call to square.drawImage()
-* and board.loadSavedState() is not great enough (when tested on my machine
-* 20ms was required, though time can never be grarunteed) the images will not
-* be removed. There are no time issues with drawn elements
+* there will be issues with timing. If the time between
+* the call to square.drawImage() and board.loadSavedState() is not great enough
+* the images will not be removed. There are no time issues with
+* drawn elements as far as I am aware.
+
+* It is not recommended to use images and savedStates when the time between draw
+* and load is short. 
 */
 Board.prototype.loadSavedState = function(key){
   const state = this.savedStates[key]

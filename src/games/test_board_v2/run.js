@@ -27,7 +27,7 @@ function canUseSavedStates(board){
     }
 
     board.loadSavedState("blank");
-  }, 20);
+  }, 40);
 }
 
 function canSwitchSquaresUsingSquare(board){
