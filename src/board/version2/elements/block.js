@@ -31,6 +31,18 @@ Block.prototype.forEachSquare = function(callBack){
   }
 }
 
+Block.prototype.setOnClick = function(callBack){
+  this.forEachSquare((square) => {
+    square.handleClick = callBack;
+  });
+}
+
+Block.prototype.setOnHover = function(callBack){
+  this.forEachSquare((square) => {
+    square.handleHover = callBack;
+  });
+}
+
 Block.prototype.getBlockTop = function(amount){
 
   const blockSquares = []

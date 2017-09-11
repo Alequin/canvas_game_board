@@ -76,8 +76,51 @@ window.addEventListener("load", function(){
   board.generateSquares(5, 5, "black", "white");
   board.draw();
 
-  canMoveBlock(board);
+  canSetOnHover(board);
 });
+
+function canSetOnHover(board){
+
+  board.events.activateOnHover();
+
+  const squares = [
+    board.getSquareByPosition(1,1),
+    board.getSquareByPosition(1,2),
+    board.getSquareByPosition(2,2)
+  ]
+
+  const block = new Block(board, squares);
+  block.setFill("blue");
+  block.draw();
+
+  block.setOnHover((board, square) => {
+    console.log("hover");
+    block.setFill("yellow");
+    block.remove();
+    block.draw();
+  })
+}
+
+function canSetOnClick(board){
+
+  board.events.activateOnClick();
+
+  const squares = [
+    board.getSquareByPosition(1,1),
+    board.getSquareByPosition(1,2),
+    board.getSquareByPosition(2,2)
+  ]
+
+  const block = new Block(board, squares);
+  block.setFill("blue");
+  block.draw();
+
+  block.setOnClick((board, square) => {
+    block.setFill("yellow");
+    block.remove();
+    block.draw();
+  })
+}
 
 function canMoveBlock(board){
 
@@ -875,6 +918,18 @@ Block.prototype.forEachSquare = function(callBack){
       return square;
     }
   }
+}
+
+Block.prototype.setOnClick = function(callBack){
+  this.forEachSquare((square) => {
+    square.handleClick = callBack;
+  });
+}
+
+Block.prototype.setOnHover = function(callBack){
+  this.forEachSquare((square) => {
+    square.handleHover = callBack;
+  });
 }
 
 Block.prototype.getBlockTop = function(amount){
